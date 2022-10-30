@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<body id="welcome-page">
+  <div id="label">
+    <div id="logo"><img th:src="@{/img/fit_hack.jpg}" class="logoble"/></div>
+    <div id="aaa">
+      <p th:utext="${message}"></p>
+      <p class="small">aka BelSTU SAD of TCP</p>
+    </div>
+  </div>
+  <div id="welcome-form-div">
+    <p>Sign in</p>
+    <form id="welcome-form" th:action="@{/userpage}" method="POST">
+      <p class="welcome-form-text">Login</p>
+      <input type="text" class="welcome-input" />
+      <p class="welcome-form-text">Password</p>
+      <input type="password" class="welcome-input" />
+      <hr />
+      <input type="submit" class="welcome-send" value="Enter"/>
+    </form>
+  </div>
+  <div th:if="${errorMessage}" th:utext="${errorMessage}"
+     style="color:red;font-style:italic;">
+  </div>
+</body>
+</html>
