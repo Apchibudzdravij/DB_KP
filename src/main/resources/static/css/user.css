@@ -1,0 +1,34 @@
+.general, .private {
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 30px;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: large;
+    color: #A64730;
+    text-align: center;
+    text-shadow: 1px 0 1px #FFFFFF,
+                0 -1px 1px #FFFFFF;
+    width: 50%;
+    height: available;
+    max-width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-content: space-between;
+}
+.editable {
+    width: 200%;
+    height: auto;
+}
+#a-la-body {
+    display: inline-flex;
+    width:  100%;
+    height: 100%;
+}
+
+#welcome-page {
+    background-color: #B7E2F5;
+    padding: 1%;
+}
