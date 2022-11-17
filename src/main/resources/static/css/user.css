@@ -32,3 +32,23 @@
     background-color: #B7E2F5;
     padding: 1%;
 }
+.logoble {
+    height: auto;
+    width: 15%;
+    min-width: 75px;
+    border-radius: 50%;
+    position: relative;
+    display: block;
+}
+#logo {
+    width: auto;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2%;
+}
+html, body {
+    height: 98%;
+    overflow: hidden;
+}

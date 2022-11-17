@@ -24,6 +24,12 @@ public class SignInController {
             case "s":
                 modelAndView.setViewName("student");
                 break;
+            case "t":
+                modelAndView.setViewName("teacher");
+                break;
+            case "a":
+                modelAndView.setViewName("admin");
+                break;
             default :
                 System.err.println("User is not S, not T and not A!");
                 break;
