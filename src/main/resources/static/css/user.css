@@ -45,6 +45,9 @@
     color: #A64730;
     text-align: center;
     min-width: 100px;
+    transition-duration: 1s;
+    transition-timing-function: linear;
+    margin: 3px;
 }
 
 #welcome-page {
@@ -68,6 +71,13 @@
     margin: 2%;
 }
 html, body {
-    height: 98%;
+    height: 97%;
     overflow: hidden;
+}
+
+button:hover {
+    background-color: #FFE8AF;
+}
+button:focus {
+    background-color: #B7E2F5;
 }
