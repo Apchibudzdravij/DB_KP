@@ -75,6 +75,24 @@ public class StudentHTML {
     }
 
     public static String studentAsk() {
+        return "<div id=\"student\">\n" +
+                "            <div id=\"hello-block\">\n" +
+                "                <p>Ask question</p>\n" +
+                "            </div>\n" +
+                "            <div id=\"ask-form\">\n" +
+                "                <form method=\"POST\" th:action=\"@{/messages}\" id=\"ask-form-body\">\n" +
+                "                    <div class=\"inlineField\">\n" +
+                "                        <p id=\"to\">To: </p><input id=\"ask_receiver\" type=\"text\" /><div class=\"shadow-text\"><p>[ID], \"Administrator\", \"Teacher\" or [Family name, First name, Father name]</p></div>\n" +
+                "                    </div><br/>\n" +
+                "                    <input id=\"ask_header\" type=\"text\" placeholder=\"Header\" /><br/>\n" +
+                "                    <textarea cols=\"4\" placeholder=\"Message\" id=\"ask_message\"></textarea><br/>\n" +
+                "                    <input id=\"ask_send\" type=\"submit\" value=\"Send\"/>\n" +
+                "                </form>\n" +
+                "            </div>\n" +
+                "        </div>";
+    }
+
+    public static String studentMessages(){
         return "";
     }
 }

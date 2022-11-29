@@ -36,4 +36,19 @@ public class StudentController {
         model.addAttribute("editable_content", StudentHTML.studentAsk());
         return modelAndView;
     }
+    @PostMapping(value = "/messages")
+    public ModelAndView messagesAfterSending(Model model) {
+        ///TODO sendidng
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("student");
+        model.addAttribute("editable_content", StudentHTML.studentMessages());
+        return modelAndView;
+    }
+    @GetMapping(value = "/messages")
+    public ModelAndView messages(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("student");
+        model.addAttribute("editable_content", StudentHTML.studentMessages());
+        return modelAndView;
+    }
 }

@@ -6,6 +6,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/user.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/student.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/settings.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ask.css}"/>
 </head>
 <body id="welcome-page"><div id="a-la-body">
     <div id="stud-general" class="general">
@@ -24,15 +25,24 @@
         [(${editable_content})]
         <div id="student">
             <div id="hello-block">
-                <p>Ask question</p>
+                <p>Messages</p>
             </div>
-            <div id="ask-form">
-                <form method="POST" th:action="@{/messages}">
-                    <p>To: </p><input type="text" />
-                    <input type="text" placeholder="Header" />
-                    <input type="textarea" placeholder="Message" />
-                    <input type="submit" />
-                </form>
+            <div id="message-list">
+                <!--TODO auto list from DB-->
+                <div class="message">
+                    <div>*</div>
+                    <div class="sender">71201091:</div>
+                    <div class="header">Test 1</div>
+                    <div class="date-sent">29.11.2022 23:57</div>
+                    <textarea class="message-content"></textarea>
+                </div>
+                <div class="message">
+                    <div>*</div>
+                    <div class="sender">71201091:</div>
+                    <div class="header">Test 2</div>
+                    <div class="date-sent">29.11.2022 23:59</div>
+                    <textarea class="message-content"></textarea>
+                </div>
             </div>
         </div>
     </div>
@@ -45,7 +55,7 @@
             <button class="guiable" value="Change">Change</button>
         </div>
         <div id="messages">
-            <button class="guiable" value="Messages">Messages</button>
+            <button class="guiable" value="Messages" onclick="location.href='messages'">Messages</button>
         </div>
         <div id="settings">
             <button class="guiable" value="Settings" onclick="location.href='settings'">Settings</button>
