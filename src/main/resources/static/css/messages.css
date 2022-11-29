@@ -1,0 +1,46 @@
+.message-content {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: large;
+    color: #A64730;
+    resize: none;
+    width: 98%;
+    text-align: left;
+    overflow-y: auto;
+}
+.message-head {
+    display: flex;
+    flex-direction: row;
+    font-size: x-large;
+    justify-content: space-between;
+}
+.mes-sender, .mes-header, .mes-date-sent {
+    margin: 5px 25px;
+}
+.message {
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    color: #A64730;
+    margin-bottom: 10px;
+}
+
+#message-list {
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+    0 -1px 1px #FFFFFF;
+    height: 100%;
+    overflow-y: auto;
+}
