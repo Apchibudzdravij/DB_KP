@@ -43,8 +43,38 @@ public class StudentHTML {
     }
 
     public static String studentSettings() {
-        return "";
+        return "<div id=\"student\">\n" +
+                "            <div id=\"hello-block\">\n" +
+                "                <p>Settings</p>\n" +
+                "            </div>\n" +
+                "            <div id=\"user-settings\">\n" +
+                "                <div id=\"setting-block\">\n" +
+                "                    <div class=\"property\">\n" +
+                "                        <div class=\"key-prop\">Theme:</div>\n" +
+                "                        <div class=\"value-prop\">\n" +
+                "                            <select class=\"select-list\">\n" +
+                "                                <option value=\"Standard_Classic\">Standard Classic</option>\n" +
+                "                            </select>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"property\">\n" +
+                "                        <div class=\"key-prop\">Language:</div>\n" +
+                "                        <div class=\"value-prop\">\n" +
+                "                            <select class=\"select-list\">\n" +
+                "                                <option value=\"english\">English</option>\n" +
+                "                            </select>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "                <div id=\"control-save\">\n" +
+                "                    <button class=\"settingable\" value=\"Default\">Default</button>\n" +
+                "                    <button class=\"settingable\" value=\"Save\">Save</button>\n" +
+                "                </div>\n" +
+                "            </div>\n" +
+                "        </div>";
     }
 
-    
+    public static String studentAsk() {
+        return "";
+    }
 }

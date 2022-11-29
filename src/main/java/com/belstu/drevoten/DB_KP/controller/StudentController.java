@@ -22,4 +22,18 @@ public class StudentController {
         model.addAttribute("editable_content", StudentHTML.studentSettings());
         return modelAndView;
     }
+    @GetMapping(value="/student")
+    public ModelAndView backToMain(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("student");
+        model.addAttribute("editable_content", StudentHTML.studentMain());
+        return modelAndView;
+    }
+    @GetMapping(value="/askquestion")
+    public ModelAndView askQuestion(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("student");
+        model.addAttribute("editable_content", StudentHTML.studentAsk());
+        return modelAndView;
+    }
 }

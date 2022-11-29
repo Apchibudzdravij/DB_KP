@@ -9,40 +9,30 @@
 </head>
 <body id="welcome-page"><div id="a-la-body">
     <div id="stud-general" class="general">
-        <div id="logo">
-            <img th:src="@{/img/fit_hack.jpg}" class="logoble"/>
-        </div>
+        <a href="student"><div id="logo">
+            <img th:src="@{/img/fit_hack.jpg}" class="logoble" />
+        </div></a>
         <div id="course-work">
             <button class="guiable" value="Course plan">Course plan</button>
             <button class="guiable" value="My projects">My projects</button>
         </div>
         <div id="question">
-            <button class="guiable" value="Ask question">Ask question</button>
+            <button class="guiable" value="Ask question" onclick="location.href='askquestion'">Ask question</button>
         </div>
     </div>
     <div class="editable">
         [(${editable_content})]
         <div id="student">
             <div id="hello-block">
-                <p>Settings</p>
+                <p>Ask question</p>
             </div>
-            <div id="user-settings">
-                <div id="setting-block">
-                    <div class="property">
-                        <p>Theme:   <select class="select-list">
-                            <option value="Standard_Classic">Standard Classic</option>
-                        </select></p>
-                    </div>
-                    <div class="property">
-                        <p>Language:   <select class="select-list">
-                            <option value="english">English</option>
-                        </select></p>
-                    </div>
-                </div>
-                <div id="control-save">
-                    <button class="settingable" value="Default">Default</button>
-                    <button class="settingable" value="Save">Save</button>
-                </div>
+            <div id="ask-form">
+                <form method="POST" th:action="@{/messages}">
+                    <p>To: </p><input type="text" />
+                    <input type="text" placeholder="Header" />
+                    <input type="textarea" placeholder="Message" />
+                    <input type="submit" />
+                </form>
             </div>
         </div>
     </div>
