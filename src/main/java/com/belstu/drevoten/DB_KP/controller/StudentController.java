@@ -1,5 +1,6 @@
 package com.belstu.drevoten.DB_KP.controller;
 
+import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
 import com.belstu.drevoten.DB_KP.model.UserType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ public class StudentController {
     public ModelAndView settings(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
-        model.addAttribute("editable_content", student_settings);
+        model.addAttribute("editable_content", StudentHTML.studentSettings());
         return modelAndView;
     }
 }
