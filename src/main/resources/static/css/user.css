@@ -81,3 +81,6 @@ button:hover {
 button:focus {
     background-color: #B7E2F5;
 }
+hr {
+    background-color: #FFA894;
+}

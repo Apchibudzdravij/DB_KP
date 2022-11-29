@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -20,30 +20,8 @@
         </div>
     </div>
     <div class="editable">
-        <div id="student">
-            <div id="hello-block">
-                <p>Welcome, </p>
-            </div>
-            <div id="user-stats">
-                <div id="calendar-plan">
-                    <p class="calendar-plan-header">Calendar plan of current project</p>
-                    <!-- TODO foreach of these plan -->
-                    <input type="checkbox" class="step-of-project" value="Step from user list #1">
-                    <input type="checkbox" class="step-of-project" value="Step from user list #3">
-                    <input type="checkbox" class="step-of-project" value="Step from user list #2">
-                </div>
-                <div id="general-stats">
-                    <div id="uniqueness">
-                        <!-- TODO auto calculating of % of uniqueness-->
-                        <p class="ready-percent">You did not send explanatory note!</p>
-                    </div>
-                    <div id="notifics">
-                        <!-- TODO notifications -->
-                        <p class="notification"> * No new notifications ♡( ◡‿◡ )</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--<div th:utext="@{editable_content}"></div>-->
+        [(${editable_content})]
     </div>
     <div id="stud-private" class="private">
         <div id="priv-info">
@@ -57,7 +35,7 @@
             <button class="guiable" value="Messages">Messages</button>
         </div>
         <div id="settings">
-            <button class="guiable" value="Settings">Settings</button>
+            <button class="guiable" value="Settings" onclick="location.href='settings'">Settings</button>
         </div>
     </div>
 </div></body>
