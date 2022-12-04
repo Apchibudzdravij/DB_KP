@@ -15,11 +15,11 @@
   </div>
   <div id="welcome-form-div">
     <p>Sign in</p>
-    <form id="welcome-form" th:action="@{/userpage}" method="POST">
+    <form id="welcome-form" th:object="${userForm}" th:action="@{/userpage}" method="POST">
       <p class="welcome-form-text">Login</p>
-      <input type="text" class="welcome-input" />
+      <input type="text" class="welcome-input" th:field="*{AdminID}" />
       <p class="welcome-form-text">Password</p>
-      <input type="password" class="welcome-input" />
+      <input type="password" class="welcome-input" th:field="*{Password}" />
       <hr />
       <input type="submit" class="welcome-send" value="Enter"/>
     </form>

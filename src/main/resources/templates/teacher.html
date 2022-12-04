@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/user.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/teacher.css}"/>
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/css/settings.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/ask.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/messages.css}"/>
+
+</head>
+<body id="welcome-page"><div id="a-la-body">
+    <div id="stud-general" class="general">
+        <a href="student"><div id="logo">
+            <img th:src="@{/img/fit_hack.jpg}" class="logoble" />
+        </div></a>
+        <div id="course-work">
+            <button class="guiable" value="Course plan">Course projects</button>
+            <button class="guiable" value="My projects">Create course project task</button>
+        </div>
+        <div id="question">
+           
+        </div>
+    </div>
+    <div class="editable">
+        <!--[(${editable_content})]-->
+        <div id="student">
+            <div id="hello-block">
+                <p>Welcome, Marina Dubovik</p>
+            </div>
+            <div id="main-teacher-body">
+                <div id="project-acceptance">
+                    <div class="project-acceptance-header">Acceptance of course projects</div>
+                    <div class="acceptance-step">
+                    	
+                    </div>
+                </div>
+                <div id="notifics">
+                	<p class="notification-header">Notifications</p>
+                    <div class="notification">
+                    	<p>* No new notifications ヽ(°〇°)ﾉ</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="stud-private" class="private">
+        <div id="priv-info">
+            <div id="FFF">
+                <p class="family">Dubovik</p>
+                <p class="family">Marina</p>
+            </div>
+            <button class="guiable" value="Change">Change</button>
+        </div>
+        <div id="messages">
+            <button class="guiable" value="Messages" onclick="location.href='messages'">Messages</button>
+             <button class="guiable" value="Ask question" onclick="location.href='askquestion'">Send message</button>
+        </div>
+        <div id="settings">
+            <button class="guiable" value="Settings" onclick="location.href='settings'">Settings</button>
+        </div>
+    </div>
+</div></body>
+</html>
