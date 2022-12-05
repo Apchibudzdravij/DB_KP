@@ -30,6 +30,7 @@ public class StudentHTML {
                 "</div>\n<div id=\"general-stats\">\n<div id=\"uniqueness\">\n" +
                 "                        <!-- TODO auto calculating of % of uniqueness-->\n" +
                 "                        <p class=\"ready-percent\">You did not send explanatory note!</p>\n" +
+                                        "<button class=\"guiable\">Send!</button>" +
                 "</div>\n<div id=\"notifics\">\n";
         response +=
                 "                        <!-- TODO notifications -->\n" +
@@ -235,5 +236,57 @@ public class StudentHTML {
                 "        </div>";
     }
 
-
+    public static String studentMyProjects() {
+        return "<div id= \"student\">\n" +
+                "            <div id= \"hello-block\">\n" +
+                "                <p>My projects <span id=\"kaomoji-my-project\">( ˘▽˘)っ♨</span></p>\n" +
+                "            </div>\n" +
+                "            <div id=\"my-projects-body\">\n" +
+                "                <div id=\"my-project-list\"><!--TABLE!-->\n" +
+                "                    <table id=\"my-project-table\">\n" +
+                "                        <tr>\n" +
+                "                            <th>Subject</th>\n" +
+                "                            <th>Date</th>\n" +
+                "                            <th>Uniq.</th>\n" +
+                "                            <th>Mark</th>\n" +
+                "                        </tr>\n" +
+                "                        <tr class=\"tr-content\">\n" +
+                "                            <td class=\"td-start\">PL</td>\n" +
+                "                            <td class=\"td-middle\">20.12.2021</td>\n" +
+                "                            <td class=\"td-middle\">100</td>\n" +
+                "                            <td class=\"td-finish\">10</td>\n" +
+                "                        </tr>\n" +
+                "                        <tr>\n" +
+                "                            <td class=\"td-start\">MTPiI</td>\n" +
+                "                            <td class=\"td-middle\">25.05.2022</td>\n" +
+                "                            <td class=\"td-middle\">100</td>\n" +
+                "                            <td class=\"td-finish\">8</td>\n" +
+                "                        </tr>\n" +
+                "                        <tr>\n" +
+                "                            <td class=\"td-start\">DB</td>\n" +
+                "                            <td class=\"td-middle\">08.12.2022</td>\n" +
+                "                            <td class=\"td-middle\"></td>\n" +
+                "                            <td class=\"td-finish\"></td>\n" +
+                "                        </tr>\n" +
+                "                    </table>\n" +
+                "                </div>\n" +
+                "                <div id=\"my-project-statistics\">\n" +
+                "                    <div id=\"my-projects-general-statistics\">\n" +
+                "                        <div class=\"general-statistics-step my-statistics-step\">\n" +
+                "                            <p>Average mark: </p>\n" +
+                "                            <p class=\"bigger\" th:utext=\"${average_mark}\"></p>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"general-statistics-step my-statistics-step\">\n" +
+                "                            <p>Average uniqueness: </p>\n" +
+                "                            <p class=\"bigger\" th:utext=\"${average_uniqueness}\"></p>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div id=\"my-projects-mark-graph\">\n" +
+                "                        <!--<p class=\"uniqueness_title_text\">Average uniqueness of your course projects:</p>-->\n" +
+                "                        <\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "            </div>\n" +
+                "        </div>";
+    }
 }

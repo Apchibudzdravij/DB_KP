@@ -6,6 +6,7 @@ import com.belstu.drevoten.DB_KP.forms.UserTypeForm;
 import com.belstu.drevoten.DB_KP.model.Student;
 import com.belstu.drevoten.DB_KP.model.UserType;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -117,6 +118,20 @@ public class StudentController {
         model.addAttribute("task_submitted", "Task submitted!");
         model.addAttribute("steps_completed", "2/3");
         model.addAttribute("days_left", 3);
+
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/myProjects")
+    public ModelAndView myProjects(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("student");
+        model.addAttribute("editable_content", StudentHTML.studentMyProjects());
+        model.addAttribute("user_name", testStudent.getFirstName());
+        model.addAttribute("user_family", testStudent.getFamilyName());
+
+        model.addAttribute("average_mark", 9);
+        model.addAttribute("average_uniqueness", 100);
 
         return modelAndView;
     }

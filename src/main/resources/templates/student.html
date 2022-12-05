@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/ask.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/messages.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/coursePlan.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/myProjects.css}"/>
 </head>
 <body id="welcome-page"><div id="a-la-body">
     <div id="stud-general" class="general">
@@ -17,7 +18,7 @@
         </div></a>
         <div id="course-work">
             <button class="guiable" value="Course plan" onclick="location.href='coursePlan'">Course plan</button>
-            <button class="guiable" value="My projects">My projects</button>
+            <button class="guiable" value="My projects" onclick="location.href='myProjects'">My projects</button>
         </div>
         <div id="question">
             <button class="guiable" value="Ask question" onclick="location.href='askquestion'">Ask question</button>
@@ -25,54 +26,7 @@
     </div>
     <div class="editable">
         [(${editable_content})]
-        <div id= "student">
-            <div id= "hello-block">
-                <p>My projects</p>
-            </div>
-            <div id="my-projects-body">
-                <div id="project-list">
-                    <div id="course-projects">
-                        <p class="list-title">Projects</p>
-                        <div class="project-instance">
-                            <div class="project-name-instance">Development of Programming language</div>
-                            <div class="project-date-instance">20.12.2021</div>
-                        </div>
-                        <div class="project-instance">
-                            <div class="project-name-instance">Desktop WPF application</div>
-                            <div class="project-date-instance">25.05.2022</div>
-                        </div>
-                        <div class="project-instance blue">
-                            <div class="project-name-instance">Oracle Database</div>
-                            <div class="project-date-instance">08.12.2022</div>
-                        </div>
-                    </div>
-                    <div id="course-projects-sum">
-                        <p id="sum_title_text">Total amount of course projects:</p>
-                        <div id="projects-amount" th:utext="${project_amount}"></div>
-                    </div>
-                </div>
-                <div id="statistics">
-                    <div id="course-projects-general-statistics">
-                        <div class="list-title actual-project-title">Actual project</div>
-                        <div id="general-statistics-step-submit" th:utext="${task_submitted}"></div>
-                        <div class="general-statistics-step">
-                            <p>Steps completed: </p>
-                            <p class="bigger" th:utext="${steps_completed}"></p>
-                        </div>
-                        <div class="general-statistics-step">
-                            <p>Days before completion: </p>
-                            <p class="bigger" th:utext="${days_left}"></p>
-                        </div>
-                    </div>
-                    <div id="course-projects-general-unique">
-                        <p class="uniqueness_title_text">Average uniqueness of your course projects:</p>
-                        <div>
-                            <div id="uniqueness-value" th:utext="${uniqueness_value}"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
     <div id="stud-private" class="private">
         <div id="priv-info">

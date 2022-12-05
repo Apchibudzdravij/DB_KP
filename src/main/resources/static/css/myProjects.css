@@ -1,0 +1,100 @@
+#my-projects-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+#my-project-list {
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+    0 -1px 1px #FFFFFF;
+    margin: 10px;
+    overflow-y: auto;
+    width: 95%;
+    height: 70%;
+}
+#my-project-statistics {
+    display: flex;
+    flex-direction: row;
+    height: 30%;
+    width: 100%;
+}
+#my-projects-general-statistics {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    height: 100%;
+}
+#my-projects-mark-graph {
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+                 0 -1px 1px #FFFFFF;
+    width: 40%;
+    height: 80%;
+    margin: 1%;
+}
+.my-statistics-step {
+    margin: 1%;
+    height: 40%;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+                0 -1px 1px #FFFFFF;
+    align-items: center;
+}
+#my-project-table {
+    border-collapse: separate;
+    width: 100%;
+    border-spacing: 0 16px;
+}
+tr {
+
+}
+td {
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: x-large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+                 0 -1px 1px #FFFFFF;
+    text-align: center;
+    background-color: #FFFFFF;
+}
+.td-start {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-left: solid 2px #FFA894;
+    border-top: solid 2px #FFA894;
+    border-bottom: solid 2px #FFA894;
+}
+.td-middle {
+    border-radius: 0;
+    border-top: solid 2px #FFA894;
+    border-bottom: solid 2px #FFA894;
+    max-width: 100px;
+}
+.td-finish {
+    border-bottom-right-radius: 15px;
+    border-top-right-radius: 15px;
+    border-right: solid 2px #FFA894;
+    border-top: solid 2px #FFA894;
+    border-bottom: solid 2px #FFA894;
+}
+#kaomoji-my-project {
+    font-weight: lighter;
+}
