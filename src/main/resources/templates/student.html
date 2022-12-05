@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/settings.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/ask.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/messages.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/change.css}"/>
 </head>
 <body id="welcome-page"><div id="a-la-body">
     <div id="stud-general" class="general">
@@ -24,38 +25,43 @@
     </div>
     <div class="editable">
         [(${editable_content})]
-        <div id="student">
-            <div id="hello-block">
-                <p>Messages</p>
-            </div>
-            <div id="message-list">
-                <!--TODO auto list from DB-->
-                <div class="message">
-                    <div class="message-head">
-                        <div class="mes-sender">*  71201091:</div>
-                        <div class="mes-header">Test 1</div>
-                        <div class="mes-date-sent">29.11.2022 23:57</div>
-                    </div>
-                    <textarea readonly class="message-content">Hello from test 1</textarea>
+        <div id= "student">
+            <div id= "hello-block">
+                <p>Change user information</p>
                 </div>
-                <div class="message">
-                    <div class="message-head">
-                        <div class="mes-sender">*  71201091:</div>
-                        <div class="mes-header">Test 2</div>
-                        <div class="mes-date-sent">29.11.2022 23:59</div>
+            <div id= "user-settings">
+                <div id= "setting-block">
+                    <div class= "property">
+                        <div class= "key-prop">Theme:</div>
+                        <div class= "value-prop">
+                            <select class= "select-list ">
+                                <option value= "Standard_Classic ">Standard Classic</option>
+                                </select>
+                            </div>
+                        </div>
+                    <div class= "property">
+                        <div class= "key-prop">Language:</div>
+                        <div class= "value-prop">
+                            <select class= "select-list">
+                                <option value= "english">English</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <textarea readonly class="message-content">Hello from test 2</textarea>
+                <div id= "control-save">
+                    <button class="settingable" value="Default">Default</button>
+                    <button class="settingable" value="Save">Save</button>
+                    </div>
                 </div>
             </div>
-        </div>
     </div>
     <div id="stud-private" class="private">
         <div id="priv-info">
             <div id="FFF">
-                <p class="family">Drevoten</p>
-                <p class="family">Eugene</p>
+                <p class="family">[(${user_family})]</p>
+                <p class="family">[(${user_name})]</p>
             </div>
-            <button class="guiable" value="Change">Change</button>
+            <button class="guiable" value="Change" onclick="location.href='change'">Change</button>
         </div>
         <div id="messages">
             <button class="guiable" value="Messages" onclick="location.href='messages'">Messages</button>

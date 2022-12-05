@@ -85,7 +85,9 @@ public class SignInController {
         switch (studentType.getType()){
             case "s":
                 modelAndView.setViewName("student");
-                model.addAttribute("editable_content", StudentHTML.studentMain());
+                model.addAttribute("editable_content", StudentHTML.studentMain(userStudent));
+                model.addAttribute("user_name", userStudent.getFirstName());
+                model.addAttribute("user_family", userStudent.getFamilyName());
                 break;
             case "t":
                 modelAndView.setViewName("teacher");

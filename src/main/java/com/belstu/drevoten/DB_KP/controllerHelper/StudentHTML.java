@@ -1,45 +1,43 @@
 package com.belstu.drevoten.DB_KP.controllerHelper;
 
+import com.belstu.drevoten.DB_KP.model.Student;
+
 public class StudentHTML {
 
-    public static String studentMain() {
-        return "<div id=\"student\">\n" +
-               "            <div id=\"hello-block\">\n" +
-               "                <p>Welcome, Eugene Drevoten</p>\n" +
-               "            </div>\n" +
-               "            <div id=\"user-stats\">\n" +
-               "                <div id=\"calendar-plan\">\n" +
-               "                    <p class=\"calendar-plan-header\">Calendar plan of current project</p>\n" +
-               "                    <!-- TODO foreach of these plan -->\n" +
-               "                    <div class=\"step-of-plan\">\n" +
-               "                        <p class=\"date-in-plan\">13.10.2022</p>\n" +
-               "                        <input type=\"checkbox\" class=\"step-of-project\" value=\"Step from user list #1\">\n" +
-               "                            Analytical review of literature on the topic of the project<hr/>\n" +
-               "                    </div>\n" +
-               "                    <div class=\"step-of-plan\">\n" +
-               "                        <p class=\"date-in-plan\">28.10.2022</p>\n" +
-               "                        <input type=\"checkbox\" class=\"step-of-project\" value=\"Step from user list #3\">\n" +
-               "                            Creating the necessary objects<hr/>\n" +
-               "                    </div>\n" +
-               "                    <div class=\"step-of-plan\">\n" +
-               "                        <p class=\"date-in-plan\">30.11.2022</p>\n" +
-               "                        <input type=\"checkbox\" class=\"step-of-project\" value=\"Step from user list #2\">\n" +
-               "                            Project handover<hr/>\n" +
-               "                    </div>\n" +
-               "                </div>\n" +
-               "                <div id=\"general-stats\">\n" +
-               "                    <div id=\"uniqueness\">\n" +
-               "                        <!-- TODO auto calculating of % of uniqueness-->\n" +
-               "                        <p class=\"ready-percent\">You did not send explanatory note!</p>\n" +
-               "                    </div>\n" +
-               "                    <div id=\"notifics\">\n" +
-               "                        <!-- TODO notifications -->\n" +
-               "                        <p class=\"notification-header\">Notifications</p>\n" +
-               "                        <p class=\"notification\"> * No new notifications <span style=\"font-style: normal\">♡( ◡‿◡ )</span></p>\n" +
-               "                    </div>\n" +
-               "                </div>\n" +
-               "            </div>\n" +
-               "        </div>";
+    public static String studentMain(Student student) {
+        String response = "<div id=\"student\">\n<div id=\"hello-block\">\n<p>Welcome, " +
+                student.getFirstName() + " " + student.getFamilyName() +
+                "</p>\n</div>\n<div id=\"user-stats\">\n<div id=\"calendar-plan\">\n" +
+                "<p class=\"calendar-plan-header\">Calendar plan of current project</p>\n";
+        response +=
+                "                    <!-- TODO foreach of these plan -->\n" +
+                "                    <div class=\"step-of-plan\">\n" +
+                "                        <p class=\"date-in-plan\">13.10.2022</p>\n" +
+                "                        <input type=\"checkbox\" class=\"step-of-project\" value=\"Step from user list #1\">\n" +
+                "                            Analytical review of literature on the topic of the project<hr/>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"step-of-plan\">\n" +
+                "                        <p class=\"date-in-plan\">28.10.2022</p>\n" +
+                "                         <input type=\"checkbox\" class=\"step-of-project\" value=\"Step from user list #3\">\n" +
+                "                            Creating the necessary objects<hr/>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"step-of-plan\">\n" +
+                "                        <p class=\"date-in-plan\">30.11.2022</p>\n" +
+                "                        <input type=\"checkbox\" class=\"step-of-project\" value=\"Step from user list #2\">\n" +
+                "                            Project handover<hr/>\n" +
+                "                    </div>\n";
+        response +=
+                "</div>\n<div id=\"general-stats\">\n<div id=\"uniqueness\">\n" +
+                "                        <!-- TODO auto calculating of % of uniqueness-->\n" +
+                "                        <p class=\"ready-percent\">You did not send explanatory note!</p>\n" +
+                "</div>\n<div id=\"notifics\">\n";
+        response +=
+                "                        <!-- TODO notifications -->\n" +
+                "                        <p class=\"notification-header\">Notifications</p>\n" +
+                "                        <p class=\"notification\"> * No new notifications <span style=\"font-style: normal\">♡( ◡‿◡ )</span></p>\n";
+        response +=
+                "</div>\n</div>\n</div>\n</div>";
+        return response;
     }
 
     public static String studentSettings() {
@@ -80,7 +78,7 @@ public class StudentHTML {
                 "                <p>Ask question</p>\n" +
                 "            </div>\n" +
                 "            <div id=\"ask-form\">\n" +
-                "                <form method=\"POST\" th:action=\"@{/messages}\" id=\"ask-form-body\">\n" +
+                "                <form th:method=\"POST\" th:action=\"@{/messages}\" id=\"ask-form-body\">\n" +
                 "                    <div class=\"inlineField\">\n" +
                 "                        <p id=\"to\">To: </p><input id=\"ask_receiver\" type=\"text\" /><div class=\"shadow-text\"><p>[ID], \"Administrator\", \"Teacher\" or [Family name, First name, Father name]</p></div>\n" +
                 "                    </div><br/>\n" +
@@ -93,6 +91,39 @@ public class StudentHTML {
     }
 
     public static String studentMessages(){
+        return "<div id=\"student\">\n" +
+                "            <div id=\"hello-block\">\n" +
+                "                <p>Messages</p>\n" +
+                "            </div>\n" +
+                "            <div id=\"message-list\">\n" +
+                "                <!--TODO auto list from DB-->\n" +
+                "                <div class=\"message\">\n" +
+                "                    <div class=\"message-head\">\n" +
+                "                        <div class=\"mes-sender\">*  71201091:</div>\n" +
+                "                        <div class=\"mes-header\">Test 1</div>\n" +
+                "                        <div class=\"mes-date-sent\">29.11.2022 23:57</div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"message-body\">\n" +
+                "                        <textarea readonly class=\"message-content\">Hello from test 1</textarea>\n" +
+                "                        <button class=\"guiable answerable\">Answer</button>\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "                <div class=\"message\">\n" +
+                "                    <div class=\"message-head\">\n" +
+                "                        <div class=\"mes-sender\">*  71201091:</div>\n" +
+                "                        <div class=\"mes-header\">Test 2</div>\n" +
+                "                        <div class=\"mes-date-sent\">29.11.2022 23:59</div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"message-body\">\n" +
+                "                        <textarea readonly class=\"message-content\">Hello from test 2</textarea>\n" +
+                "                        <button class=\"guiable answerable\">Answer</button>\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "            </div>\n" +
+                "        </div>";
+    }
+
+    public static String studentChange() {
         return "";
     }
 }

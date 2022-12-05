@@ -29,6 +29,13 @@
     color: #A64730;
     margin-bottom: 10px;
 }
+.message-body {
+    display: flex;
+    flex-direction: row;
+}
+.answerable {
+    max-height: 50px;
+}
 
 #message-list {
     background-color: #FFE8AF;
