@@ -12,6 +12,7 @@ public class Teacher {
     private String FirstName;
     private String FamilyName;
     private String FatherName;
+    private UserGender Gender;
     private String Password;
     private String Department;
     private Integer UnreadMessages;

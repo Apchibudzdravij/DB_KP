@@ -20,7 +20,7 @@ public class StudentController {
 
     Student testStudent = new Student("71201091", "Eugene", "Drevoten", "Vladimirovich", "Male", "71201091", 3, "5-2", "FIT", "POIT", 0);
 
-    @GetMapping(value="/settings")
+    @GetMapping(value="/ssettings")
     public ModelAndView settings(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
@@ -47,7 +47,7 @@ public class StudentController {
         model.addAttribute("user_family", testStudent.getFamilyName());
         return modelAndView;
     }
-    @PostMapping(value = "/messages")
+    @PostMapping(value = "/smessages")
     public ModelAndView messagesAfterSending(Model model) {
         ///TODO sendidng
         ModelAndView modelAndView = new ModelAndView();
@@ -57,7 +57,7 @@ public class StudentController {
         model.addAttribute("user_family", testStudent.getFamilyName());
         return modelAndView;
     }
-    @GetMapping(value = "/messages")
+    @GetMapping(value = "/smessages")
     public ModelAndView messages(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
@@ -67,7 +67,7 @@ public class StudentController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/change")
+    @GetMapping(value = "/schange")
     public ModelAndView changeView(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
 
         userChangeForm.setFirstName(testStudent.getFirstName());
@@ -82,7 +82,7 @@ public class StudentController {
         return modelAndView;
     }
 
-    @PostMapping(value = "/change")
+    @PostMapping(value = "/schange")
     public ModelAndView changePost(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
