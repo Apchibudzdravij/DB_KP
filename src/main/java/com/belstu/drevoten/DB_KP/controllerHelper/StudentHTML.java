@@ -183,4 +183,57 @@ public class StudentHTML {
                 "            </form>\n" +
                 "        </div>";
     }
+
+    public static String studentCoursePlan(){
+        return "<div id= \"student\">\n" +
+                "            <div id= \"hello-block\">\n" +
+                "                <p>Course plan</p>\n" +
+                "            </div>\n" +
+                "            <div id=\"course-body\">\n" +
+                "                <div id=\"project-list\">\n" +
+                "                    <div id=\"course-projects\">\n" +
+                "                        <p class=\"list-title\">Projects</p>\n" +
+                "                        <div class=\"project-instance\">\n" +
+                "                            <div class=\"project-name-instance\">Development of Programming language</div>\n" +
+                "                            <div class=\"project-date-instance\">20.12.2021</div>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"project-instance\">\n" +
+                "                            <div class=\"project-name-instance\">Desktop WPF application</div>\n" +
+                "                            <div class=\"project-date-instance\">25.05.2022</div>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"project-instance blue\">\n" +
+                "                            <div class=\"project-name-instance\">Oracle Database</div>\n" +
+                "                            <div class=\"project-date-instance\">08.12.2022</div>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div id=\"course-projects-sum\">\n" +
+                "                        <p id=\"sum_title_text\">Total amount of course projects:</p>\n" +
+                "                        <div id=\"projects-amount\" th:utext=\"${project_amount}\"></div>\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "                <div id=\"statistics\">\n" +
+                "                    <div id=\"course-projects-general-statistics\">\n" +
+                "                        <div class=\"list-title actual-project-title\">Actual project</div>\n" +
+                "                        <div id=\"general-statistics-step-submit\" th:utext=\"${task_submitted}\"></div>\n" +
+                "                        <div class=\"general-statistics-step\">\n" +
+                "                            <p>Steps completed: </p>\n" +
+                "                            <p class=\"bigger\" th:utext=\"${steps_completed}\"></p>\n" +
+                "                        </div>\n" +
+                "                        <div class=\"general-statistics-step\">\n" +
+                "                            <p>Days before completion: </p>\n" +
+                "                            <p class=\"bigger\" th:utext=\"${days_left}\"></p>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div id=\"course-projects-general-unique\">\n" +
+                "                        <p class=\"uniqueness_title_text\">Average uniqueness of your course projects:</p>\n" +
+                "                        <div>\n" +
+                "                            <div id=\"uniqueness-value\" th:utext=\"${uniqueness_value}\"></div>\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                </div>\n" +
+                "            </div>\n" +
+                "        </div>";
+    }
+
+
 }

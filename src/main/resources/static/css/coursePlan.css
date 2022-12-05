@@ -1,0 +1,123 @@
+#course-body {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+}
+#project-list, #statistics {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+#project-list {
+    width: 60%;
+}
+#statistics {
+    width: 40%;
+}
+#course-projects, #course-projects-sum,
+#course-projects-general-statistics, #course-projects-general-unique {
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+    0 -1px 1px #FFFFFF;
+    margin: 10px;
+    height: available;
+}
+
+#course-projects {
+    height: 90%;
+    overflow-y: auto;
+}
+#course-projects-sum {
+    height: 10%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#course-projects-general-statistics {
+    height: 70%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.general-statistics-step {
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#general-statistics-step-submit {
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    text-align: center;
+}
+.general-statistics-step p {
+    margin: 0 5%;
+
+}
+.bigger {
+    font-size: xx-large;
+}
+#course-projects-general-unique {
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.uniqueness_title_text {
+    font-size: x-large;
+    margin: 0 5%;
+}
+#uniqueness-value {
+    font-size: 400%;
+}
+
+.project-instance {
+    background-color: #FFFFFF;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5%;
+    margin-right: 5%;
+    margin-left: 5%;
+}
+.project-date-instance, .project-name-instance {
+    margin: 2% 5%;
+}
+#sum_title_text {
+    margin: 0 5%;
+    text-decoration: overline;
+}
+#projects-amount {
+    margin: 0 5%;
+    font-size: xx-large;
+}
+.actual-project-title {
+    margin: 5%;
+}
+.list-title {
+    text-align: center;
+    font-size: x-large;
+    align-self: center;
+}
+.blue {
+    background-color: #B7E2F5;
+}

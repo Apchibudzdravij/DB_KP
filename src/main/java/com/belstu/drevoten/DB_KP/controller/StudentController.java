@@ -88,13 +88,35 @@ public class StudentController {
         model.addAttribute("editable_content", StudentHTML.studentChange());
         model.addAttribute("user_name", testStudent.getFirstName());
         model.addAttribute("user_family", testStudent.getFamilyName());
-        if (!userChangeForm.getNewPassword().equals(userChangeForm.getCheckNewPassword())) {
-            model.addAttribute("event", "The password in confirm field is not equal to the new password!");
-        } else if (userChangeForm.getNewPassword().equals(userChangeForm.getPassword())){
-            model.addAttribute("event", "The new password cannot equals to the old password!");
+        if (userChangeForm.getNewPassword() != null) {
+            if (!userChangeForm.getNewPassword().equals(userChangeForm.getCheckNewPassword())) {
+                model.addAttribute("event", "The password in confirm field is not equal to the new password!");
+            } else if (userChangeForm.getNewPassword().equals(userChangeForm.getPassword())) {
+                model.addAttribute("event", "The new password cannot equals to the old password!");
+            }
         } else {
             model.addAttribute("event", "User information updated!");
         }
+
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/coursePlan")
+    public ModelAndView coursePlan(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+
+        ///TODO projects list and amount
+
+        modelAndView.setViewName("student");
+        model.addAttribute("editable_content", StudentHTML.studentCoursePlan());
+        model.addAttribute("user_name", testStudent.getFirstName());
+        model.addAttribute("user_family", testStudent.getFamilyName());
+
+        model.addAttribute("project_amount", 3);
+        model.addAttribute("uniqueness_value", 100);
+        model.addAttribute("task_submitted", "Task submitted!");
+        model.addAttribute("steps_completed", "2/3");
+        model.addAttribute("days_left", 3);
 
         return modelAndView;
     }
