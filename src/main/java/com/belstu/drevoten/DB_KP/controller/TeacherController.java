@@ -37,9 +37,65 @@ public class TeacherController {
     public ModelAndView backToMain(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
-        model.addAttribute("editable_content", TeacherHTML.teacherMain(testTeacher));
+        //model.addAttribute("editable_content", TeacherHTML.teacherMain(testTeacher));
         model.addAttribute("user_name", testTeacher.getFirstName());
         model.addAttribute("user_family", testTeacher.getFamilyName());
         return modelAndView;
     }
+
+    @PostMapping(value = "/tmessages")
+    public ModelAndView messagesAfterSending(Model model) {
+        ///TODO sendidng
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("teacher");
+        model.addAttribute("editable_content", TeacherHTML.teacherMessages());
+        model.addAttribute("user_name", testTeacher.getFirstName());
+        model.addAttribute("user_family", testTeacher.getFamilyName());
+        return modelAndView;
+    }
+    @GetMapping(value = "/tmessages")
+    public ModelAndView messages(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("teacher");
+        model.addAttribute("editable_content", TeacherHTML.teacherMessages());
+        model.addAttribute("user_name", testTeacher.getFirstName());
+        model.addAttribute("user_family", testTeacher.getFamilyName());
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/tchange")
+    public ModelAndView changeView(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
+
+        userChangeForm.setFirstName(testTeacher.getFirstName());
+        userChangeForm.setFamilyName(testTeacher.getFamilyName());
+        userChangeForm.setFatherName(testTeacher.getFatherName());
+
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("teacher");
+        model.addAttribute("editable_content", TeacherHTML.teacherChange());
+        model.addAttribute("user_name", testTeacher.getFirstName());
+        model.addAttribute("user_family", testTeacher.getFamilyName());
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/tchange")
+    public ModelAndView changePost(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("teacher");
+        model.addAttribute("editable_content", TeacherHTML.teacherChange());
+        model.addAttribute("user_name", testTeacher.getFirstName());
+        model.addAttribute("user_family", testTeacher.getFamilyName());
+        if (userChangeForm.getNewPassword() != null) {
+            if (!userChangeForm.getNewPassword().equals(userChangeForm.getCheckNewPassword())) {
+                model.addAttribute("event", "The password in confirm field is not equal to the new password!");
+            } else if (userChangeForm.getNewPassword().equals(userChangeForm.getPassword())) {
+                model.addAttribute("event", "The new password cannot equals to the old password!");
+            }
+        } else {
+            model.addAttribute("event", "User information updated!");
+        }
+
+        return modelAndView;
+    }
+
 }

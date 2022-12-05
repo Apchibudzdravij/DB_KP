@@ -5,7 +5,7 @@
     <title>Title</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/user.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/teacher.css}"/>
-    
+
     <link rel="stylesheet" type="text/css" th:href="@{/css/settings.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/ask.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/messages.css}"/>
@@ -26,7 +26,7 @@
     </div>
     <div class="editable">
         <!--[(${editable_content})]-->
-        <div id="student">
+        <div id="teacher">
             <div id="hello-block">
                 <p>Welcome, Marina Dubovik</p>
             </div>
@@ -34,7 +34,16 @@
                 <div id="project-acceptance">
                     <div class="project-acceptance-header">Acceptance of course projects</div>
                     <div class="acceptance-step">
-                    	
+                        <div class="project-name-instance">Development of Programming language</div>
+                        <div class="project-date-instance">09.12.2022</div>
+                    </div>
+                    <div class="acceptance-step">
+                        <div class="project-name-instance">Development of Programming language</div>
+                        <div class="project-date-instance">10.12.2022</div>
+                    </div>
+                    <div class="acceptance-step">
+                        <div class="project-name-instance">Development of Programming language</div>
+                        <div class="project-date-instance">12.12.2022</div>
                     </div>
                 </div>
                 <div id="notifics">
@@ -49,10 +58,10 @@
     <div id="stud-private" class="private">
         <div id="priv-info">
             <div id="FFF">
-                <p class="family">Dubovik</p>
-                <p class="family">Marina</p>
+                <p class="family">[(${user_family})]</p>
+                <p class="family">[(${user_name})]</p>
             </div>
-            <button class="guiable" value="Change">Change</button>
+            <button class="guiable" value="Change" onclick="location.href='tchange'">Change</button>
         </div>
         <div id="messages">
             <button class="guiable" value="Messages" onclick="location.href='tmessages'">Messages</button>
@@ -62,5 +71,6 @@
             <button class="guiable" value="Settings" onclick="location.href='tsettings'">Settings</button>
         </div>
     </div>
-</div></body>
+</div>
+</body>
 </html>

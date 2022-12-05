@@ -1,7 +1,7 @@
 .editable {
     padding: 10px;
 }
-#student {
+#teacher {
     display: flex;
     flex-direction: column;
     height: 100%;
@@ -32,6 +32,7 @@
                 0 -1px 1px #FFFFFF;
     margin: 10px;
     height: available;
+    overflow-y: auto;
 }
 
 #project-acceptance {
@@ -46,18 +47,24 @@
     overflow-y: auto;
 }
 
-.step-of-plan {
-    background-color: #B7E2F5;
-    padding: 5px;
-    margin: 10px;
+.acceptance-step {
+    background-color: #FFFFFF;
+    padding: 2%;
+    margin: 2%;
     border: double 3px #FFA894;
     border-radius: 15px;
     font-weight: bolder;
     font-style: italic;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .project-acceptance-header, .notification-header {
     text-align: center;
+    font-size: x-large;
+    margin: 3%;
 }
 
 #hello-block {
@@ -73,7 +80,7 @@
 
 .notification {
     background-color: #FFFFFF;
-    padding: 10px;
+    padding: 2%;
     border: solid 2px #FFA894;
     border-radius: 15px;
     font-weight: bolder;
@@ -82,7 +89,7 @@
     color: #A64730;
     text-shadow: 1px 0 1px #FFFFFF,
     0 -1px 1px #FFFFFF;
-    margin: 10px;
+    margin: 4%;
     height: available;
 }
 .date-in-plan {
