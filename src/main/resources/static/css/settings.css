@@ -12,11 +12,13 @@
     border-radius: 15px;
     font-weight: bolder;
     font-family: "Candara";
+    max-height: 78%;
     font-size: large;
     color: #A64730;
     text-shadow: 1px 0 1px #FFFFFF,
     0 -1px 1px #FFFFFF;
     width: 60%;
+    overflow-y: auto;
 }
 .property {
     display: flex;

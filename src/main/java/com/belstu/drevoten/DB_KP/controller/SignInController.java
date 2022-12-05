@@ -30,8 +30,6 @@ public class SignInController {
 
     @PostMapping(value = "/userpage")
     public ModelAndView enter(Model model, @ModelAttribute("userForm") UserTypeForm userTypeForm) {
-
-
         ModelAndView modelAndView = new ModelAndView();
 
         studentTypeArrayList = new ArrayList<>();

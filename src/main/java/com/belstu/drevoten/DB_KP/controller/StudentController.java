@@ -1,12 +1,15 @@
 package com.belstu.drevoten.DB_KP.controller;
 
 import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
+import com.belstu.drevoten.DB_KP.forms.UserChangeForm;
+import com.belstu.drevoten.DB_KP.forms.UserTypeForm;
 import com.belstu.drevoten.DB_KP.model.Student;
 import com.belstu.drevoten.DB_KP.model.UserType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -64,12 +67,35 @@ public class StudentController {
     }
 
     @GetMapping(value = "/change")
-    public ModelAndView changeView(Model model) {
+    public ModelAndView changeView(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
+
+        userChangeForm.setFirstName(testStudent.getFirstName());
+        userChangeForm.setFamilyName(testStudent.getFamilyName());
+        userChangeForm.setFatherName(testStudent.getFatherName());
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
         model.addAttribute("editable_content", StudentHTML.studentChange());
         model.addAttribute("user_name", testStudent.getFirstName());
         model.addAttribute("user_family", testStudent.getFamilyName());
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/change")
+    public ModelAndView changePost(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("student");
+        model.addAttribute("editable_content", StudentHTML.studentChange());
+        model.addAttribute("user_name", testStudent.getFirstName());
+        model.addAttribute("user_family", testStudent.getFamilyName());
+        if (!userChangeForm.getNewPassword().equals(userChangeForm.getCheckNewPassword())) {
+            model.addAttribute("event", "The password in confirm field is not equal to the new password!");
+        } else if (userChangeForm.getNewPassword().equals(userChangeForm.getPassword())){
+            model.addAttribute("event", "The new password cannot equals to the old password!");
+        } else {
+            model.addAttribute("event", "User information updated!");
+        }
+
         return modelAndView;
     }
 }
