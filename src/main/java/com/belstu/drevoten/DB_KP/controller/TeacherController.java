@@ -37,7 +37,7 @@ public class TeacherController {
     public ModelAndView backToMain(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
-        //model.addAttribute("editable_content", TeacherHTML.teacherMain(testTeacher));
+        model.addAttribute("editable_content", TeacherHTML.teacherMain(testTeacher));
         model.addAttribute("user_name", testTeacher.getFirstName());
         model.addAttribute("user_family", testTeacher.getFamilyName());
         return modelAndView;

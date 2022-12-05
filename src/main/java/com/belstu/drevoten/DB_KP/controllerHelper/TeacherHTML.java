@@ -7,37 +7,27 @@ public class TeacherHTML {
     public static String teacherMain(Teacher teacher)  {
         String response = "<div id=\"teacher\">\n<div id=\"hello-block\">\n<p>Welcome, " +
                 teacher.getFirstName() + " " + teacher.getFamilyName() +
-                "</p>\n</div>\n<div id=\"user-stats\">\n<div id=\"calendar-plan\">\n" +
-                "<p class=\"calendar-plan-header\">Calendar plan of current project</p>\n";
+                "</p>\n</div>\n<div id=\"main-teacher-body\">\n<div id=\"project-acceptance\">\n" +
+                " <div class=\"project-acceptance-header\">Acceptance of course projects</div>\n";
         response +=
-                "                    <!-- TODO foreach of these plan -->\n" +
-                        "                    <div class=\"step-of-plan\">\n" +
-                        "                        <p class=\"date-in-plan\">13.10.2022</p>\n" +
-                        "                        <input type=\"checkbox\" class=\"step-of-project\" value=\"Step from user list #1\">\n" +
-                        "                            Analytical review of literature on the topic of the project<hr/>\n" +
-                        "                    </div>\n" +
-                        "                    <div class=\"step-of-plan\">\n" +
-                        "                        <p class=\"date-in-plan\">28.10.2022</p>\n" +
-                        "                         <input type=\"checkbox\" class=\"step-of-project\" value=\"Step from user list #3\">\n" +
-                        "                            Creating the necessary objects<hr/>\n" +
-                        "                    </div>\n" +
-                        "                    <div class=\"step-of-plan\">\n" +
-                        "                        <p class=\"date-in-plan\">30.11.2022</p>\n" +
-                        "                        <input type=\"checkbox\" class=\"step-of-project\" value=\"Step from user list #2\">\n" +
-                        "                            Project handover<hr/>\n" +
-                        "                    </div>\n";
+                "<div class=\"acceptance-step\">\n" +
+                "   <div class=\"project-name-instance\">Development of Programming language</div>\n" +
+                "   <div class=\"project-date-instance\">09.12.2022</div>\n" +
+                "</div>\n" +
+                "<div class=\"acceptance-step\">\n" +
+                "   <div class=\"project-name-instance\">Development of Programming language</div>\n" +
+                "   <div class=\"project-date-instance\">10.12.2022</div>\n" +
+                "</div>\n" +
+                "<div class=\"acceptance-step\">\n" +
+                "   <div class=\"project-name-instance\">Development of Programming language</div>\n" +
+                "   <div class=\"project-date-instance\">12.12.2022</div>\n" +
+                "</div>\n";
         response +=
-                "</div>\n<div id=\"general-stats\">\n<div id=\"uniqueness\">\n" +
-                        "                        <!-- TODO auto calculating of % of uniqueness-->\n" +
-                        "                        <p class=\"ready-percent\">You did not send explanatory note!</p>\n" +
-                        "<button class=\"guiable\">Send!</button>" +
-                        "</div>\n<div id=\"notifics\">\n";
+                "</div>\n<div id=\"notifics\">\n\t<p class=\"notification-header\">Notifications</p>";
         response +=
-                "                        <!-- TODO notifications -->\n" +
-                        "                        <p class=\"notification-header\">Notifications</p>\n" +
-                        "                        <p class=\"notification\"> * No new notifications <span style=\"font-style: normal\">♡( ◡‿◡ )</span></p>\n";
+                "<div class=\"notification\">\n\t<p>* No new notifications ヽ(°〇°)ﾉ</p>\n</div>";
         response +=
-                "</div>\n</div>\n</div>\n</div>";
+                "</div>\n</div>\n</div>\n";
         return response;
     }
 
