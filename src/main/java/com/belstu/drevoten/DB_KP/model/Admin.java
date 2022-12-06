@@ -12,5 +12,6 @@ public class Admin {
     private String FirstName;
     private String FamilyName;
     private String FatherName;
+    private UserGender Gender;
     private String Password;
 }

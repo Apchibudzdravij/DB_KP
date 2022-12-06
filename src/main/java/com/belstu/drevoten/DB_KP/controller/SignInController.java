@@ -1,8 +1,12 @@
 package com.belstu.drevoten.DB_KP.controller;
 
+import com.belstu.drevoten.DB_KP.controllerHelper.AdminHTML;
 import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
+import com.belstu.drevoten.DB_KP.controllerHelper.TeacherHTML;
 import com.belstu.drevoten.DB_KP.forms.UserTypeForm;
+import com.belstu.drevoten.DB_KP.model.Admin;
 import com.belstu.drevoten.DB_KP.model.Student;
+import com.belstu.drevoten.DB_KP.model.UserGender;
 import com.belstu.drevoten.DB_KP.model.UserType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -35,7 +39,7 @@ public class SignInController {
         studentTypeArrayList = new ArrayList<>();
         studentTypeArrayList.add(new UserType("71201091", "s"));
         studentTypeArrayList.add(new UserType("71201092", "t"));
-        studentTypeArrayList.add(new UserType("71201093", "s"));
+        studentTypeArrayList.add(new UserType("71201093", "a"));
 
         studentArrayList = new ArrayList<>();
         studentArrayList.add(new Student("71201091", "Eugene", "Drevoten", "Vladimirovich", "Male", "71201091", 3, "5-2", "FIT", "POIT", 0));
@@ -91,7 +95,12 @@ public class SignInController {
                 modelAndView.setViewName("teacher");
                 break;
             case "a":
-                modelAndView.setViewName("admin");
+                Admin admin = new Admin(userStudent.getStudentID(), userStudent.getFirstName(), userStudent.getFamilyName(),
+                                        userStudent.getFatherName(), UserGender.Gender_Fluid, userStudent.getPassword());
+                modelAndView.setViewName("administrator");
+                model.addAttribute("editable_content", AdminHTML.adminMain(admin));
+                model.addAttribute("user_name", userStudent.getFirstName());
+                model.addAttribute("user_family", userStudent.getFamilyName());
                 break;
             default :
                 System.err.println("User is not S, not T and not A!");

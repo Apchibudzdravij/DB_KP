@@ -57,18 +57,20 @@
                 0 -1px 1px #FFFFFF;
     align-items: center;
 }
-#my-project-table {
+#my-project-table, .log-table {
     border-collapse: separate;
     width: 100%;
     border-spacing: 0 16px;
+    overflow-y: auto;
 }
-tr {
-
+.log-table {
+    overflow-y: auto;
+    max-height: 80%;
 }
 td {
     font-weight: bolder;
     font-family: "Candara";
-    font-size: x-large;
+    font-size: small;
     color: #A64730;
     text-shadow: 1px 0 1px #FFFFFF,
                  0 -1px 1px #FFFFFF;
