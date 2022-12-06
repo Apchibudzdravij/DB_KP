@@ -101,7 +101,7 @@ public class TeacherHTML {
                 "            <div id= \"hello-block\">\n" +
                 "                <p>Change user information</p>\n" +
                 "            </div>\n" +
-                "            <form id= \"user-settings\" method=\"POST\" th:action=\"@{change}\" th:object=\"${userchangeform}\">\n" +
+                "            <form id= \"user-settings\" method=\"POST\" th:action=\"@{tchange}\" th:object=\"${userchangeform}\">\n" +
                 "                <div id= \"setting-block\">\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">First name:</div>\n" +
@@ -157,5 +157,145 @@ public class TeacherHTML {
                 "        </div>";
     }
 
+    public static String teacherSendMessage() {
+        return "<div id=\"teacher\">\n" +
+                "            <div id=\"hello-block\">\n" +
+                "                <p>Send message</p>\n" +
+                "            </div>\n" +
+                "            <div id=\"ask-form\">\n" +
+                "                <form th:method=\"POST\" th:action=\"@{/tmessages}\" id=\"ask-form-body\">\n" +
+                "                    <div class=\"inlineField\">\n" +
+                "                        <p id=\"to\">To: </p><input id=\"ask_receiver\" type=\"text\" /><div class=\"shadow-text\"><p>[ID], \"Administrator\", \"Teacher\" or [Family name, First name, Father name]</p></div>\n" +
+                "                    </div><br/>\n" +
+                "                    <input id=\"ask_header\" type=\"text\" placeholder=\"Header\" /><br/>\n" +
+                "                    <textarea cols=\"4\" placeholder=\"Message\" id=\"ask_message\"></textarea><br/>\n" +
+                "                    <input id=\"ask_send\" type=\"submit\" value=\"Send\"/>\n" +
+                "                </form>\n" +
+                "            </div>\n" +
+                "        </div>";
+    }
 
+    public static String teacherCreateTask() {
+        return "<div id=\"teacher\">\n" +
+                "            <div id=\"hello-block\">\n" +
+                "                <p>Create new course project</p>\n" +
+                "            </div>\n" +
+                "            <div id=\"create-form\">\n" +
+                "                <form method=\"POST\" th:action=\"@{createTask}\" th:object=\"${kurstaskform}\">\n" +
+                "                    <p>Enter project information</p>\n" +
+                "                    <div id=\"new-project-name\">\n" +
+                "                        <input class=\"new-project-input longer\" type=\"text\" placeholder=\"Full title\">\n" +
+                "                        <input class=\"new-project-input shorter\" type=\"text\" placeholder=\"Year\">\n" +
+                "                    </div>\n" +
+                "                    <div id=\"target-description\">\n" +
+                "                        <input class=\"new-project-input shorter\" type=\"number\" placeholder=\"Study year (1-4)\"/>\n" +
+                "                        <input class=\"new-project-input longer\" type=\"text\" placeholder=\"Faculty (FIT)\"/>\n" +
+                "                        <input class=\"new-project-input longer\" type=\"text\" placeholder=\"Speciality (POIT)\"/>\n" +
+                "                    </div>\n" +
+                "                    <input class=\"new-project-input\" id=\"create-form-subject-name\" type=\"text\" placeholder=\"Subject\"/>\n" +
+                "                    <div id=\"create-drag-drop\">\n" +
+                "                        <\n" +
+                "                    </div>\n" +
+                "                    <input class=\"guiable\" type=\"submit\" value=\"Create new task!\"/>\n" +
+                "                </form>\n" +
+                "            </div>\n" +
+                "        </div>";
+    }
+
+    public static String teacherProjectList() {
+        return "<div id=\"teacher\">\n" +
+                "            <div id=\"hello-block\">\n" +
+                "                <p>Student projects</p>\n" +
+                "            </div>\n" +
+                "            <div id=\"student-project-list\">\n" +
+                "                <id class=\"student-course-project-instance\">\n" +
+                "                    <div class=\"rowable\">\n" +
+                "                        <div class=\"student-course-project-instance-student\"\n" +
+                "                            th:utext=\"${inst_student}\">\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-title\"\n" +
+                "                             th:utext=\"${inst_name}\">\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"rowable\">\n" +
+                "                        <div class=\"student-course-project-instance-file\">\n" +
+                "                            No task file\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-file\">\n" +
+                "                            No note file\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-file\">\n" +
+                "                            No archive file\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"rowable\">\n" +
+                "                        <div class=\"student-course-project-instance-date\"\n" +
+                "                             th:utext=\"${inst_date}\">\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-mark\"\n" +
+                "                             th:utext=\"${inst_mark}\">\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                </id>\n" +
+                "                <id class=\"student-course-project-instance\">\n" +
+                "                    <div class=\"rowable\">\n" +
+                "                        <div class=\"student-course-project-instance-student\"\n" +
+                "                             th:utext=\"${inst_student}\">\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-title\"\n" +
+                "                             th:utext=\"${inst_name}\">\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"rowable\">\n" +
+                "                        <div class=\"student-course-project-instance-file\">\n" +
+                "                            No task file\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-file\">\n" +
+                "                            No note file\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-file\">\n" +
+                "                            No archive file\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"rowable\">\n" +
+                "                        <div class=\"student-course-project-instance-date\"\n" +
+                "                             th:utext=\"${inst_date}\">\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-mark\"\n" +
+                "                             th:utext=\"${inst_mark}\">\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                </id>\n" +
+                "                <id class=\"student-course-project-instance\">\n" +
+                "                    <div class=\"rowable\">\n" +
+                "                        <div class=\"student-course-project-instance-student\"\n" +
+                "                             th:utext=\"${inst_student}\">\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-title\"\n" +
+                "                             th:utext=\"${inst_name}\">\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"rowable\">\n" +
+                "                        <div class=\"student-course-project-instance-file\">\n" +
+                "                            No task file\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-file\">\n" +
+                "                            No note file\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-file\">\n" +
+                "                            No archive file\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                    <div class=\"rowable\">\n" +
+                "                        <div class=\"student-course-project-instance-date\"\n" +
+                "                             th:utext=\"${inst_date}\">\n" +
+                "                        </div>\n" +
+                "                        <div class=\"student-course-project-instance-mark\"\n" +
+                "                             th:utext=\"${inst_mark}\">\n" +
+                "                        </div>\n" +
+                "                    </div>\n" +
+                "                </id>\n" +
+                "            </div>\n" +
+                "        </div>";
+    }
 }

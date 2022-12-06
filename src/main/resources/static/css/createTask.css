@@ -1,0 +1,105 @@
+#new-project-name {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#create-form {
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+                 0 -1px 1px #FFFFFF;
+    margin: 10px;
+    height: 100%;
+    align-items: center;
+}
+#create-form form {
+    height: 95%;
+}
+
+#target-description {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.longer {
+    width: 60%;
+}
+.shorter {
+    max-width: 100px;
+}
+.new-project-input {
+    margin: 1%;
+}
+
+#create-form-subject-name {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+}
+
+#create-drag-drop {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border: dashed 2px #FFA894;
+    border-radius: 15px;
+    height: 35%;
+    width: 97%;
+}
+#student-project-list {
+    height: 100%;
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+                 0 -1px 1px #FFFFFF;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+.student-course-project-instance {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    margin: 2%;
+    display: flex;
+    flex-direction: column;
+}
+.rowable {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.student-course-project-instance-student {
+    font-size: xx-large;
+    margin-left: 5%;
+}
+.student-course-project-instance-title {
+    font-size: xx-large;
+    margin-right: 5%;
+}
+.student-course-project-instance-file {
+    background-color: #B7E2F5;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    margin: 2%;
+    min-width: 25%;
+    text-align: center;
+}

@@ -79,7 +79,7 @@ public class StudentHTML {
                 "                <p>Ask question</p>\n" +
                 "            </div>\n" +
                 "            <div id=\"ask-form\">\n" +
-                "                <form th:method=\"POST\" th:action=\"@{/messages}\" id=\"ask-form-body\">\n" +
+                "                <form th:method=\"POST\" th:action=\"@{/smessages}\" id=\"ask-form-body\">\n" +
                 "                    <div class=\"inlineField\">\n" +
                 "                        <p id=\"to\">To: </p><input id=\"ask_receiver\" type=\"text\" /><div class=\"shadow-text\"><p>[ID], \"Administrator\", \"Teacher\" or [Family name, First name, Father name]</p></div>\n" +
                 "                    </div><br/>\n" +
@@ -129,7 +129,7 @@ public class StudentHTML {
                 "            <div id= \"hello-block\">\n" +
                 "                <p>Change user information</p>\n" +
                 "            </div>\n" +
-                "            <form id= \"user-settings\" method=\"POST\" th:action=\"@{change}\" th:object=\"${userchangeform}\">\n" +
+                "            <form id= \"user-settings\" method=\"POST\" th:action=\"@{schange}\" th:object=\"${userchangeform}\">\n" +
                 "                <div id= \"setting-block\">\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">First name:</div>\n" +

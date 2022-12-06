@@ -2,6 +2,7 @@ package com.belstu.drevoten.DB_KP.controller;
 
 import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
 import com.belstu.drevoten.DB_KP.controllerHelper.TeacherHTML;
+import com.belstu.drevoten.DB_KP.forms.KursTaskForm;
 import com.belstu.drevoten.DB_KP.forms.UserChangeForm;
 import com.belstu.drevoten.DB_KP.forms.UserTypeForm;
 import com.belstu.drevoten.DB_KP.model.Student;
@@ -98,4 +99,47 @@ public class TeacherController {
         return modelAndView;
     }
 
+    @GetMapping(value="/sendMessage")
+    public ModelAndView sendMessageForm(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("teacher");
+        model.addAttribute("editable_content", TeacherHTML.teacherSendMessage());
+        model.addAttribute("user_name", testTeacher.getFirstName());
+        model.addAttribute("user_family", testTeacher.getFamilyName());
+        return modelAndView;
+    }
+
+    @GetMapping(value="/createTask")
+    public ModelAndView createTaskForm(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("teacher");
+        model.addAttribute("editable_content", TeacherHTML.teacherCreateTask());
+        model.addAttribute("user_name", testTeacher.getFirstName());
+        model.addAttribute("user_family", testTeacher.getFamilyName());
+        return modelAndView;
+    }
+
+    @PostMapping(value="/createTask")
+    public ModelAndView createTask(Model model, @ModelAttribute("kurstaskform") KursTaskForm kursTaskForm) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("teacher");
+        model.addAttribute("editable_content", TeacherHTML.teacherCreateTask());
+        model.addAttribute("user_name", testTeacher.getFirstName());
+        model.addAttribute("user_family", testTeacher.getFamilyName());
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/projectList")
+    public ModelAndView projectList(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("teacher");
+        model.addAttribute("editable_content", TeacherHTML.teacherProjectList());
+        model.addAttribute("user_name", testTeacher.getFirstName());
+        model.addAttribute("user_family", testTeacher.getFamilyName());
+        model.addAttribute("inst_student", "71201091:");
+        model.addAttribute("inst_name", "Programing Language DYV-2021");
+        model.addAttribute("inst_date", "20.12.2021");
+        model.addAttribute("inst_mark", "Mark: 10");
+        return modelAndView;
+    }
 }

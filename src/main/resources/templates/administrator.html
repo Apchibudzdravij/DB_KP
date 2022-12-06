@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>BelSTU SAD of TCP</title>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/user.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/teacher.css}"/>
+
+  <link rel="stylesheet" type="text/css" th:href="@{/css/settings.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/ask.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/messages.css}"/>
+
+</head>
+<body id="welcome-page"><div id="a-la-body">
+  <div id="stud-general" class="general">
+    <a href="teacher"><div id="logo">
+      <img th:src="@{/img/fit_hack.jpg}" class="logoble" />
+    </div></a>
+    <div id="course-work">
+      <button class="guiable" value="Course projects" onclick="location.href='projectList'">Course projects</button>
+      <button class="guiable" value="Create course project task" onclick="location.href='createTask'">Create course project task</button>
+    </div>
+    <div id="question">
+
+    </div>
+  </div>
+  <div class="editable">
+    [(${editable_content})]
+
+  </div>
+  <div id="stud-private" class="private">
+    <div id="priv-info">
+      <div id="FFF">
+        <p class="family">[(${user_family})]</p>
+        <p class="family">[(${user_name})]</p>
+      </div>
+      <button class="guiable" value="Change" onclick="location.href='tchange'">Change</button>
+    </div>
+    <div id="messages">
+      <button class="guiable" value="Messages" onclick="location.href='tmessages'">Messages</button>
+      <button class="guiable" value="Send message" onclick="location.href='sendMessage'">Send message</button>
+    </div>
+    <div id="settings">
+      <button class="guiable" value="Settings" onclick="location.href='tsettings'">Settings</button>
+    </div>
+  </div>
+</div>
+</body>
+</html>
