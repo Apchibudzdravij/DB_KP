@@ -227,6 +227,21 @@ public class AdminHTML {
     }
 
     public static String adminAddUsers() {
-        return "";
+        return "<div id=\"admin\">\n" +
+                "      <div id=\"hello-block\">\n" +
+                "        <p>Register new users</p>\n" +
+                "      </div>\n" +
+                "      <div id=\"registration-body\">\n" +
+                "        <div id=\"register-field\">\n" +
+                "          <div id=\"register-field-text\">\n" +
+                "            Drag and drop XML file here\n" +
+                "          </div>\n" +
+                "        </div>\n" +
+                "        <div id=\"apply-registration\">\n" +
+                "          <button class=\"guiable\" id=\"register-button\">Register now!</button>\n" +
+                "          <div id=\"register-error\"></div>\n" +
+                "        </div>\n" +
+                "      </div>\n" +
+                "    </div>";
     }
 }

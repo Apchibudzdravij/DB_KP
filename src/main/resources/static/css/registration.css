@@ -1,0 +1,32 @@
+#registration-body {
+    height: 90%;
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+}
+#register-field {
+    height: 75%;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border: dashed 2px #FFA894;
+    border-radius: 15px;
+    font-weight: bolder;
+    font-family: "Candara";
+    max-height: 78%;
+    font-size: xx-large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+                 0 -1px 1px #FFFFFF;
+}
+#register-field-text {
+    margin: 15% 30%;
+}
+#apply-registration {
+    height: 10%;
+    align-items: center;
+    justify-content: center;
+}
+#register-button {
+    margin: 2% 45%;
+}
