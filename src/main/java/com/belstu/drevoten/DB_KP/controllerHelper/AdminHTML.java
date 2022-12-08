@@ -1,10 +1,10 @@
 package com.belstu.drevoten.DB_KP.controllerHelper;
 
-import com.belstu.drevoten.DB_KP.model.Admin;
+import com.belstu.drevoten.DB_KP.model.Executive_Admin;
 
 public class AdminHTML {
 
-    public static String adminMain(Admin student) {
+    public static String adminMain(Executive_Admin student) {
         String response = "<div id=\"student\">\n<div id=\"hello-block\">\n<p>Welcome, " +
                 student.getFirstName() + " " + student.getFamilyName() +
                 "</p>\n" +

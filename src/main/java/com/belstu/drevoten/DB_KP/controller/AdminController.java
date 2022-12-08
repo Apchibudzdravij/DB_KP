@@ -1,15 +1,9 @@
 package com.belstu.drevoten.DB_KP.controller;
 
 import com.belstu.drevoten.DB_KP.controllerHelper.AdminHTML;
-import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
-import com.belstu.drevoten.DB_KP.controllerHelper.TeacherHTML;
 import com.belstu.drevoten.DB_KP.forms.UserChangeForm;
-import com.belstu.drevoten.DB_KP.forms.UserTypeForm;
-import com.belstu.drevoten.DB_KP.model.Admin;
-import com.belstu.drevoten.DB_KP.model.Student;
+import com.belstu.drevoten.DB_KP.model.Executive_Admin;
 import com.belstu.drevoten.DB_KP.model.UserGender;
-import com.belstu.drevoten.DB_KP.model.UserType;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,22 +11,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 
 @Controller
 public class AdminController {
 
-    Admin testAdmin = new Admin("71201093", "Anna", "Anna", "Anna", UserGender.Gender_Fluid, "71201093");
+    Executive_Admin testExecuteAdmin = new Executive_Admin("71201093", "Anna", "Anna", "Anna", UserGender.Gender_Fluid, "71201093", 0);
 
     @GetMapping(value="/asettings")
     public ModelAndView settings(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("administrator");
         model.addAttribute("editable_content", AdminHTML.adminSettings());
-        model.addAttribute("user_name", testAdmin.getFirstName());
-        model.addAttribute("user_family", testAdmin.getFamilyName());
+        model.addAttribute("user_name", testExecuteAdmin.getFirstName());
+        model.addAttribute("user_family", testExecuteAdmin.getFamilyName());
         return modelAndView;
     }
 
@@ -40,9 +31,9 @@ public class AdminController {
     public ModelAndView backToMain(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("administrator");
-        model.addAttribute("editable_content", AdminHTML.adminMain(testAdmin));
-        model.addAttribute("user_name", testAdmin.getFirstName());
-        model.addAttribute("user_family", testAdmin.getFamilyName());
+        model.addAttribute("editable_content", AdminHTML.adminMain(testExecuteAdmin));
+        model.addAttribute("user_name", testExecuteAdmin.getFirstName());
+        model.addAttribute("user_family", testExecuteAdmin.getFamilyName());
         return modelAndView;
     }
 
@@ -51,8 +42,8 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("administrator");
         model.addAttribute("editable_content", AdminHTML.adminChange());
-        model.addAttribute("user_name", testAdmin.getFirstName());
-        model.addAttribute("user_family", testAdmin.getFamilyName());
+        model.addAttribute("user_name", testExecuteAdmin.getFirstName());
+        model.addAttribute("user_family", testExecuteAdmin.getFamilyName());
         if (userChangeForm.getNewPassword() != null) {
             if (!userChangeForm.getNewPassword().equals(userChangeForm.getCheckNewPassword())) {
                 model.addAttribute("event", "The password in confirm field is not equal to the new password!");
@@ -69,15 +60,15 @@ public class AdminController {
     @GetMapping(value = "/achange")
     public ModelAndView adminChangeForm(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
 
-        userChangeForm.setFirstName(testAdmin.getFirstName());
-        userChangeForm.setFamilyName(testAdmin.getFamilyName());
-        userChangeForm.setFatherName(testAdmin.getFatherName());
+        userChangeForm.setFirstName(testExecuteAdmin.getFirstName());
+        userChangeForm.setFamilyName(testExecuteAdmin.getFamilyName());
+        userChangeForm.setFatherName(testExecuteAdmin.getFatherName());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("administrator");
         model.addAttribute("editable_content", AdminHTML.adminChange());
-        model.addAttribute("user_name", testAdmin.getFirstName());
-        model.addAttribute("user_family", testAdmin.getFamilyName());
+        model.addAttribute("user_name", testExecuteAdmin.getFirstName());
+        model.addAttribute("user_family", testExecuteAdmin.getFamilyName());
         return modelAndView;
     }
 
@@ -86,8 +77,8 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("administrator");
         model.addAttribute("editable_content", AdminHTML.adminSendMessage());
-        model.addAttribute("user_name", testAdmin.getFirstName());
-        model.addAttribute("user_family", testAdmin.getFamilyName());
+        model.addAttribute("user_name", testExecuteAdmin.getFirstName());
+        model.addAttribute("user_family", testExecuteAdmin.getFamilyName());
         return modelAndView;
     }
 
@@ -97,8 +88,8 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("administrator");
         model.addAttribute("editable_content", AdminHTML.adminMessages());
-        model.addAttribute("user_name", testAdmin.getFirstName());
-        model.addAttribute("user_family", testAdmin.getFamilyName());
+        model.addAttribute("user_name", testExecuteAdmin.getFirstName());
+        model.addAttribute("user_family", testExecuteAdmin.getFamilyName());
         return modelAndView;
     }
     @GetMapping(value = "/amessages")
@@ -106,8 +97,8 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("administrator");
         model.addAttribute("editable_content", AdminHTML.adminMessages());
-        model.addAttribute("user_name", testAdmin.getFirstName());
-        model.addAttribute("user_family", testAdmin.getFamilyName());
+        model.addAttribute("user_name", testExecuteAdmin.getFirstName());
+        model.addAttribute("user_family", testExecuteAdmin.getFamilyName());
         return modelAndView;
     }
 
@@ -116,8 +107,8 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("administrator");
         model.addAttribute("editable_content", AdminHTML.adminAddUsers());
-        model.addAttribute("user_name", testAdmin.getFirstName());
-        model.addAttribute("user_family", testAdmin.getFamilyName());
+        model.addAttribute("user_name", testExecuteAdmin.getFirstName());
+        model.addAttribute("user_family", testExecuteAdmin.getFamilyName());
         return modelAndView;
     }
 
@@ -126,8 +117,8 @@ public class AdminController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("administrator");
         model.addAttribute("editable_content", AdminHTML.adminChangeUsers());
-        model.addAttribute("user_name", testAdmin.getFirstName());
-        model.addAttribute("user_family", testAdmin.getFamilyName());
+        model.addAttribute("user_name", testExecuteAdmin.getFirstName());
+        model.addAttribute("user_family", testExecuteAdmin.getFamilyName());
         return modelAndView;
     }
 }

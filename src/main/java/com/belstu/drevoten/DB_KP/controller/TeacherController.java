@@ -1,16 +1,10 @@
 package com.belstu.drevoten.DB_KP.controller;
 
-import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
 import com.belstu.drevoten.DB_KP.controllerHelper.TeacherHTML;
 import com.belstu.drevoten.DB_KP.forms.KursTaskForm;
 import com.belstu.drevoten.DB_KP.forms.UserChangeForm;
-import com.belstu.drevoten.DB_KP.forms.UserTypeForm;
-import com.belstu.drevoten.DB_KP.model.Student;
-import com.belstu.drevoten.DB_KP.model.Teacher;
+import com.belstu.drevoten.DB_KP.model.Teachers;
 import com.belstu.drevoten.DB_KP.model.UserGender;
-import com.belstu.drevoten.DB_KP.model.UserType;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,15 +16,15 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class TeacherController {
 
-    Teacher testTeacher = new Teacher("71201092", "Marina", "Dubovik", "Vladimirovna", UserGender.Female, "71201092", "ISiT", 0);
+    Teachers testTeachers = new Teachers("71201092", "Marina", "Dubovik", "Vladimirovna", UserGender.Female, "71201092", "ISiT", 0);
 
     @GetMapping(value="/tsettings")
     public ModelAndView settings(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
         model.addAttribute("editable_content", TeacherHTML.teacherSettings());
-        model.addAttribute("user_name", testTeacher.getFirstName());
-        model.addAttribute("user_family", testTeacher.getFamilyName());
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;
     }
 
@@ -38,9 +32,9 @@ public class TeacherController {
     public ModelAndView backToMain(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
-        model.addAttribute("editable_content", TeacherHTML.teacherMain(testTeacher));
-        model.addAttribute("user_name", testTeacher.getFirstName());
-        model.addAttribute("user_family", testTeacher.getFamilyName());
+        model.addAttribute("editable_content", TeacherHTML.teacherMain(testTeachers));
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;
     }
 
@@ -50,8 +44,8 @@ public class TeacherController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
         model.addAttribute("editable_content", TeacherHTML.teacherMessages());
-        model.addAttribute("user_name", testTeacher.getFirstName());
-        model.addAttribute("user_family", testTeacher.getFamilyName());
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;
     }
     @GetMapping(value = "/tmessages")
@@ -59,23 +53,23 @@ public class TeacherController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
         model.addAttribute("editable_content", TeacherHTML.teacherMessages());
-        model.addAttribute("user_name", testTeacher.getFirstName());
-        model.addAttribute("user_family", testTeacher.getFamilyName());
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;
     }
 
     @GetMapping(value = "/tchange")
     public ModelAndView changeView(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
 
-        userChangeForm.setFirstName(testTeacher.getFirstName());
-        userChangeForm.setFamilyName(testTeacher.getFamilyName());
-        userChangeForm.setFatherName(testTeacher.getFatherName());
+        userChangeForm.setFirstName(testTeachers.getFirstName());
+        userChangeForm.setFamilyName(testTeachers.getFamilyName());
+        userChangeForm.setFatherName(testTeachers.getFatherName());
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
         model.addAttribute("editable_content", TeacherHTML.teacherChange());
-        model.addAttribute("user_name", testTeacher.getFirstName());
-        model.addAttribute("user_family", testTeacher.getFamilyName());
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;
     }
 
@@ -84,8 +78,8 @@ public class TeacherController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
         model.addAttribute("editable_content", TeacherHTML.teacherChange());
-        model.addAttribute("user_name", testTeacher.getFirstName());
-        model.addAttribute("user_family", testTeacher.getFamilyName());
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
         if (userChangeForm.getNewPassword() != null) {
             if (!userChangeForm.getNewPassword().equals(userChangeForm.getCheckNewPassword())) {
                 model.addAttribute("event", "The password in confirm field is not equal to the new password!");
@@ -104,8 +98,8 @@ public class TeacherController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
         model.addAttribute("editable_content", TeacherHTML.teacherSendMessage());
-        model.addAttribute("user_name", testTeacher.getFirstName());
-        model.addAttribute("user_family", testTeacher.getFamilyName());
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;
     }
 
@@ -114,8 +108,8 @@ public class TeacherController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
         model.addAttribute("editable_content", TeacherHTML.teacherCreateTask());
-        model.addAttribute("user_name", testTeacher.getFirstName());
-        model.addAttribute("user_family", testTeacher.getFamilyName());
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;
     }
 
@@ -124,8 +118,8 @@ public class TeacherController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
         model.addAttribute("editable_content", TeacherHTML.teacherCreateTask());
-        model.addAttribute("user_name", testTeacher.getFirstName());
-        model.addAttribute("user_family", testTeacher.getFamilyName());
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;
     }
 
@@ -134,8 +128,8 @@ public class TeacherController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
         model.addAttribute("editable_content", TeacherHTML.teacherProjectList());
-        model.addAttribute("user_name", testTeacher.getFirstName());
-        model.addAttribute("user_family", testTeacher.getFamilyName());
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
         model.addAttribute("inst_student", "71201091:");
         model.addAttribute("inst_name", "Programing Language DYV-2021");
         model.addAttribute("inst_date", "20.12.2021");

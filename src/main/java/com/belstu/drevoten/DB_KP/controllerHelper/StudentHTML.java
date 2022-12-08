@@ -1,12 +1,12 @@
 package com.belstu.drevoten.DB_KP.controllerHelper;
 
-import com.belstu.drevoten.DB_KP.model.Student;
+import com.belstu.drevoten.DB_KP.model.Students;
 
 public class StudentHTML {
 
-    public static String studentMain(Student student) {
+    public static String studentMain(Students students) {
         String response = "<div id=\"student\">\n<div id=\"hello-block\">\n<p>Welcome, " +
-                student.getFirstName() + " " + student.getFamilyName() +
+                students.getFirstName() + " " + students.getFamilyName() +
                 "</p>\n</div>\n<div id=\"user-stats\">\n<div id=\"calendar-plan\">\n" +
                 "<p class=\"calendar-plan-header\">Calendar plan of current project</p>\n";
         response +=

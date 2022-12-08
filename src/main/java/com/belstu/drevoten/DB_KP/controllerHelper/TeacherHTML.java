@@ -1,12 +1,12 @@
 package com.belstu.drevoten.DB_KP.controllerHelper;
 
-import com.belstu.drevoten.DB_KP.model.Teacher;
+import com.belstu.drevoten.DB_KP.model.Teachers;
 
 public class TeacherHTML {
 
-    public static String teacherMain(Teacher teacher)  {
+    public static String teacherMain(Teachers teachers)  {
         String response = "<div id=\"teacher\">\n<div id=\"hello-block\">\n<p>Welcome, " +
-                teacher.getFirstName() + " " + teacher.getFamilyName() +
+                teachers.getFirstName() + " " + teachers.getFamilyName() +
                 "</p>\n</div>\n<div id=\"main-teacher-body\">\n<div id=\"project-acceptance\">\n" +
                 " <div class=\"project-acceptance-header\">Acceptance of course projects</div>\n";
         response +=
