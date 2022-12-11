@@ -10,6 +10,7 @@ import java.sql.NClob;
 @Data
 @Entity
 @Table(name = "COURSE_PROJECT_TASK")
+@IdClass(CourseProjectTaskId.class)
 @AllArgsConstructor
 @NoArgsConstructor
 public class Course_Project_Task {

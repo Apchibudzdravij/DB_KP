@@ -12,6 +12,7 @@ import java.sql.NClob;
 @Data
 @Entity
 @Table(name = "COURSE_PROJECTS")
+@IdClass(CourseProjectsId.class)
 @AllArgsConstructor
 @NoArgsConstructor
 public class Course_Projects {

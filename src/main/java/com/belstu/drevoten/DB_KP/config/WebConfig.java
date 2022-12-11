@@ -23,7 +23,7 @@ public class WebConfig {
     {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
         dataSourceBuilder.driverClassName("oracle.jdbc.OracleDriver");
-        dataSourceBuilder.url("jdbc:oracle:thin:@tcp:localhost:1521/DB_KP_PDB");
+        dataSourceBuilder.url("jdbc:oracle:thin:@192.168.211.131:1521/DB_KP_PDB");
         dataSourceBuilder.username("THE_LOST_ONE");
         dataSourceBuilder.password("the_lost_one");
         return dataSourceBuilder.build();
