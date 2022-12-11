@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserTypeForm {
     private String AdminID;
-    private String Type;
+    private Character Type;
     private String Password;
 
     public String getPassword() {
@@ -28,11 +28,11 @@ public class UserTypeForm {
         AdminID = adminID;
     }
 
-    public String getType() {
+    public Character getType() {
         return Type;
     }
 
-    public void setType(String type) {
+    public void setType(Character type) {
         Type = type;
     }
 }

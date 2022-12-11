@@ -1,10 +1,10 @@
 package com.belstu.drevoten.DB_KP.controllerHelper;
 
-import com.belstu.drevoten.DB_KP.model.Students;
+import com.belstu.drevoten.DB_KP.model.StudentsNoPass;
 
 public class StudentHTML {
 
-    public static String studentMain(Students students) {
+    public static String studentMain(StudentsNoPass students) {
         String response = "<div id=\"student\">\n<div id=\"hello-block\">\n<p>Welcome, " +
                 students.getFirstName() + " " + students.getFamilyName() +
                 "</p>\n</div>\n<div id=\"user-stats\">\n<div id=\"calendar-plan\">\n" +

@@ -3,6 +3,7 @@ package com.belstu.drevoten.DB_KP.controller;
 import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
 import com.belstu.drevoten.DB_KP.forms.UserChangeForm;
 import com.belstu.drevoten.DB_KP.model.Students;
+import com.belstu.drevoten.DB_KP.model.StudentsNoPass;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class StudentController {
 
-    Students testStudents = new Students("71201091", "Eugene", "Drevoten", "Vladimirovich", "Male", "71201091", 3, "5-2", "FIT", "POIT", 0);
+    StudentsNoPass testStudents = new StudentsNoPass("71201091", "Eugene", "Drevoten", "Vladimirovich", 2, 3, "5-2", "FIT", "POIT", 0, "E", "S");
 
     @GetMapping(value="/ssettings")
     public ModelAndView settings(Model model) {

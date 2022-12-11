@@ -21,5 +21,5 @@ public class User_List {
     @Column(name = "UserID")
     private String UserId;
     @Column(name = "UserType")
-    private String UserType;
+    private Character UserType;
 }
