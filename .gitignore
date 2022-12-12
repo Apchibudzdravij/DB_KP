@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+/jars/dms-12.2.0.1.jar
+/jars/ojdbc8_g-12.2.0.1.jar
+/jars/ojdbc8dms-12.2.0.1.jar
+/jars/ojdbc8dms_g-12.2.0.1.jar
