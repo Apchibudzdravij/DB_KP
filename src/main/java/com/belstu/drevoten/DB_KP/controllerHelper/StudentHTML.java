@@ -1,15 +1,22 @@
 package com.belstu.drevoten.DB_KP.controllerHelper;
 
+import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
+import com.belstu.drevoten.DB_KP.model.Messages;
+import com.belstu.drevoten.DB_KP.model.Notifications;
 import com.belstu.drevoten.DB_KP.model.StudentsNoPass;
+
+import java.util.List;
 
 public class StudentHTML {
 
+    private static MainDAO mainDAO;
     public static String studentMain(StudentsNoPass students) {
-        String response = "<div id=\"student\">\n<div id=\"hello-block\">\n<p>Welcome, " +
+        mainDAO = new MainDAO();
+        final String[] response = {"<div id=\"student\">\n<div id=\"hello-block\">\n<p>Welcome, " +
                 students.getFirstName() + " " + students.getFamilyName() +
                 "</p>\n</div>\n<div id=\"user-stats\">\n<div id=\"calendar-plan\">\n" +
-                "<p class=\"calendar-plan-header\">Calendar plan of current project</p>\n";
-        response +=
+                "<p class=\"calendar-plan-header\">Calendar plan of current project</p>\n"};
+        response[0] +=
                 "                    <!-- TODO foreach of these plan -->\n" +
                 "                    <div class=\"step-of-plan\">\n" +
                 "                        <p class=\"date-in-plan\">13.10.2022</p>\n" +
@@ -26,19 +33,25 @@ public class StudentHTML {
                 "                        <input type=\"checkbox\" class=\"step-of-project\" value=\"Step from user list #2\">\n" +
                 "                            Project handover<hr/>\n" +
                 "                    </div>\n";
-        response +=
+        response[0] +=
                 "</div>\n<div id=\"general-stats\">\n<div id=\"uniqueness\">\n" +
                 "                        <!-- TODO auto calculating of % of uniqueness-->\n" +
                 "                        <p class=\"ready-percent\">You did not send explanatory note!</p>\n" +
                                         "<button class=\"guiable\">Send!</button>" +
-                "</div>\n<div id=\"notifics\">\n";
-        response +=
-                "                        <!-- TODO notifications -->\n" +
-                "                        <p class=\"notification-header\">Notifications</p>\n" +
-                "                        <p class=\"notification\"> * No new notifications <span style=\"font-style: normal\">♡( ◡‿◡ )</span></p>\n";
-        response +=
+                "</div>\n<div id=\"notifics\">\n<p class=\"notification-header\">Notifications</p>\n";
+        List<Notifications> notificationsList = mainDAO.getNotifications(students.getStudentID(), "student");
+        if (notificationsList.size()==0)
+            response[0] += "<p class=\"notification\"> * No new notifications " +
+                    "<span style=\"font-style: normal\">♡( ◡‿◡ )</span></p>\n";
+        else
+            notificationsList.forEach(note -> {
+                response[0] += "<p class=\"notification\">" +
+                                note.getContentText() +
+                                "</span></p>\n";
+            });
+        response[0] +=
                 "</div>\n</div>\n</div>\n</div>";
-        return response;
+        return response[0];
     }
 
     public static String studentSettings() {
@@ -91,37 +104,43 @@ public class StudentHTML {
                 "        </div>";
     }
 
-    public static String studentMessages(){
-        return "<div id=\"student\">\n" +
+    public static String studentMessages(StudentsNoPass students){
+        mainDAO = new MainDAO();
+        final String[] response = {"<div id=\"student\">\n" +
                 "            <div id=\"hello-block\">\n" +
                 "                <p>Messages</p>\n" +
                 "            </div>\n" +
-                "            <div id=\"message-list\">\n" +
-                "                <!--TODO auto list from DB-->\n" +
-                "                <div class=\"message\">\n" +
+                "            <div id=\"message-list\">\n"};
+        List<Messages> messagesList = mainDAO.getMessages(students.getStudentID(), "student");
+        if (messagesList.size()==0)
+            response[0] += "<div class=\"message\">\n" +
                 "                    <div class=\"message-head\">\n" +
-                "                        <div class=\"mes-sender\">*  71201091:</div>\n" +
-                "                        <div class=\"mes-header\">Test 1</div>\n" +
-                "                        <div class=\"mes-date-sent\">29.11.2022 23:57</div>\n" +
+                "                        <div class=\"mes-sender\">*  No</div>\n" +
+                "                        <div class=\"mes-header\">new</div>\n" +
+                "                        <div class=\"mes-date-sent\">messages</div>\n" +
                 "                    </div>\n" +
-                "                    <div class=\"message-body\">\n" +
-                "                        <textarea readonly class=\"message-content\">Hello from test 1</textarea>\n" +
-                "                        <button class=\"guiable answerable\">Answer</button>\n" +
-                "                    </div>\n" +
-                "                </div>\n" +
-                "                <div class=\"message\">\n" +
-                "                    <div class=\"message-head\">\n" +
-                "                        <div class=\"mes-sender\">*  71201091:</div>\n" +
-                "                        <div class=\"mes-header\">Test 2</div>\n" +
-                "                        <div class=\"mes-date-sent\">29.11.2022 23:59</div>\n" +
-                "                    </div>\n" +
-                "                    <div class=\"message-body\">\n" +
-                "                        <textarea readonly class=\"message-content\">Hello from test 2</textarea>\n" +
-                "                        <button class=\"guiable answerable\">Answer</button>\n" +
-                "                    </div>\n" +
-                "                </div>\n" +
+                "                </div>\n";
+        else
+            messagesList.forEach(note -> {
+                response[0] +="<div class=\"message\">\n<div class=\"message-head\">\n" +
+                              "<div class=\"mes-sender\">*  " +
+                        note.getSender() +
+                        ":</div>\n<div class=\"mes-header\">" +
+                        note.getSubject() +
+                        "</div>\n<div class=\"mes-date-sent\">" +
+                        note.getDateAndTime() +
+                        "</div>\n</div>\n<div class=\"message-body\">\n" +
+                        "<textarea readonly class=\"message-content\">" +
+                        note.getMessageBody() +
+                        "</textarea>\n<button class=\"guiable answerable\" onclick=\"";
+                ///TODO onclick answer
+                response[0] +="\">Answer</button>\n</div>\n</div>\n";
+            });
+
+        response[0] +=
                 "            </div>\n" +
                 "        </div>";
+        return response[0];
     }
 
     public static String studentChange() {

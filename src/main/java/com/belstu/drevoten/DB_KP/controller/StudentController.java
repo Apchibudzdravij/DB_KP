@@ -15,10 +15,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class StudentController {
 
-    StudentsNoPass testStudents = new StudentsNoPass("71201091", "Eugene", "Drevoten", "Vladimirovich", 2, 3, "5-2", "FIT", "POIT", 0, "E", "S");
+    StudentsNoPass testStudents;// = new StudentsNoPass("71201091", "Eugene", "Drevoten", "Vladimirovich", 2, 3, "5-2", "FIT", "POIT", 0, "E", "S");
 
     @GetMapping(value="/ssettings")
     public ModelAndView settings(Model model) {
+
+        testStudents = (StudentsNoPass) model.getAttribute("user_entity");
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
         model.addAttribute("editable_content", StudentHTML.studentSettings());
@@ -28,44 +31,62 @@ public class StudentController {
     }
     @GetMapping(value="/student")
     public ModelAndView backToMain(Model model) {
+
+        testStudents = (StudentsNoPass) model.getAttribute("user_entity");
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
         model.addAttribute("editable_content", StudentHTML.studentMain(testStudents));
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
+        model.addAttribute("user_entity", testStudents);
         return modelAndView;
     }
     @GetMapping(value="/askquestion")
     public ModelAndView askQuestion(Model model) {
+
+        testStudents = (StudentsNoPass) model.getAttribute("user_entity");
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
         model.addAttribute("editable_content", StudentHTML.studentAsk());
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
+        model.addAttribute("user_entity", testStudents);
         return modelAndView;
     }
     @PostMapping(value = "/smessages")
     public ModelAndView messagesAfterSending(Model model) {
+
+        testStudents = (StudentsNoPass) model.getAttribute("user_entity");
+
         ///TODO sendidng
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
         model.addAttribute("editable_content", StudentHTML.studentMessages());
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
+        model.addAttribute("user_entity", testStudents);
         return modelAndView;
     }
     @GetMapping(value = "/smessages")
     public ModelAndView messages(Model model) {
+
+        testStudents = (StudentsNoPass) model.getAttribute("user_entity");
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
         model.addAttribute("editable_content", StudentHTML.studentMessages());
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
+        model.addAttribute("user_entity", testStudents);
         return modelAndView;
     }
 
     @GetMapping(value = "/schange")
     public ModelAndView changeView(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
+
+        testStudents = (StudentsNoPass) model.getAttribute("user_entity");
 
         userChangeForm.setFirstName(testStudents.getFirstName());
         userChangeForm.setFamilyName(testStudents.getFamilyName());
@@ -76,11 +97,15 @@ public class StudentController {
         model.addAttribute("editable_content", StudentHTML.studentChange());
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
+        model.addAttribute("user_entity", testStudents);
         return modelAndView;
     }
 
     @PostMapping(value = "/schange")
     public ModelAndView changePost(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
+
+        testStudents = (StudentsNoPass) model.getAttribute("user_entity");
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
         model.addAttribute("editable_content", StudentHTML.studentChange());
@@ -95,12 +120,16 @@ public class StudentController {
         } else {
             model.addAttribute("event", "User information updated!");
         }
+        model.addAttribute("user_entity", testStudents);
 
         return modelAndView;
     }
 
     @GetMapping(value = "/coursePlan")
     public ModelAndView coursePlan(Model model) {
+
+        testStudents = (StudentsNoPass) model.getAttribute("user_entity");
+
         ModelAndView modelAndView = new ModelAndView();
 
         ///TODO projects list and amount
@@ -109,6 +138,7 @@ public class StudentController {
         model.addAttribute("editable_content", StudentHTML.studentCoursePlan());
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
+        model.addAttribute("user_entity", testStudents);
 
         model.addAttribute("project_amount", 3);
         model.addAttribute("uniqueness_value", 100);
@@ -121,11 +151,15 @@ public class StudentController {
 
     @GetMapping(value = "/myProjects")
     public ModelAndView myProjects(Model model) {
+
+        testStudents = (StudentsNoPass) model.getAttribute("user_entity");
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
         model.addAttribute("editable_content", StudentHTML.studentMyProjects());
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
+        model.addAttribute("user_entity", testStudents);
 
         model.addAttribute("average_mark", 9);
         model.addAttribute("average_uniqueness", 100);

@@ -6,7 +6,6 @@ import com.belstu.drevoten.DB_KP.forms.UserTypeForm;
 import com.belstu.drevoten.DB_KP.model.*;
 import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
 import com.belstu.drevoten.DB_KP.model.exceptions.ProblemPasswordException;
-import com.belstu.drevoten.DB_KP.services.MainServiceInt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -52,12 +51,15 @@ public class SignInController {
             switch (mainDAO.getIsUserInDB(tempID)){
                 case 's':
                     modelAndView.setViewName("student");
-                    StudentsNoPass student = mainDAO.getStudentIfPassword(tempID, tempPass);
+                    //StudentsNoPass student = mainDAO.getStudentIfPassword(tempID, tempPass);
+                    StudentsNoPass student = new StudentsNoPass("71201091", "Eugene", "Drevoten", "Vladimirovich",
+                            2, 3, "5-2", "FIT", "POIT", 0, "e", "s");
                     if (student == null)
                         throw new ProblemPasswordException("Incorrect username and/or password!");
                     model.addAttribute("editable_content", StudentHTML.studentMain(student));
                     model.addAttribute("user_name", student.getFirstName());
                     model.addAttribute("user_family", student.getFamilyName());
+                    model.addAttribute("user_entity", student);
                     break;
                 case 't':
                     modelAndView.setViewName("teacher");
@@ -77,7 +79,7 @@ public class SignInController {
                     modelAndView.setViewName("welcome");
                     break;
                 default  :
-                    System.err.println("Incorrect login");
+                    System.err.println("Incorrect crushing login");
                     model.addAttribute("errorMessage", "User not found");
                     model.addAttribute("message", message);
                     modelAndView.setViewName("welcome");
