@@ -59,7 +59,8 @@ public class SignInController {
                     model.addAttribute("editable_content", StudentHTML.studentMain(student));
                     model.addAttribute("user_name", student.getFirstName());
                     model.addAttribute("user_family", student.getFamilyName());
-                    model.addAttribute("user_entity", student);
+                    //model.addAttribute("user_entity", student);
+                    StudentController.testStudents = student;
                     break;
                 case 't':
                     modelAndView.setViewName("teacher");

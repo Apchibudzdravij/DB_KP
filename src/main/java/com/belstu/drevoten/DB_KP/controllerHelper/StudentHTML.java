@@ -1,9 +1,7 @@
 package com.belstu.drevoten.DB_KP.controllerHelper;
 
+import com.belstu.drevoten.DB_KP.model.*;
 import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
-import com.belstu.drevoten.DB_KP.model.Messages;
-import com.belstu.drevoten.DB_KP.model.Notifications;
-import com.belstu.drevoten.DB_KP.model.StudentsNoPass;
 
 import java.util.List;
 
@@ -54,54 +52,59 @@ public class StudentHTML {
         return response[0];
     }
 
-    public static String studentSettings() {
-        return "<div id=\"student\">\n" +
-                "            <div id=\"hello-block\">\n" +
-                "                <p>Settings</p>\n" +
-                "            </div>\n" +
-                "            <div id=\"user-settings\">\n" +
-                "                <div id=\"setting-block\">\n" +
-                "                    <div class=\"property\">\n" +
-                "                        <div class=\"key-prop\">Theme:</div>\n" +
-                "                        <div class=\"value-prop\">\n" +
-                "                            <select class=\"select-list\">\n" +
-                "                                <option value=\"Standard_Classic\">Standard Classic</option>\n" +
-                "                            </select>\n" +
-                "                        </div>\n" +
-                "                    </div>\n" +
-                "                    <div class=\"property\">\n" +
-                "                        <div class=\"key-prop\">Language:</div>\n" +
-                "                        <div class=\"value-prop\">\n" +
-                "                            <select class=\"select-list\">\n" +
-                "                                <option value=\"english\">English</option>\n" +
-                "                            </select>\n" +
-                "                        </div>\n" +
-                "                    </div>\n" +
-                "                </div>\n" +
-                "                <div id=\"control-save\">\n" +
-                "                    <button class=\"settingable\" value=\"Default\">Default</button>\n" +
-                "                    <button class=\"settingable\" value=\"Save\">Save</button>\n" +
-                "                </div>\n" +
-                "            </div>\n" +
-                "        </div>";
+    public static String studentSettings(boolean ismessageok) {
+        Localizations localizations = new Localizations();
+        Themes themes = new Themes();
+        String[] response = {"<div id=\"student\">\n" +
+                            "<div id=\"hello-block\">\n" +
+                                "<p>Settings</p>\n" +
+                            "</div>\n" +
+                            "<form id=\"user-settings\" method=\"POST\" action=\"ssettings\" modelAttribute=\"userpropsform\">\n" +
+                                "<div id=\"setting-block\">\n" +
+                                    "<div class=\"property\">\n" +
+                                        "<div class=\"key-prop\">Language:</div>\n" +
+                                        "<div class=\"value-prop\">\n" +
+                                            "<select class=\"select-list\" id=\"lang\" name=\"lang\" path=\"lang\">\n"};
+        localizations.getLanguageList().forEach(
+                lang -> response[0] += "<option value=\"" + lang.getLetter() +
+                                       "\">" + lang.getName() +"</option>\n"
+        );
+        response[0] += "</select>\n</div>\n</div>   \n<div class=\"property\">\n" +
+                "<div class=\"key-prop\">Theme:</div>\n<div class=\"value-prop\">\n" +
+                "<select class=\"select-list\" id=\"theme\" name=\"theme\" path=\"color\">\n";
+        themes.getThemesList().forEach(
+                themeEntity -> response[0] += "<option value=\"" + themeEntity.getLetter() +
+                        "\">" + themeEntity.getName() + "</option>\n"
+        );
+        response[0] += "</select>\n</div>\n</div>\n</div>\n<div id=\"control-save\">\n";
+        if (ismessageok)
+            response[0] += "new properties saved";
+        else
+            response[0] += "no changes";
+        response[0] += "<input type=\"submit\" class=\"settingable\" value=\"Save\" />\n" +
+                "</div></form>\n</div>";
+        return response[0];
     }
 
-    public static String studentAsk() {
+    public static String studentAsk(String receiver, String subject) {
         return "<div id=\"student\">\n" +
-                "            <div id=\"hello-block\">\n" +
-                "                <p>Ask question</p>\n" +
-                "            </div>\n" +
-                "            <div id=\"ask-form\">\n" +
-                "                <form th:method=\"POST\" th:action=\"@{/smessages}\" id=\"ask-form-body\">\n" +
-                "                    <div class=\"inlineField\">\n" +
-                "                        <p id=\"to\">To: </p><input id=\"ask_receiver\" type=\"text\" /><div class=\"shadow-text\"><p>[ID], \"Administrator\", \"Teacher\" or [Family name, First name, Father name]</p></div>\n" +
-                "                    </div><br/>\n" +
-                "                    <input id=\"ask_header\" type=\"text\" placeholder=\"Header\" /><br/>\n" +
-                "                    <textarea cols=\"4\" placeholder=\"Message\" id=\"ask_message\"></textarea><br/>\n" +
-                "                    <input id=\"ask_send\" type=\"submit\" value=\"Send\"/>\n" +
-                "                </form>\n" +
-                "            </div>\n" +
-                "        </div>";
+                            "<div id=\"hello-block\">\n" +
+                                "<p>Ask question</p>\n" +
+                            "</div>\n" +
+                            "<div id=\"ask-form\">\n" +
+                                "<form method=\"POST\" action=\"smessages\" id=\"ask-form-body\">\n" +
+                                    "<div class=\"inlineField\">\n" +
+                                        "<p id=\"to\">To: </p><input id=\"ask_receiver\" name=\"ask_receiver\" type=\"text\" value=\";" +
+                receiver + " />" +
+                                        "<div class=\"shadow-text\"><p>[ID], \"Administrator\", \"Teacher\" or [Family name, First name, Father name]</p></div>\n" +
+                                    "</div><br/>\n" +
+                                    "<input id=\"ask_header\" name=\"ask_header\" type=\"text\" placeholder=\"Header\" value=\"" +
+                subject +  " /><br/>\n" +
+                                    "<textarea cols=\"4\" placeholder=\"Message\" id=\"ask_message\" name=\"ask_message\"></textarea><br/>\n" +
+                                    "<input id=\"ask_send\" type=\"submit\" value=\"Send\"/>\n" +
+                                "</form>\n" +
+                            "</div>\n" +
+                        "</div>";
     }
 
     public static String studentMessages(StudentsNoPass students){
@@ -136,7 +139,6 @@ public class StudentHTML {
                 ///TODO onclick answer
                 response[0] +="\">Answer</button>\n</div>\n</div>\n";
             });
-
         response[0] +=
                 "            </div>\n" +
                 "        </div>";
@@ -148,7 +150,7 @@ public class StudentHTML {
                 "            <div id= \"hello-block\">\n" +
                 "                <p>Change user information</p>\n" +
                 "            </div>\n" +
-                "            <form id= \"user-settings\" method=\"POST\" th:action=\"@{schange}\" th:object=\"${userchangeform}\">\n" +
+                "            <form id= \"user-settings\" method=\"POST\" action=\"/schange\" modelAttribute=\"userchangeform\">\n" +
                 "                <div id= \"setting-block\">\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">First name:</div>\n" +

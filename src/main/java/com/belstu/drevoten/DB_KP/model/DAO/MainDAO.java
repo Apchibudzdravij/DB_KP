@@ -27,7 +27,7 @@ import static java.sql.Types.STRUCT;
 
 public class MainDAO {
 
-    private String serverURI = "jdbc:oracle:thin:@192.168.201.157:1521/DB_KP_PDB";
+    private String serverURI = "jdbc:oracle:thin:@192.168.201.160:1521/DB_KP_PDB";
 
     public Character getIsUserInDB(String suserid) {
         try {
@@ -40,7 +40,7 @@ public class MainDAO {
             cstmt.setString(3, userType);
             cstmt.execute();
             String result = cstmt.getString(1);
-            System.out.print("getIsUserInDB Result: " + result);
+            System.out.print("getIsUserInDB Result: " + result.charAt(0));
             cstmt.close();
             conn.close();
             return result.charAt(0);
@@ -77,7 +77,7 @@ public class MainDAO {
 
     public List<Notifications> getNotifications(String id, String who) {
 
-        String runSP = "begin GetNotificationProc(?,?); end;";
+        String runSP = "call GetNotificationProc(?,?)";
         List<Notifications> notificationsList = new LinkedList<>();
         Notifications note;
         String user;
@@ -127,7 +127,7 @@ public class MainDAO {
 
     public List<Messages> getMessages(String id, String who) {
 
-        String runSP = "begin GetMessagesProc(?,?); end;";
+        String runSP = "call GetMessagesProc(?,?)";
         List<Messages> messagesList = new LinkedList<>();
         Messages mess;
         String user;
@@ -149,7 +149,6 @@ public class MainDAO {
         }
         try (Connection conn = DriverManager.getConnection(
                 serverURI, user, pass);
-             Statement statement = conn.createStatement();
              CallableStatement cs = conn.prepareCall(runSP);
         ) {
             cs.setString(1, id);
@@ -175,5 +174,39 @@ public class MainDAO {
             System.err.println("MainDAO getNotifications: " + e.getMessage());
         }
         return messagesList;
+    }
+
+    public boolean saveProperties(String id, String lang, String theme, String who) {
+
+        String runSP = "call ChangeUserProperties(?,?,?)";
+        String user;
+        String pass;
+        switch (who) {
+            case "student" -> {
+                user = "KP_USER_STUDENT";
+                pass = "kp_user_student";
+            }
+            case "teacher" -> {
+                user = "KP_USER_TEACHER";
+                pass = "kp_user_teacher";
+            }
+            default -> {
+                user = "KP_USER_ADMIN";
+                pass = "kp_user_admin";
+            }
+        }
+        try (Connection conn = DriverManager.getConnection(
+                serverURI, user, pass);
+             CallableStatement cs = conn.prepareCall(runSP);
+        ) {
+            cs.setString(1, id);
+            cs.setString(2, lang);
+            cs.setString(3, theme);
+            cs.execute();
+            return true;
+        } catch (Exception e) {
+            System.err.println("MainDAO getNotifications: " + e.getMessage());
+            return false;
+        }
     }
 }
