@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
 
 @Data
 @Entity
@@ -24,8 +25,6 @@ public class StudentsNoPass {
     private String FamilyName;
     @Column(name = "FatherName")
     private String FatherName;
-    @Column(name = "Gender")
-    private Integer Gender;
     @Column(name = "Kurs")
     private Integer Kurs;
     @Column(name = "Group")
@@ -36,6 +35,9 @@ public class StudentsNoPass {
     private String Special;
     @Column(name = "UnreadMessages")
     private Integer UnreadMessages;
+    @Column(name = "Gender")
+    @Digits(integer=2, fraction=0, message = "No more than 2 digits")
+    private Integer Gender;
     @Column(name="UserLanguage")
     private String UserLanguage;
     @Column(name="UserTheme")

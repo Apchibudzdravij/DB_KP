@@ -3,9 +3,11 @@ package com.belstu.drevoten.DB_KP.controller;
 import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
 import com.belstu.drevoten.DB_KP.forms.UserChangeForm;
 import com.belstu.drevoten.DB_KP.forms.UserPropsForm;
+import com.belstu.drevoten.DB_KP.model.DAO.AuthDAO;
 import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
 import com.belstu.drevoten.DB_KP.model.Students;
 import com.belstu.drevoten.DB_KP.model.StudentsNoPass;
+import com.belstu.drevoten.DB_KP.model.UserGender;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,14 +15,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-
+import javax.validation.constraints.NotNull;
 
 @Controller
-@SessionAttributes("user_entity")
 public class StudentController {
 
     static StudentsNoPass testStudents;// = new StudentsNoPass("71201091", "Eugene", "Drevoten", "Vladimirovich", 2, 3, "5-2", "FIT", "POIT", 0, "E", "S");
     MainDAO mainDAO;
+    AuthDAO authDAO;
 
     @GetMapping(value="/ssettings")
     public ModelAndView settings(Model model) {
@@ -34,7 +36,7 @@ public class StudentController {
 
     @PostMapping(value="/ssettings")
     public ModelAndView newSettings(Model model, @Valid @ModelAttribute("userpropsform") UserPropsForm userPropsForm,
-                                    @RequestParam("lang") String lang, @RequestParam("theme") String theme) {
+                                    @NotNull @RequestParam("lang") String lang, @NotNull @RequestParam("theme") String theme) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
         mainDAO = new MainDAO();
@@ -64,17 +66,23 @@ public class StudentController {
     public ModelAndView askQuestion(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
-        model.addAttribute("editable_content", StudentHTML.studentAsk("",""));
+        model.addAttribute("editable_content", StudentHTML.studentAsk("","", ""));
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
         return modelAndView;
     }
-    @PostMapping(value = "/smessages")
-    public ModelAndView messagesAfterSending(Model model) {
-        ///TODO sendidng
+    @PostMapping(value = "/askquestion")
+    public ModelAndView messagesAfterSending(Model model, @RequestParam("ask_receiver") String ask_receiver,
+                                             @NotNull @RequestParam("ask_header") String ask_header,
+                                             @NotNull @RequestParam("ask_message") String ask_message) {
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
-        model.addAttribute("editable_content", StudentHTML.studentMessages(testStudents));
+        mainDAO = new MainDAO();
+        if (mainDAO.sendMessage(testStudents.getStudentID(), ask_receiver, ask_header, ask_message, "student"))
+            model.addAttribute("editable_content", StudentHTML.studentAsk("","","Sent successfully"));
+        else
+            model.addAttribute("editable_content", StudentHTML.studentAsk("","","Was not send"));
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
         return modelAndView;
@@ -93,37 +101,58 @@ public class StudentController {
     @GetMapping(value = "/schange")
     public ModelAndView changeView(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
 
-        userChangeForm.setFirstName(testStudents.getFirstName());
-        userChangeForm.setFamilyName(testStudents.getFamilyName());
-        userChangeForm.setFatherName(testStudents.getFatherName());
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
-        model.addAttribute("editable_content", StudentHTML.studentChange());
+        model.addAttribute("editable_content", StudentHTML.studentChange(testStudents, ""));
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
         return modelAndView;
     }
 
     @PostMapping(value = "/schange")
-    public ModelAndView changePost(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
-        ///TODO DB request
+    public ModelAndView changePost(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm,
+                                   @NotNull @RequestParam("firstName") String firstName,
+                                   @NotNull @RequestParam("familyName") String familyName,
+                                   @NotNull @RequestParam("fatherName") String fatherName,
+                                   @NotNull @RequestParam("gender") String gender,
+                                   @RequestParam("newPassword") String newPassword,
+                                   @RequestParam("checkNewPassword") String checkNewPassword,
+                                   @NotNull @RequestParam("password") String password) {
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
-        model.addAttribute("editable_content", StudentHTML.studentChange());
-        model.addAttribute("user_name", testStudents.getFirstName());
-        model.addAttribute("user_family", testStudents.getFamilyName());
-        ///TODO into helpHTML
-        if (userChangeForm.getNewPassword() != null) {
-            if (!userChangeForm.getNewPassword().equals(userChangeForm.getCheckNewPassword())) {
-                model.addAttribute("event", "The password in confirm field is not equal to the new password!");
-            } else if (userChangeForm.getNewPassword().equals(userChangeForm.getPassword())) {
-                model.addAttribute("event", "The new password cannot equals to the old password!");
+
+        if (!newPassword.equals("")) {
+            if (!newPassword.equals(checkNewPassword)) {
+                model.addAttribute("editable_content", StudentHTML.studentChange(testStudents, "The password in confirm field is not equal to the new password!"));
+            } else if (newPassword.equals(password)) {
+                model.addAttribute("editable_content", StudentHTML.studentChange(testStudents, "The new password cannot equals to the old password!"));
+            } else {
+                mainDAO = new MainDAO();
+                authDAO = new AuthDAO();
+                mainDAO.updateUser(testStudents.getStudentID(), firstName, familyName, fatherName, newPassword, UserGender.valueOf(gender).ordinal(), password, "student");
+                StudentsNoPass tempStudent = authDAO.getStudentIfPassword(testStudents.getStudentID(), newPassword);
+                if (tempStudent != null ) {
+                    testStudents = tempStudent;
+                    model.addAttribute("editable_content", StudentHTML.studentChange(testStudents, "User information updated!"));
+                } else {
+                    model.addAttribute("editable_content", StudentHTML.studentChange(testStudents, "Incorrect actual password!"));
+                }
             }
         } else {
-            model.addAttribute("event", "User information updated!");
+            mainDAO = new MainDAO();
+            authDAO = new AuthDAO();
+            mainDAO.updateUser(testStudents.getStudentID(), firstName, familyName, fatherName, password, UserGender.valueOf(gender).ordinal(), password, "student");
+            StudentsNoPass tempStudent = authDAO.getStudentIfPassword(testStudents.getStudentID(), password);
+            if (tempStudent != null ) {
+                testStudents = tempStudent;
+                model.addAttribute("editable_content", StudentHTML.studentChange(testStudents, "User information updated!"));
+            } else {
+                model.addAttribute("editable_content", StudentHTML.studentChange(testStudents, "Incorrect actual password!"));
+            }
         }
-        model.addAttribute("user_entity", testStudents);
+        model.addAttribute("user_name", testStudents.getFirstName());
+        model.addAttribute("user_family", testStudents.getFamilyName());
 
         return modelAndView;
     }
@@ -168,14 +197,5 @@ public class StudentController {
         model.addAttribute("average_uniqueness", 100);
 
         return modelAndView;
-    }
-
-    @ModelAttribute("user_name")
-    String getUserName() {
-        return testStudents.getFirstName();
-    }
-    @ModelAttribute("user_family")
-    String getUserSirname() {
-        return testStudents.getFamilyName();
     }
 }

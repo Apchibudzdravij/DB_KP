@@ -4,6 +4,7 @@ import com.belstu.drevoten.DB_KP.controllerHelper.AdminHTML;
 import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
 import com.belstu.drevoten.DB_KP.forms.UserTypeForm;
 import com.belstu.drevoten.DB_KP.model.*;
+import com.belstu.drevoten.DB_KP.model.DAO.AuthDAO;
 import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
 import com.belstu.drevoten.DB_KP.model.exceptions.ProblemPasswordException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +13,17 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 
 @Controller
 public class SignInController {
@@ -38,13 +42,13 @@ public class SignInController {
     private String errorMessage;
 
     @PostMapping(value = "/userpage")
-    public ModelAndView enter(Model model, @ModelAttribute("userForm") UserTypeForm userTypeForm) {
+    public ModelAndView enter(Model model, @Valid @ModelAttribute("userForm") UserTypeForm userTypeForm) {
         ModelAndView modelAndView = new ModelAndView();
 
         MainDAO mainDAO = new MainDAO();
+        AuthDAO authDAO = new AuthDAO();
 
         String tempID = userTypeForm.getAdminID();
-        Character tempType = userTypeForm.getType();
         String tempPass = userTypeForm.getPassword();
 
         try {
@@ -52,8 +56,8 @@ public class SignInController {
                 case 's':
                     modelAndView.setViewName("student");
                     //StudentsNoPass student = mainDAO.getStudentIfPassword(tempID, tempPass);
-                    StudentsNoPass student = new StudentsNoPass("71201091", "Eugene", "Drevoten", "Vladimirovich",
-                            2, 3, "5-2", "FIT", "POIT", 0, "e", "s");
+                    StudentsNoPass student = authDAO.getStudentIfPassword(tempID, tempPass);
+                            //new StudentsNoPass("71201091", "Eugene", "Drevoten", "Vladimirovich", 2, 3, "5-2", "FIT", "POIT", 0, "e", "s");
                     if (student == null)
                         throw new ProblemPasswordException("Incorrect username and/or password!");
                     model.addAttribute("editable_content", StudentHTML.studentMain(student));

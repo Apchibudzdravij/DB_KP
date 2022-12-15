@@ -27,7 +27,7 @@ import static java.sql.Types.STRUCT;
 
 public class MainDAO {
 
-    private String serverURI = "jdbc:oracle:thin:@192.168.201.160:1521/DB_KP_PDB";
+    public String serverURI = "jdbc:oracle:thin:@192.168.201.163:1521/DB_KP_PDB";
 
     public Character getIsUserInDB(String suserid) {
         try {
@@ -62,7 +62,7 @@ public class MainDAO {
             cstmt.setString(3, pass);
             cstmt.execute();
             StudentsNoPass[] result = (StudentsNoPass[]) cstmt.getObject(1);
-            System.out.print("getStudentIfPassword: " + result[0].toString());
+            System.out.print("getStudentIfPassword: " + result[0].toString() + "\n");
             cstmt.close();
             conn.close();
             return result[0];
@@ -166,7 +166,6 @@ public class MainDAO {
                         resultSet.getString("DateAndTime")
                 );
                 messagesList.add(mess);
-                System.out.println(mess);
             }
         } catch (SQLException e) {
             System.err.println("MainDAO getNotifications: SQL: " + e.getMessage());
@@ -205,7 +204,83 @@ public class MainDAO {
             cs.execute();
             return true;
         } catch (Exception e) {
-            System.err.println("MainDAO getNotifications: " + e.getMessage());
+            System.err.println("MainDAO changeUserProperties: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean sendMessage(String from, String to, String subject, String message, String who) {
+
+        String runSP = "call SendMessage(?,?,?,?)";
+        String user;
+        String pass;
+        switch (who) {
+            case "student" -> {
+                user = "KP_USER_STUDENT";
+                pass = "kp_user_student";
+            }
+            case "teacher" -> {
+                user = "KP_USER_TEACHER";
+                pass = "kp_user_teacher";
+            }
+            default -> {
+                user = "KP_USER_ADMIN";
+                pass = "kp_user_admin";
+            }
+        }
+        try (Connection conn = DriverManager.getConnection(
+                serverURI, user, pass);
+             CallableStatement cs = conn.prepareCall(runSP);
+        ) {
+            cs.setString(1, from);
+            cs.setString(2, to);
+            cs.setString(3, subject);
+            cs.setString(4, message);
+            cs.execute();
+            return true;
+        } catch (Exception e) {
+            System.err.println("MainDAO sendMessage: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean updateUser(String id, String name1, String name2, String name3, String userPass, Integer gender, String oldPass, String who) {
+
+        String runSP;
+        String user;
+        String pass;
+        switch (who) {
+            case "student" -> {
+                runSP = "call UpdateStudent(?,?,?,?,?,?,?)";
+                user = "KP_USER_STUDENT";
+                pass = "kp_user_student";
+            }
+            case "teacher" -> {
+                runSP = "call UpdateTeacher(?,?,?,?,?,?,?)";
+                user = "KP_USER_TEACHER";
+                pass = "kp_user_teacher";
+            }
+            default -> {
+                runSP = "call UpdateAdmin(?,?,?,?,?,?,?)";
+                user = "KP_USER_ADMIN";
+                pass = "kp_user_admin";
+            }
+        }
+        try (Connection conn = DriverManager.getConnection(
+                serverURI, user, pass);
+             CallableStatement cs = conn.prepareCall(runSP);
+        ) {
+            cs.setString(1, id);
+            cs.setString(2, name1);
+            cs.setString(3, name2);
+            cs.setString(4, name3);
+            cs.setString(5, userPass);
+            cs.setString(6, gender.toString());
+            cs.setString(7, oldPass);
+            cs.execute();
+            return true;
+        } catch (Exception e) {
+            System.err.println("MainDAO userChange: " + e.getMessage());
             return false;
         }
     }

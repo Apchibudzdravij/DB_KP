@@ -86,22 +86,22 @@ public class StudentHTML {
         return response[0];
     }
 
-    public static String studentAsk(String receiver, String subject) {
-        return "<div id=\"student\">\n" +
+    public static String studentAsk(String receiver, String subject, String wasSend) {
+        return          "<div id=\"student\">\n" +
                             "<div id=\"hello-block\">\n" +
                                 "<p>Ask question</p>\n" +
                             "</div>\n" +
                             "<div id=\"ask-form\">\n" +
-                                "<form method=\"POST\" action=\"smessages\" id=\"ask-form-body\">\n" +
+                                "<form method=\"POST\" action=\"askquestion\" id=\"ask-form-body\">\n" +
                                     "<div class=\"inlineField\">\n" +
-                                        "<p id=\"to\">To: </p><input id=\"ask_receiver\" name=\"ask_receiver\" type=\"text\" value=\";" +
-                receiver + " />" +
+                                        "<p id=\"to\">To: </p><input id=\"ask_receiver\" name=\"ask_receiver\" type=\"text\" value=\"" +
+                receiver + "\" />" +
                                         "<div class=\"shadow-text\"><p>[ID], \"Administrator\", \"Teacher\" or [Family name, First name, Father name]</p></div>\n" +
                                     "</div><br/>\n" +
-                                    "<input id=\"ask_header\" name=\"ask_header\" type=\"text\" placeholder=\"Header\" value=\"" +
-                subject +  " /><br/>\n" +
+                                    "<input id=\"ask_header\" name=\"ask_header\" type=\"text\" placeholder=\"Subject\" value=\"" +
+                subject +  "\" /><br/>\n" +
                                     "<textarea cols=\"4\" placeholder=\"Message\" id=\"ask_message\" name=\"ask_message\"></textarea><br/>\n" +
-                                    "<input id=\"ask_send\" type=\"submit\" value=\"Send\"/>\n" +
+                                    "<input id=\"ask_send\" type=\"submit\" value=\"Send\"/>\n" + wasSend +
                                 "</form>\n" +
                             "</div>\n" +
                         "</div>";
@@ -145,65 +145,72 @@ public class StudentHTML {
         return response[0];
     }
 
-    public static String studentChange() {
-        return "<div id= \"student\">\n" +
+    public static String studentChange(StudentsNoPass students, String wasChanged) {
+        String response[] = {"<div id= \"student\">\n" +
                 "            <div id= \"hello-block\">\n" +
                 "                <p>Change user information</p>\n" +
                 "            </div>\n" +
-                "            <form id= \"user-settings\" method=\"POST\" action=\"/schange\" modelAttribute=\"userchangeform\">\n" +
+                "            <form id= \"user-settings\" method=\"POST\" action=\"schange\" modelAttribute=\"userchangeform\">\n" +
                 "                <div id= \"setting-block\">\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">First name:</div>\n" +
                 "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"text\" id=\"firstName\" th:field=\"*{firstName}\">\n" +
+                "                            <input type=\"text\" name=\"firstName\" value=\""};
+        response[0] += students.getFirstName() + "\">\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">Second Name:</div>\n" +
                 "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"text\" id=\"familyName\" th:field=\"*{familyName}\">\n" +
+                "                            <input type=\"text\" name=\"familyName\" value=\"" +
+                                                students.getFamilyName() + "\">\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">Father Name:</div>\n" +
                 "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"text\" id=\"fatherName\" th:field=\"*{fatherName}\">\n" +
+                "                            <input type=\"text\" name=\"fatherName\" value=\"" +
+                                                students.getFatherName() + "\">\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">Gender:</div>\n" +
                 "                        <div class= \"value-prop\">\n" +
-                "                            <select class= \"select-list\" th:field=\"*{gender}\">\n" +
-                "                                <option value= \"english\">Male</option>\n" +
-                "                                <option value= \"english\">Assault helicopter</option>\n" +
+                "                            <select class=\"select-list\" name=\"gender\">\n";
+        List<UserGender> userGender = List.of(UserGender.values());
+        userGender.forEach(gender -> {
+            response[0] += "<option value=\"" + gender + "\">" + gender.name() + "</option>\n";
+        });
+        response[0] +=
                 "                            </select>\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">New password:</div>\n" +
                 "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"password\" id=\"newPassword\" th:field=\"*{newPassword}\">\n" +
+                "                            <input type=\"password\" name=\"newPassword\" value=\"\">\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">Confirm new password:</div>\n" +
                 "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"password\" id=\"checkNewPassword\" th:field=\"*{checkNewPassword}\">\n" +
+                "                            <input type=\"password\" name=\"checkNewPassword\" value=\"\">\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">Actual password:</div>\n" +
                 "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"password\" id=\"password\" th:field=\"*{password}\">\n" +
+                "                            <input type=\"password\" name=\"password\" value=\"\">\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                </div>\n" +
                 "                <div id= \"control-save\">\n" +
                 "                    <input type=\"submit\" class=\"settingable\" value=\"Save\" />\n" +
-                "                    <div th:if=\"${event}\" th:utext=\"${event}\"></div>\n" +
+                "                    <div>" + wasChanged + "</div>\n" +
                 "                </div>\n" +
                 "            </form>\n" +
                 "        </div>";
+        return response[0];
     }
 
     public static String studentCoursePlan(){
