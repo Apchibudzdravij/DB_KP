@@ -45,7 +45,7 @@ public class StudentHTML {
             notificationsList.forEach(note -> {
                 response[0] += "<p class=\"notification\">" +
                                 note.getContentText() +
-                                "</span></p>\n";
+                                "</p>\n";
             });
         response[0] +=
                 "</div>\n</div>\n</div>\n</div>";
@@ -125,19 +125,19 @@ public class StudentHTML {
                 "                </div>\n";
         else
             messagesList.forEach(note -> {
-                response[0] +="<div class=\"message\">\n<div class=\"message-head\">\n" +
-                              "<div class=\"mes-sender\">*  " +
+                response[0] +="<form method=\"POST\" action=\"smessages\" class=\"message\">\n<div class=\"message-head\">\n" +
+                                "* <input readonly class=\"mes-sender\" name=\"sender\" value=\"" +
                         note.getSender() +
-                        ":</div>\n<div class=\"mes-header\">" +
+                                "\"/>:<input readonly class=\"mes-header\" name=\"subject\" value=\"" +
                         note.getSubject() +
-                        "</div>\n<div class=\"mes-date-sent\">" +
+                                "\"/><div class=\"mes-date-sent\">" +
                         note.getDateAndTime() +
                         "</div>\n</div>\n<div class=\"message-body\">\n" +
-                        "<textarea readonly class=\"message-content\">" +
+                                "<textarea readonly class=\"message-content\">" +
                         note.getMessageBody() +
-                        "</textarea>\n<button class=\"guiable answerable\" onclick=\"";
+                                "</textarea>\n<button class=\"guiable answerable\" onclick=\"";
                 ///TODO onclick answer
-                response[0] +="\">Answer</button>\n</div>\n</div>\n";
+                response[0] +="\">Answer</button>\n</div>\n</form>\n";
             });
         response[0] +=
                 "            </div>\n" +

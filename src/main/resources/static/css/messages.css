@@ -20,6 +20,19 @@
 }
 .mes-sender, .mes-header, .mes-date-sent {
     margin: 5px 25px;
+    border: none;
+    background-color: #FFE8AF;
+    font-size: x-large;
+}
+.mes-sender {
+    max-width: 15%;
+}
+.mes-header {
+    max-width: 55%;
+}
+.mes-date-sent {
+    text-align: right;
+    max-width: 20%;
 }
 .message {
     background-color: #FFE8AF;

@@ -52,10 +52,10 @@ public class AuthDAO {
             if (counter == 0)
                 return null;
         } catch (SQLException e) {
-            System.err.println("MainDAO getStudentIfPassword: SQL: " + e.getMessage());
+            System.err.println("AuthDAO getStudentIfPassword: SQL: " + e.getMessage());
             return null;
         } catch (Exception e) {
-            System.err.println("MainDAO getStudentIfPassword: " + e.getMessage());
+            System.err.println("AuthDAO getStudentIfPassword: " + e.getMessage());
             return null;
         }
         return studentsList.get(0);
@@ -96,10 +96,10 @@ public class AuthDAO {
             if (counter == 0)
                 return null;
         } catch (SQLException e) {
-            System.err.println("MainDAO getAdminIfPassword: SQL: " + e.getMessage());
+            System.err.println("AuthDAO getAdminIfPassword: SQL: " + e.getMessage());
             return null;
         } catch (Exception e) {
-            System.err.println("MainDAO getAdminIfPassword: " + e.getMessage());
+            System.err.println("AuthDAO getAdminIfPassword: " + e.getMessage());
             return null;
         }
         return adminsList.get(0);
@@ -141,10 +141,10 @@ public class AuthDAO {
             if (counter == 0)
                 return null;
         } catch (SQLException e) {
-            System.err.println("MainDAO getStudentIfPassword: SQL: " + e.getMessage());
+            System.err.println("AuthDAO getTeacherIfPassword: SQL: " + e.getMessage());
             return null;
         } catch (Exception e) {
-            System.err.println("MainDAO getStudentIfPassword: " + e.getMessage());
+            System.err.println("AuthDAO getTeacherIfPassword: " + e.getMessage());
             return null;
         }
         return teachersList.get(0);

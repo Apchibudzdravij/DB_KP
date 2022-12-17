@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class DB_KP_Logs {
     @Id
     @Column(name="ROWID")
-    private String rowid;
+    private Integer rowid;
     @Column(name="lWho")
     private String lWho;
     @Column(name="lWhat")

@@ -1,13 +1,33 @@
 package com.belstu.drevoten.DB_KP.controllerHelper;
 
+import com.belstu.drevoten.DB_KP.model.DAO.AdminInfoDAO;
+import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
+import com.belstu.drevoten.DB_KP.model.DB_KP_Logs;
 import com.belstu.drevoten.DB_KP.model.Executive_Admin;
 import com.belstu.drevoten.DB_KP.model.Executive_AdminNoPass;
+import com.belstu.drevoten.DB_KP.model.Notifications;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class AdminHTML {
 
-    public static String adminMain(Executive_AdminNoPass student) {
-        String response = "<div id=\"student\">\n<div id=\"hello-block\">\n<p>Welcome, " +
-                student.getFirstName() + " " + student.getFamilyName() +
+    public static String adminMain(Executive_AdminNoPass admin) {
+        AdminInfoDAO adminInfoDAO = new AdminInfoDAO();
+        MainDAO mainDAO = new MainDAO();
+        List<DB_KP_Logs> generalLogsList = adminInfoDAO.getLogs(admin.getAdminID());
+        List<DB_KP_Logs> errorsList = new LinkedList<>();
+        List<DB_KP_Logs> actionsList = new LinkedList<>();
+
+        generalLogsList.forEach(log -> {
+            if (log.getLWhat().charAt(0) == '-')
+                errorsList.add(log);
+            else
+                actionsList.add(log);
+        });
+
+        String response[] = {"<div id=\"admin\">\n<div id=\"hello-block\">\n<p>Welcome, " +
+                admin.getFirstName() + " " + admin.getFamilyName() +
                 "</p>\n" +
                 "      </div>\n" +
                 "      <div id=\"admin-main-body\">\n" +
@@ -22,22 +42,16 @@ public class AdminHTML {
                 "              <th>Who</th>\n" +
                 "              <th>Did</th>\n" +
                 "              <th>When</th>\n" +
-                "            </tr>\n" +
-                "            <tr>\n" +
-                "              <td class=\"td-start\">71201091</td>\n" +
-                "              <td class=\"td-middle\">Change name from Yauheni</td>\n" +
-                "              <td class=\"td-finish\">05.12.2022 22:44</td>\n" +
-                "            </tr>\n" +
-                "            <tr>\n" +
-                "              <td class=\"td-start\">71201091</td>\n" +
-                "              <td class=\"td-middle\">Change name from Eugene</td>\n" +
-                "              <td class=\"td-finish\">05.12.2022 22:42</td>\n" +
-                "            </tr>\n" +
-                "            <tr>\n" +
-                "              <td class=\"td-start\">71201091</td>\n" +
-                "              <td class=\"td-middle\">Change name from Yauheni</td>\n" +
-                "              <td class=\"td-finish\">05.12.2022 22:40</td>\n" +
-                "            </tr>\n" +
+                "            </tr>\n"};
+        actionsList.forEach(action -> {
+            response[0] +=  "<tr>\n" +
+                            "  <td class=\"td-start\">" + action.getLWho() + "</td>\n" +
+                            "  <td class=\"td-middle\">" + action.getLWhat() + "</td>\n" +
+                            "  <td class=\"td-finish\">" + action.getLWhen() + "</td>\n" +
+                            "</tr>\n";
+        });
+
+        response[0] +=
                 "          </table>\n" +
                 "        </div>\n" +
                 "        <div id=\"log-err\" class=\"admin-main-body-column\">\n" +
@@ -51,31 +65,34 @@ public class AdminHTML {
                 "              <th>Who</th>\n" +
                 "              <th>Did</th>\n" +
                 "              <th>When</th>\n" +
-                "            </tr>\n" +
-                "            <tr>\n" +
-                "              <td class=\"td-start\">71201090</td>\n" +
-                "              <td class=\"td-middle\">20001: No such user</td>\n" +
-                "              <td class=\"td-finish\">05.12.2022 22:30</td>\n" +
-                "            </tr>\n" +
-                "            <tr>\n" +
-                "              <td class=\"td-start\">71201094</td>\n" +
-                "              <td class=\"td-middle\">20001: No such user</td>\n" +
-                "              <td class=\"td-finish\">05.12.2022 22:31</td>\n" +
-                "            </tr>\n" +
-                "            <tr>\n" +
-                "              <td class=\"td-start\">71201090</td>\n" +
-                "              <td class=\"td-middle\">20001: No such user</td>\n" +
-                "              <td class=\"td-finish\">05.12.2022 22:31</td>\n" +
-                "            </tr>\n" +
+                "            </tr>\n";
+        errorsList.forEach(error -> {
+            response[0] +=  "<tr>\n" +
+                            "  <td class=\"td-start\">" + error.getLWho() + "</td>\n" +
+                            "  <td class=\"td-middle\">" + error.getLWhat() + "</td>\n" +
+                            "  <td class=\"td-finish\">" + error.getLWhen() + "</td>\n" +
+                            "</tr>\n";
+        });
+
+        response[0] +=
                 "          </table>\n" +
                 "        </div>\n" +
                 "        <div id=\"notifics\" class=\"admin-main-body-column\">\n" +
-                "          <p>Notification</p>\n" +
-                "          <p class=\"notification\"> * No new notifications <br/><span style=\"font-style: normal\">ヾ(´〇`)ﾉ♪♪♪</span></p>\n" +
-                "        </div>\n" +
+                "          <p>Notifications</p>\n";
+        List<Notifications> notificationsList = mainDAO.getNotifications(admin.getAdminID(), "admin");
+        if (notificationsList.size()==0)
+            response[0] += "<p class=\"notification\"> * No new notifications <br/>" +
+                    "<span style=\"font-style: normal\">ヾ(´〇`)ﾉ♪♪♪</span></p>\n";
+        else
+            notificationsList.forEach(note -> {
+                response[0] += "<p class=\"notification\">" +
+                        note.getContentText() +
+                        "</p>\n";
+            });
+        response[0] += "        </div>\n" +
                 "      </div>\n" +
                 "    </div>";
-        return response;
+        return response[0];
     }
 
 

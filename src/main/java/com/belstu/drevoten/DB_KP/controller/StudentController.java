@@ -100,6 +100,17 @@ public class StudentController {
         return modelAndView;
     }
 
+    @PostMapping(value = "/smessages")
+    public ModelAndView answerOnMessages(Model model, @RequestParam("subject") String subject,
+                                         @RequestParam("sender") String sender) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("student");
+        model.addAttribute("editable_content", StudentHTML.studentAsk(sender,subject, ""));
+        model.addAttribute("user_name", testStudents.getFirstName());
+        model.addAttribute("user_family", testStudents.getFamilyName());
+        return modelAndView;
+    }
+
     @GetMapping(value = "/schange")
     public ModelAndView changeView(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
 
