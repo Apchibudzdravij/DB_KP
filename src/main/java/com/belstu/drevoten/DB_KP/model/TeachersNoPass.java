@@ -12,19 +12,21 @@ import javax.validation.constraints.Digits;
 
 @Data
 @Entity
-@Table(name = "AdminNoPass")
+@Table(name = "TeachersNoPass")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Executive_AdminNoPass {
+public class TeachersNoPass {
     @Id
-    @Column(name = "AdminID")
-    private String AdminID;
+    @Column(name = "TeacherID")
+    private String TeacherID;
     @Column(name = "FirstName")
     private String FirstName;
     @Column(name = "FamilyName")
     private String FamilyName;
     @Column(name = "FatherName")
     private String FatherName;
+    @Column(name = "Department")
+    private String Department;
     @Column(name = "UnreadMessages")
     private Integer UnreadMessages;
     @Column(name = "Gender")

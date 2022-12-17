@@ -8,6 +8,7 @@ import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
 import com.belstu.drevoten.DB_KP.model.Students;
 import com.belstu.drevoten.DB_KP.model.StudentsNoPass;
 import com.belstu.drevoten.DB_KP.model.UserGender;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+@Slf4j
 @Controller
 public class StudentController {
 
