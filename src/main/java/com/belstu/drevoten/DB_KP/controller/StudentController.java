@@ -68,7 +68,7 @@ public class StudentController {
     public ModelAndView askQuestion(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
-        model.addAttribute("editable_content", StudentHTML.studentAsk("","", ""));
+        model.addAttribute("editable_content", StudentHTML.studentAsk("","", "", ""));
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
         return modelAndView;
@@ -82,9 +82,9 @@ public class StudentController {
         modelAndView.setViewName("student");
         mainDAO = new MainDAO();
         if (mainDAO.sendMessage(testStudents.getStudentID(), ask_receiver, ask_header, ask_message, "student"))
-            model.addAttribute("editable_content", StudentHTML.studentAsk("","","Sent successfully"));
+            model.addAttribute("editable_content", StudentHTML.studentAsk("","","Sent successfully", ""));
         else
-            model.addAttribute("editable_content", StudentHTML.studentAsk("","","Was not send"));
+            model.addAttribute("editable_content", StudentHTML.studentAsk("","","Was not send", ""));
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
         return modelAndView;
@@ -102,10 +102,11 @@ public class StudentController {
 
     @PostMapping(value = "/smessages")
     public ModelAndView answerOnMessages(Model model, @RequestParam("subject") String subject,
-                                         @RequestParam("sender") String sender) {
+                                         @RequestParam("sender") String sender,
+                                         @RequestParam("message") String message) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
-        model.addAttribute("editable_content", StudentHTML.studentAsk(sender,subject, ""));
+        model.addAttribute("editable_content", StudentHTML.studentAsk(sender,subject, "", message));
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
         return modelAndView;

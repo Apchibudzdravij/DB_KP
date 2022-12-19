@@ -86,8 +86,8 @@ public class StudentHTML {
         return response[0];
     }
 
-    public static String studentAsk(String receiver, String subject, String wasSend) {
-        return          "<div id=\"student\">\n" +
+    public static String studentAsk(String receiver, String subject, String wasSend, String previous) {
+        String response = "<div id=\"student\">\n" +
                             "<div id=\"hello-block\">\n" +
                                 "<p>Ask question</p>\n" +
                             "</div>\n" +
@@ -100,11 +100,14 @@ public class StudentHTML {
                                     "</div><br/>\n" +
                                     "<input id=\"ask_header\" name=\"ask_header\" type=\"text\" placeholder=\"Subject\" value=\"" +
                 subject +  "\" /><br/>\n" +
-                                    "<textarea cols=\"4\" placeholder=\"Message\" id=\"ask_message\" name=\"ask_message\"></textarea><br/>\n" +
+                                    "<textarea cols=\"4\" placeholder=\"Message\" id=\"ask_message\" name=\"ask_message\">";
+        response += previous.equals("") ? "" : "->" + previous + "\n--- from " + receiver + "---\n";
+        response += "</textarea><br/>\n" +
                                     "<input id=\"ask_send\" type=\"submit\" value=\"Send\"/>\n" + wasSend +
                                 "</form>\n" +
                             "</div>\n" +
                         "</div>";
+        return response;
     }
 
     public static String studentMessages(StudentsNoPass students){
@@ -133,10 +136,9 @@ public class StudentHTML {
                                 "\"/><div class=\"mes-date-sent\">" +
                         note.getDateAndTime() +
                         "</div>\n</div>\n<div class=\"message-body\">\n" +
-                                "<textarea readonly class=\"message-content\">" +
+                                "<textarea readonly class=\"message-content\" name=\"message\">" +
                         note.getMessageBody() +
                                 "</textarea>\n<button class=\"guiable answerable\" onclick=\"";
-                ///TODO onclick answer
                 response[0] +="\">Answer</button>\n</div>\n</form>\n";
             });
         response[0] +=

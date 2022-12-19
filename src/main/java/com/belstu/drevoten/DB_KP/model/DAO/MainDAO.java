@@ -27,7 +27,7 @@ import static java.sql.Types.STRUCT;
 
 public class MainDAO {
 
-    public String serverURI = "jdbc:oracle:thin:@192.168.201.167:1521/DB_KP_PDB";
+    public String serverURI = "jdbc:oracle:thin:@192.168.201.169:1521/DB_KP_PDB";
 
     public Character getIsUserInDB(String suserid) {
         try {
@@ -168,9 +168,9 @@ public class MainDAO {
                 messagesList.add(mess);
             }
         } catch (SQLException e) {
-            System.err.println("MainDAO getNotifications: SQL: " + e.getMessage());
+            System.err.println("MainDAO getMessages: SQL: " + e.getMessage());
         } catch (Exception e) {
-            System.err.println("MainDAO getNotifications: " + e.getMessage());
+            System.err.println("MainDAO getMessages: " + e.getMessage());
         }
         return messagesList;
     }
@@ -278,6 +278,7 @@ public class MainDAO {
             cs.setString(6, gender.toString());
             cs.setString(7, oldPass);
             cs.execute();
+            System.out.println("MainDAO userChange: no exceptions");
             return true;
         } catch (Exception e) {
             System.err.println("MainDAO userChange: " + e.getMessage());
