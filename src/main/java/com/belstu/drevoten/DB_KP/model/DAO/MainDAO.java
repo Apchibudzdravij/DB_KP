@@ -27,7 +27,7 @@ import static java.sql.Types.STRUCT;
 
 public class MainDAO {
 
-    public String serverURI = "jdbc:oracle:thin:@192.168.201.169:1521/DB_KP_PDB";
+    public String serverURI = "jdbc:oracle:thin:@192.168.211.133:1521/DB_KP_PDB";
 
     public Character getIsUserInDB(String suserid) {
         try {

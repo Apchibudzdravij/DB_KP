@@ -2,6 +2,7 @@ package com.belstu.drevoten.DB_KP.controller;
 
 import com.belstu.drevoten.DB_KP.controllerHelper.AdminHTML;
 import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
+import com.belstu.drevoten.DB_KP.controllerHelper.TeacherHTML;
 import com.belstu.drevoten.DB_KP.forms.UserTypeForm;
 import com.belstu.drevoten.DB_KP.model.*;
 import com.belstu.drevoten.DB_KP.model.DAO.AuthDAO;
@@ -67,6 +68,13 @@ public class SignInController {
                     break;
                 case 't':
                     modelAndView.setViewName("teacher");
+                    TeachersNoPass teacher = authDAO.getTeacherIfPassword(tempID, tempPass);
+                    if (teacher == null)
+                        throw new ProblemPasswordException("Incorrect username and/or password!");
+                    model.addAttribute("editable_content", TeacherHTML.teacherMain(teacher));
+                    model.addAttribute("user_name", teacher.getFirstName());
+                    model.addAttribute("user_family", teacher.getFamilyName());
+                    TeacherController.testTeachers = teacher;
                     break;
                 case 'a':
                     modelAndView.setViewName("administrator");

@@ -24,6 +24,8 @@ import javax.validation.constraints.NotNull;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 
 @Controller
@@ -220,6 +222,10 @@ public class AdminController {
                 stream.close();
 
                 System.out.println("\nServer File Location=" + serverFile.getAbsolutePath());
+
+                Files.copy(new File("src\\main\\resources\\files\\" + file.getOriginalFilename()).toPath(), new File("\\\\192.168.211.133\\DB_KP_XML\\" + file.getOriginalFilename()).toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
+                System.out.println("Successfully sent to shared folder!");
 
                 model.addAttribute("editable_content", AdminHTML.adminAddUsers("File successfully uploaded"));
                 System.out.println("->File " + file.getOriginalFilename() + " uploaded!");

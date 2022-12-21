@@ -261,6 +261,9 @@ public class AdminHTML {
     }
 
     public static String adminAddUsers(String messageToUser) {
+
+        return "";
+        /* //For XML parsing
         return "<div id=\"admin\">\n" +
                 "      <div id=\"hello-block\">\n" +
                 "        <p>Register new users</p>\n" +
@@ -275,6 +278,6 @@ public class AdminHTML {
                 "          <div id=\"register-error\"></div>\n" +
                 "        </div>\n" +
                 "      </form>\n" +
-                "    </div>";
+                "    </div>";*/
     }
 }

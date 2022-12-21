@@ -30,10 +30,28 @@
     [(${editable_content})]
     <div id="admin">
       <div id="hello-block">
-        <p>Register new users</p>
+        <p>Change users (SI)</p>
       </div>
-      <div id="change-user-body">
-
+      <div id="change-user-body" class="rowable">
+        <form id="admin-change-student" method="PUT" action="admin_change_student">
+          <p>Change student</p>
+          <input name="id"      placeholder="id"        type="text"/>
+          <input name="course"  placeholder="course"    type="text"/>
+          <input name="subgroup" placeholder="subgroup" type="text"/>
+          <input name="faculty" placeholder="faculty"   type="text"/>
+          <input name="special" placeholder="special"   type="text"/>
+          <input type="submit">
+        </form>
+        <div class=""></div>
+          <form id="admin-change-teacher" method="PUT">
+            <p>Change teacher</p>
+            <input name="id"         type="text"/>
+            <input name="department" type="text"/>
+            <input type="submit">
+          </form>
+          <div id="course-up">
+            <button class="guiable" onclick="">Up students course by 1</button>
+          </div>
       </div>
     </div>
   </div>
@@ -51,6 +69,7 @@
     </div>
     <div id="settings">
       <button class="guiable" value="Settings" onclick="location.href='asettings'">Settings</button>
+      <button class="guiable" value="LogOut" onclick="location.href='welcome'">Log out</button>
     </div>
   </div>
 </div>

@@ -27,8 +27,6 @@ public class TeachersNoPass {
     private String FatherName;
     @Column(name = "Department")
     private String Department;
-    @Column(name = "UnreadMessages")
-    private Integer UnreadMessages;
     @Column(name = "Gender")
     @Digits(integer=2, fraction=0, message = "No more than 2 digits")
     private Integer Gender;

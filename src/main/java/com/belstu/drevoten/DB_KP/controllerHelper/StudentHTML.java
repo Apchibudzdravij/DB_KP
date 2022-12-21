@@ -181,7 +181,10 @@ public class StudentHTML {
                 "                            <select class=\"select-list\" name=\"gender\">\n";
         List<UserGender> userGender = List.of(UserGender.values());
         userGender.forEach(gender -> {
-            response[0] += "<option value=\"" + gender + "\">" + gender.name() + "</option>\n";
+            if (gender == students.getGender())
+                response[0] += "<option selected=\"selected\" value=\"" + gender + "\">" + gender.name() + "</option>\n";
+            else
+                response[0] += "<option value=\"" + gender + "\">" + gender.name() + "</option>\n";
         });
         response[0] +=
                 "                            </select>\n" +

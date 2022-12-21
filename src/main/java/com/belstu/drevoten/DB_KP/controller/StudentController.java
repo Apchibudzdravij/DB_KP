@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 @Controller
 public class StudentController {
 
-    static StudentsNoPass testStudents;// = new StudentsNoPass("71201091", "Eugene", "Drevoten", "Vladimirovich", 2, 3, "5-2", "FIT", "POIT", 0, "E", "S");
+    static StudentsNoPass testStudents;// = new StudentsNoPass("71201091", "Eugene", "Drevoten", "Vladimirovich", 2, 3, "5-2", "FIT", "POIT", "E", "S");
     MainDAO mainDAO;
     AuthDAO authDAO;
 
@@ -56,12 +56,11 @@ public class StudentController {
     @GetMapping(value="/student")
     public ModelAndView backToMain(Model model) {
 
-        //testStudents = (StudentsNoPass) model.getAttribute("user_entity");
-
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
         model.addAttribute("editable_content", StudentHTML.studentMain(testStudents));
-        model.addAttribute("user_entity", testStudents);
+        model.addAttribute("user_name", testStudents.getFirstName());
+        model.addAttribute("user_family", testStudents.getFamilyName());
         return modelAndView;
     }
     @GetMapping(value="/askquestion")
@@ -73,6 +72,7 @@ public class StudentController {
         model.addAttribute("user_family", testStudents.getFamilyName());
         return modelAndView;
     }
+
     @PostMapping(value = "/askquestion")
     public ModelAndView messagesAfterSending(Model model, @RequestParam("ask_receiver") String ask_receiver,
                                              @NotNull @RequestParam("ask_header") String ask_header,
@@ -89,6 +89,7 @@ public class StudentController {
         model.addAttribute("user_family", testStudents.getFamilyName());
         return modelAndView;
     }
+
     @GetMapping(value = "/smessages")
     public ModelAndView messages(Model model) {
 
@@ -174,8 +175,6 @@ public class StudentController {
     @GetMapping(value = "/coursePlan")
     public ModelAndView coursePlan(Model model) {
 
-        testStudents = (StudentsNoPass) model.getAttribute("user_entity");
-
         ModelAndView modelAndView = new ModelAndView();
 
         ///TODO projects list and amount
@@ -197,8 +196,6 @@ public class StudentController {
 
     @GetMapping(value = "/myProjects")
     public ModelAndView myProjects(Model model) {
-
-        testStudents = (StudentsNoPass) model.getAttribute("user_entity");
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");

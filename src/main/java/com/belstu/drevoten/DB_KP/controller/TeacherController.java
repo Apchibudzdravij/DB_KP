@@ -1,28 +1,53 @@
 package com.belstu.drevoten.DB_KP.controller;
 
+import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
 import com.belstu.drevoten.DB_KP.controllerHelper.TeacherHTML;
 import com.belstu.drevoten.DB_KP.forms.KursTaskForm;
 import com.belstu.drevoten.DB_KP.forms.UserChangeForm;
+import com.belstu.drevoten.DB_KP.forms.UserPropsForm;
+import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
 import com.belstu.drevoten.DB_KP.model.Teachers;
+import com.belstu.drevoten.DB_KP.model.TeachersNoPass;
 import com.belstu.drevoten.DB_KP.model.UserGender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 
 @Controller
 public class TeacherController {
 
-    Teachers testTeachers = new Teachers("71201092", "Marina", "Dubovik", "Vladimirovna", UserGender.Female, "71201092", "ISiT", 0);
+    static TeachersNoPass testTeachers; // = new Teachers("71201092", "Marina", "Dubovik", "Vladimirovna", UserGender.Female, "71201092", "ISiT", "E", "S");
 
     @GetMapping(value="/tsettings")
     public ModelAndView settings(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
-        model.addAttribute("editable_content", TeacherHTML.teacherSettings());
+        model.addAttribute("editable_content", TeacherHTML.teacherSettings(testTeachers, false));
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
+        return modelAndView;
+    }
+
+    @PostMapping(value="/tsettings")
+    public ModelAndView newSettings(Model model, @Valid @ModelAttribute("userpropsform") UserPropsForm userPropsForm,
+                                    @NotNull @RequestParam("lang") String lang, @NotNull @RequestParam("theme") String theme) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("teacher");
+        MainDAO mainDAO = new MainDAO();
+        userPropsForm.setLang(lang);
+        userPropsForm.setColor(theme);
+        model.addAttribute("editable_content",
+                TeacherHTML.teacherSettings(testTeachers, mainDAO.saveProperties(testTeachers.getTeacherID(),
+                        userPropsForm.getLang(), userPropsForm.getColor(),
+                        "teacher")));
         model.addAttribute("user_name", testTeachers.getFirstName());
         model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;
@@ -39,11 +64,12 @@ public class TeacherController {
     }
 
     @PostMapping(value = "/tmessages")
-    public ModelAndView messagesAfterSending(Model model) {
-        ///TODO sendidng
+    public ModelAndView messagesAfterSending(Model model, @RequestParam("subject") String subject,
+                                             @RequestParam("sender") String sender,
+                                             @RequestParam("message") String message) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
-        model.addAttribute("editable_content", TeacherHTML.teacherMessages());
+        model.addAttribute("editable_content", TeacherHTML.teacherSendMessage(sender,subject, "", message));
         model.addAttribute("user_name", testTeachers.getFirstName());
         model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;
@@ -97,7 +123,23 @@ public class TeacherController {
     public ModelAndView sendMessageForm(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
-        model.addAttribute("editable_content", TeacherHTML.teacherSendMessage());
+        model.addAttribute("editable_content", TeacherHTML.teacherSendMessage("","","",""));
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/sendMessage")
+    public ModelAndView sendingAfterSending(Model model, @RequestParam("ask_receiver") String ask_receiver,
+                                             @NotNull @RequestParam("ask_header") String ask_header,
+                                             @NotNull @RequestParam("ask_message") String ask_message) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("teacher");
+        MainDAO mainDAO = new MainDAO();
+        if (mainDAO.sendMessage(testTeachers.getTeacherID(), ask_receiver, ask_header, ask_message, "teacher"))
+            model.addAttribute("editable_content", StudentHTML.studentAsk("","","Sent successfully", ""));
+        else
+            model.addAttribute("editable_content", StudentHTML.studentAsk("","","Was not send", ""));
         model.addAttribute("user_name", testTeachers.getFirstName());
         model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;

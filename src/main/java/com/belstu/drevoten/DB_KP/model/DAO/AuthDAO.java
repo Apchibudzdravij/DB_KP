@@ -1,9 +1,6 @@
 package com.belstu.drevoten.DB_KP.model.DAO;
 
-import com.belstu.drevoten.DB_KP.model.Executive_AdminNoPass;
-import com.belstu.drevoten.DB_KP.model.Notifications;
-import com.belstu.drevoten.DB_KP.model.StudentsNoPass;
-import com.belstu.drevoten.DB_KP.model.TeachersNoPass;
+import com.belstu.drevoten.DB_KP.model.*;
 import oracle.jdbc.OracleTypes;
 
 import javax.persistence.Column;
@@ -42,8 +39,7 @@ public class AuthDAO {
                         resultSet.getString("SubGroup"),
                         resultSet.getString("Faculty"),
                         resultSet.getString("Special"),
-                        resultSet.getInt("UnreadMessages"),
-                        resultSet.getInt("Gender"),
+                        UserGender.values()[resultSet.getInt("Gender")],
                         resultSet.getString("UserLanguage"),
                         resultSet.getString("UserTheme")
                 );
@@ -73,7 +69,7 @@ public class AuthDAO {
         try (Connection conn = DriverManager.getConnection(
                 mainDAO.serverURI, user, pass);
              CallableStatement cs = conn.prepareCall(runSP);
-        ) {///TODO password in db
+        ) {
             cs.setString(1, uid);
             cs.setString(2, upass);
             cs.registerOutParameter(3, OracleTypes.CURSOR);
@@ -86,7 +82,6 @@ public class AuthDAO {
                         resultSet.getString("FirstName"),
                         resultSet.getString("FamilyName"),
                         resultSet.getString("FatherName"),
-                        resultSet.getInt("UnreadMessages"),
                         resultSet.getInt("Gender"),
                         resultSet.getString("UserLanguage"),
                         resultSet.getString("UserTheme")
@@ -131,7 +126,6 @@ public class AuthDAO {
                         resultSet.getString("FamilyName"),
                         resultSet.getString("FatherName"),
                         resultSet.getString("Department"),
-                        resultSet.getInt("UnreadMessages"),
                         resultSet.getInt("Gender"),
                         resultSet.getString("UserLanguage"),
                         resultSet.getString("UserTheme")
