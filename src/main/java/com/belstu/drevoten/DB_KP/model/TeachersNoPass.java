@@ -29,7 +29,7 @@ public class TeachersNoPass {
     private String Department;
     @Column(name = "Gender")
     @Digits(integer=2, fraction=0, message = "No more than 2 digits")
-    private Integer Gender;
+    private UserGender Gender;
     @Column(name="UserLanguage")
     private String UserLanguage;
     @Column(name="UserTheme")

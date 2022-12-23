@@ -1,0 +1,68 @@
+#admin-change-student, #admin-change-teacher, #course-up {
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+    0 -1px 1px #FFFFFF;
+    margin: 6%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#admin-change-student {
+    width: 40%;
+}
+#admin-change-others {
+    width: 60%;
+    margin: 6%;
+}
+#change-user-body {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+.acu-field {
+    margin: 1%;
+}
+.acu-header {
+    font-size: x-large;
+}
+.admin-reg {
+    background-color: #FFE8AF;
+    padding: 10px;
+    border: solid 2px #FFA894;
+    border-radius: 15px;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+    0 -1px 1px #FFFFFF;
+    margin: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30%;
+    justify-content: space-between;
+}
+.rowable {
+    display: flex;
+    flex-direction: row;
+}
+.admin-reg-label {
+    text-align: center;
+    font-weight: bolder;
+    font-family: "Candara";
+    font-size: x-large;
+    color: #A64730;
+    text-shadow: 1px 0 1px #FFFFFF,
+    0 -1px 1px #FFFFFF;
+}
+.admin-reg input {
+    margin: 2px;
+}

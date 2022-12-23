@@ -11,6 +11,7 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/messages.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/css/myProjects.css}"/>
   <link rel="stylesheet" type="text/css" th:href="@{/css/registration.css}"/>
+  <link rel="stylesheet" type="text/css" th:href="@{/css/adminChangeUsers.css}"/>
 
 </head>
 <body id="welcome-page"><div id="a-la-body">
@@ -28,32 +29,7 @@
   </div>
   <div class="editable">
     [(${editable_content})]
-    <div id="admin">
-      <div id="hello-block">
-        <p>Change users (SI)</p>
-      </div>
-      <div id="change-user-body" class="rowable">
-        <form id="admin-change-student" method="PUT" action="admin_change_student">
-          <p>Change student</p>
-          <input name="id"      placeholder="id"        type="text"/>
-          <input name="course"  placeholder="course"    type="text"/>
-          <input name="subgroup" placeholder="subgroup" type="text"/>
-          <input name="faculty" placeholder="faculty"   type="text"/>
-          <input name="special" placeholder="special"   type="text"/>
-          <input type="submit">
-        </form>
-        <div class=""></div>
-          <form id="admin-change-teacher" method="PUT">
-            <p>Change teacher</p>
-            <input name="id"         type="text"/>
-            <input name="department" type="text"/>
-            <input type="submit">
-          </form>
-          <div id="course-up">
-            <button class="guiable" onclick="">Up students course by 1</button>
-          </div>
-      </div>
-    </div>
+
   </div>
   <div id="stud-private" class="private">
     <div id="priv-info">

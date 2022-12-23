@@ -161,7 +161,10 @@ public class AdminHTML {
                 "                            <select class=\"select-list\" name=\"gender\">\n";
         List<UserGender> userGender = List.of(UserGender.values());
         userGender.forEach(gender -> {
-            response[0] += "<option value=\"" + gender + "\">" + gender.name() + "</option>\n";
+            if (gender == admin.getGender())
+                response[0] += "<option selected=\"selected\" value=\"" + gender + "\">" + gender.name() + "</option>\n";
+            else
+                response[0] += "<option value=\"" + gender + "\">" + gender.name() + "</option>\n";
         });
         response[0] +=
                 "                            </select>\n" +
@@ -256,13 +259,75 @@ public class AdminHTML {
         return response[0];
     }
 
-    public static String adminChangeUsers() {
-        return "";
+    public static String adminChangeUsers(String messageToUser) {
+        return "<div id=\"admin\">\n" +
+                "      <div id=\"hello-block\">\n" +
+                "        <p>Change users (SI)</p>\n" +
+                "      </div>\n" +
+                "      <div id=\"change-user-body\">\n" +
+                "        <form id=\"admin-change-student\" method=\"POST\" action=\"adminchangestudent\">\n" +
+                "          <p class=\"acu-header\">Change student</p>\n" +
+                "          <input class=\"acu-field\" name=\"id\"      placeholder=\"ID\"        type=\"text\"/>\n" +
+                "          <input class=\"acu-field\" name=\"course\"  placeholder=\"Course\"    type=\"text\"/>\n" +
+                "          <input class=\"acu-field\" name=\"subgroup\" placeholder=\"Subgroup\" type=\"text\"/>\n" +
+                "          <input class=\"acu-field\" name=\"faculty\" placeholder=\"Faculty\"   type=\"text\"/>\n" +
+                "          <input class=\"acu-field\" name=\"special\" placeholder=\"Special\"   type=\"text\"/>\n" +
+                "          <input class=\"acu-field\" type=\"submit\" value=\"Change student!\">\n" +
+                "        </form>\n" +
+                "        <div class=\"rowable\" id=\"admin-change-others\">\n" +
+                "          <form id=\"admin-change-teacher\" method=\"POST\" action=\"adminchangeteacher\">\n" +
+                "            <p class=\"acu-header\">Change teacher</p>\n" +
+                "            <input class=\"acu-field\" name=\"id\"         type=\"text\" placeholder=\"ID\"/>\n" +
+                "            <input class=\"acu-field\" name=\"department\" type=\"text\" placeholder=\"Department\"/>\n" +
+                "            <input class=\"acu-field\" type=\"submit\" value=\"Change teacher!\">\n" +
+                "          </form>\n" +
+                "          <div id=\"course-up\">\n" +
+                "            <button class=\"guiable\" onclick=\"location.href='adminUpCourse'\">Up students course by 1</button>\n" +
+                messageToUser +
+                "          </div>\n" +
+                "        </div>\n" +
+                "      </div>\n" +
+                "    </div>";
     }
 
     public static String adminAddUsers(String messageToUser) {
 
-        return "";
+        return "<div id=\"admin\">\n" +
+                "      <div id=\"hello-block\">\n" +
+                "        <p>Register users</p>\n" +
+                "      </div>\n" +
+                "      <div class=\"rowable\">\n" +
+                "        <form class=\"admin-reg\" id=\"admin-reg-student\" method=\"POST\" action=\"adminregstudent\">\n" +
+                "          <p class=\"admin-reg-label\">Student</p>\n" +
+                "          <input type=\"text\" name=\"id\" placeholder=\"ID\" />\n" +
+                "          <input type=\"text\" name=\"firstname\" placeholder=\"First name\" />\n" +
+                "          <input type=\"text\" name=\"secondname\" placeholder=\"Second name\" />\n" +
+                "          <input type=\"text\" name=\"fathername\" placeholder=\"Father name\" />\n" +
+                "          <input type=\"text\" name=\"special\" placeholder=\"Speciality\" />\n" +
+                "          <input type=\"text\" name=\"subgroup\" placeholder=\"Subgroup\" />\n" +
+                "          <input type=\"text\" name=\"course\" placeholder=\"Course\" value=\"1\" />\n" +
+                "          <input type=\"submit\" value=\"Register student\">\n" +
+                "        </form>\n" +
+                "        <form class=\"admin-reg\" id=\"admin-reg-teacher\" method=\"POST\" action=\"adminregteacher\">\n" +
+                "          <p class=\"admin-reg-label\">Teacher</p>\n" +
+                "          <input type=\"text\" name=\"id\" placeholder=\"ID\" />\n" +
+                "          <input type=\"text\" name=\"firstname\" placeholder=\"First name\" />\n" +
+                "          <input type=\"text\" name=\"secondname\" placeholder=\"Second name\" />\n" +
+                "          <input type=\"text\" name=\"fathername\" placeholder=\"Father name\" />\n" +
+                "          <input type=\"text\" name=\"department\" placeholder=\"Department\" />\n" +
+                "          <input type=\"submit\" value=\"Register teacher\">\n" +
+                "        </form>\n" +
+                "        <form class=\"admin-reg\" id=\"admin-reg-admin\" method=\"POST\" action=\"adminregadmin\">\n" +
+                "          <p class=\"admin-reg-label\">Administrator</p>\n" +
+                "          <input type=\"text\" name=\"id\" placeholder=\"ID\" />\n" +
+                "          <input type=\"text\" name=\"firstname\" placeholder=\"First name\" />\n" +
+                "          <input type=\"text\" name=\"secondname\" placeholder=\"Second name\" />\n" +
+                "          <input type=\"text\" name=\"fathername\" placeholder=\"Father name\" />\n" +
+                "          <input type=\"submit\" value=\"Register admin\">\n" +
+                "        </form>\n" +
+                "      </div>\n" +
+                messageToUser +
+                "    </div>";
         /* //For XML parsing
         return "<div id=\"admin\">\n" +
                 "      <div id=\"hello-block\">\n" +

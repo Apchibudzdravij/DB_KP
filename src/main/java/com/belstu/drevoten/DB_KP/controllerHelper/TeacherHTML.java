@@ -1,18 +1,19 @@
 package com.belstu.drevoten.DB_KP.controllerHelper;
 
-import com.belstu.drevoten.DB_KP.model.Localizations;
-import com.belstu.drevoten.DB_KP.model.Teachers;
-import com.belstu.drevoten.DB_KP.model.TeachersNoPass;
-import com.belstu.drevoten.DB_KP.model.Themes;
+import com.belstu.drevoten.DB_KP.model.*;
+import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
+
+import java.util.List;
 
 public class TeacherHTML {
 
     public static String teacherMain(TeachersNoPass teachers)  {
-        String response = "<div id=\"teacher\">\n<div id=\"hello-block\">\n<p>Welcome, " +
+        MainDAO mainDAO = new MainDAO();
+        String response[] = {"<div id=\"teacher\">\n<div id=\"hello-block\">\n<p>Welcome, " +
                 teachers.getFirstName() + " " + teachers.getFamilyName() +
                 "</p>\n</div>\n<div id=\"main-teacher-body\">\n<div id=\"project-acceptance\">\n" +
-                " <div class=\"project-acceptance-header\">Acceptance of course projects</div>\n";
-        response +=
+                " <div class=\"project-acceptance-header\">Acceptance of course projects</div>\n"};
+        response[0] +=
                 "<div class=\"acceptance-step\">\n" +
                 "   <div class=\"project-name-instance\">Development of Programming language</div>\n" +
                 "   <div class=\"project-date-instance\">09.12.2022</div>\n" +
@@ -25,13 +26,21 @@ public class TeacherHTML {
                 "   <div class=\"project-name-instance\">Development of Programming language</div>\n" +
                 "   <div class=\"project-date-instance\">12.12.2022</div>\n" +
                 "</div>\n";
-        response +=
+        response[0] +=
                 "</div>\n<div id=\"notifics\">\n\t<p class=\"notification-header\">Notifications</p>";
-        response +=
-                "<div class=\"notification\">\n\t<p>* No new notifications ヽ(°〇°)ﾉ</p>\n</div>";
-        response +=
+        List<Notifications> notificationsList = mainDAO.getNotifications(teachers.getTeacherID(), "teacher");
+        if (notificationsList.size()==0)
+            response[0] += "<p class=\"notification\"> * No new notifications " +
+                    "<span style=\"font-style: normal\">ヽ(°〇°)ﾉ</span></p>\n";
+        else
+            notificationsList.forEach(note -> {
+                response[0] += "<p class=\"notification\">" +
+                        note.getContentText() +
+                        "</p>\n";
+            });
+        response[0] +=
                 "</div>\n</div>\n</div>\n";
-        return response;
+        return response[0];
     }
 
     public static String teacherSettings(TeachersNoPass teacher, boolean ismessageok) {
@@ -78,98 +87,112 @@ public class TeacherHTML {
         return response[0];
     }
 
-    public static String teacherMessages() {
-        return "<div id=\"teacher\">\n" +
+    public static String teacherMessages(TeachersNoPass teacher) {
+        MainDAO mainDAO = new MainDAO();
+        final String[] response = {"<div id=\"teacher\">\n" +
                 "            <div id=\"hello-block\">\n" +
                 "                <p>Messages</p>\n" +
                 "            </div>\n" +
-                "            <div id=\"message-list\">\n" +
-                "                <!--TODO auto list from DB-->\n" +
-                "                <div class=\"message\">\n" +
-                "                    <div class=\"message-head\">\n" +
-                "                        <div class=\"mes-sender\">*  71201091:</div>\n" +
-                "                        <div class=\"mes-header\">Test 1</div>\n" +
-                "                        <div class=\"mes-date-sent\">29.11.2022 23:57</div>\n" +
-                "                    </div>\n" +
-                "                    <div class=\"message-body\">\n" +
-                "                        <textarea readonly class=\"message-content\">Hello from test 1</textarea>\n" +
-                "                        <button class=\"guiable answerable\">Answer</button>\n" +
-                "                    </div>\n" +
-                "                </div>\n" +
-                "                <div class=\"message\">\n" +
-                "                    <div class=\"message-head\">\n" +
-                "                        <div class=\"mes-sender\">*  71201091:</div>\n" +
-                "                        <div class=\"mes-header\">Test 2</div>\n" +
-                "                        <div class=\"mes-date-sent\">29.11.2022 23:59</div>\n" +
-                "                    </div>\n" +
-                "                    <div class=\"message-body\">\n" +
-                "                        <textarea readonly class=\"message-content\">Hello from test 2</textarea>\n" +
-                "                        <button class=\"guiable answerable\">Answer</button>\n" +
-                "                    </div>\n" +
-                "                </div>\n" +
+                "            <div id=\"message-list\">\n"};
+        List<Messages> messagesList = mainDAO.getMessages(teacher.getTeacherID(), "teacher");
+        if (messagesList.size()==0)
+            response[0] += "<div class=\"message\">\n" +
+                    "                    <div class=\"message-head\">\n" +
+                    "                        <div class=\"mes-sender\">*  No</div>\n" +
+                    "                        <div class=\"mes-header\">new</div>\n" +
+                    "                        <div class=\"mes-date-sent\">messages</div>\n" +
+                    "                    </div>\n" +
+                    "                </div>\n";
+        else
+            messagesList.forEach(note -> {
+                response[0] +="<form method=\"POST\" action=\"tmessages\" class=\"message\">\n<div class=\"message-head\">\n" +
+                        "* <input readonly class=\"mes-sender\" name=\"sender\" value=\"" +
+                        note.getSender() +
+                        "\"/>:<input readonly class=\"mes-header\" name=\"subject\" value=\"" +
+                        note.getSubject() +
+                        "\"/><div class=\"mes-date-sent\">" +
+                        note.getDateAndTime() +
+                        "</div>\n</div>\n<div class=\"message-body\">\n" +
+                        "<textarea readonly class=\"message-content\" name=\"message\">" +
+                        note.getMessageBody() +
+                        "</textarea>\n<button class=\"guiable answerable\" onclick=\"";
+                response[0] +="\">Answer</button>\n</div>\n</form>\n";
+            });
+        response[0] +=
                 "            </div>\n" +
-                "        </div>";
+                        "        </div>";
+        return response[0];
     }
 
-    public static String teacherChange() {
-        return "<div id= \"teacher\">\n" +
+    public static String teacherChange(TeachersNoPass teacher, String wasChanged) {
+        String response[] = {"<div id= \"teacher\">\n" +
                 "            <div id= \"hello-block\">\n" +
                 "                <p>Change user information</p>\n" +
                 "            </div>\n" +
-                "            <form id= \"user-settings\" method=\"POST\" th:action=\"@{tchange}\" th:object=\"${userchangeform}\">\n" +
+                "            <form id= \"user-settings\" method=\"POST\" action=\"tchange\" modelAttribute=\"userchangeform\">\n" +
                 "                <div id= \"setting-block\">\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">First name:</div>\n" +
                 "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"text\" id=\"firstName\" th:field=\"*{firstName}\">\n" +
+                "                            <input type=\"text\" name=\"firstName\" value=\""};
+        response[0] += teacher.getFirstName() + "\">\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">Second Name:</div>\n" +
                 "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"text\" id=\"familyName\" th:field=\"*{familyName}\">\n" +
+                "                            <input type=\"text\" name=\"familyName\" value=\"" +
+                teacher.getFamilyName() + "\">\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">Father Name:</div>\n" +
                 "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"text\" id=\"fatherName\" th:field=\"*{fatherName}\">\n" +
+                "                            <input type=\"text\" name=\"fatherName\" value=\"" +
+                teacher.getFatherName() + "\">\n" +
                 "                        </div>\n" +
                 "                    </div>\n" +
                 "                    <div class= \"property\">\n" +
                 "                        <div class= \"key-prop\">Gender:</div>\n" +
                 "                        <div class= \"value-prop\">\n" +
-                "                            <select class= \"select-list\" th:field=\"*{gender}\">\n" +
-                "                                <option value= \"english\">Male</option>\n" +
-                "                                <option value= \"english\">Assault helicopter</option>\n" +
+                "                            <select class=\"select-list\" name=\"gender\">\n";
+        List<UserGender> userGender = List.of(UserGender.values());
+        userGender.forEach(gender -> {
+            if (gender == teacher.getGender())
+                response[0] += "<option selected=\"selected\" value=\"" + gender + "\">" + gender.name() + "</option>\n";
+            else
+                response[0] += "<option value=\"" + gender + "\">" + gender.name() + "</option>\n";
+        });
+        response[0] +=
                 "                            </select>\n" +
-                "                        </div>\n" +
-                "                    </div>\n" +
-                "                    <div class= \"property\">\n" +
-                "                        <div class= \"key-prop\">New password:</div>\n" +
-                "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"password\" id=\"newPassword\" th:field=\"*{newPassword}\">\n" +
-                "                        </div>\n" +
-                "                    </div>\n" +
-                "                    <div class= \"property\">\n" +
-                "                        <div class= \"key-prop\">Confirm new password:</div>\n" +
-                "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"password\" id=\"checkNewPassword\" th:field=\"*{checkNewPassword}\">\n" +
-                "                        </div>\n" +
-                "                    </div>\n" +
-                "                    <div class= \"property\">\n" +
-                "                        <div class= \"key-prop\">Actual password:</div>\n" +
-                "                        <div class= \"value-prop\">\n" +
-                "                            <input type=\"password\" id=\"password\" th:field=\"*{password}\">\n" +
-                "                        </div>\n" +
-                "                    </div>\n" +
-                "                </div>\n" +
-                "                <div id= \"control-save\">\n" +
-                "                    <input type=\"submit\" class=\"settingable\" value=\"Save\" />\n" +
-                "                    <div th:if=\"${event}\" th:utext=\"${event}\"></div>\n" +
-                "                </div>\n" +
-                "            </form>\n" +
-                "        </div>";
+                        "                        </div>\n" +
+                        "                    </div>\n" +
+                        "                    <div class= \"property\">\n" +
+                        "                        <div class= \"key-prop\">New password:</div>\n" +
+                        "                        <div class= \"value-prop\">\n" +
+                        "                            <input type=\"password\" name=\"newPassword\" value=\"\">\n" +
+                        "                        </div>\n" +
+                        "                    </div>\n" +
+                        "                    <div class= \"property\">\n" +
+                        "                        <div class= \"key-prop\">Confirm new password:</div>\n" +
+                        "                        <div class= \"value-prop\">\n" +
+                        "                            <input type=\"password\" name=\"checkNewPassword\" value=\"\">\n" +
+                        "                        </div>\n" +
+                        "                    </div>\n" +
+                        "                    <div class= \"property\">\n" +
+                        "                        <div class= \"key-prop\">Actual password:</div>\n" +
+                        "                        <div class= \"value-prop\">\n" +
+                        "                            <input type=\"password\" name=\"password\" value=\"\">\n" +
+                        "                        </div>\n" +
+                        "                    </div>\n" +
+                        "                </div>\n" +
+                        "                <div id= \"control-save\">\n" +
+                        "                    <input type=\"submit\" class=\"settingable\" value=\"Save\" />\n" +
+                        "                    <div>" + wasChanged + "</div>\n" +
+                        "                </div>\n" +
+                        "            </form>\n" +
+                        "        </div>";
+        return response[0];
     }
 
     public static String teacherSendMessage(String receiver, String subject, String wasSend, String previous) {

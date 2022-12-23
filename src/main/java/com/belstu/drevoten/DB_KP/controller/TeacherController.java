@@ -5,7 +5,9 @@ import com.belstu.drevoten.DB_KP.controllerHelper.TeacherHTML;
 import com.belstu.drevoten.DB_KP.forms.KursTaskForm;
 import com.belstu.drevoten.DB_KP.forms.UserChangeForm;
 import com.belstu.drevoten.DB_KP.forms.UserPropsForm;
+import com.belstu.drevoten.DB_KP.model.DAO.AuthDAO;
 import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
+import com.belstu.drevoten.DB_KP.model.StudentsNoPass;
 import com.belstu.drevoten.DB_KP.model.Teachers;
 import com.belstu.drevoten.DB_KP.model.TeachersNoPass;
 import com.belstu.drevoten.DB_KP.model.UserGender;
@@ -78,44 +80,68 @@ public class TeacherController {
     public ModelAndView messages(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
-        model.addAttribute("editable_content", TeacherHTML.teacherMessages());
-        model.addAttribute("user_name", testTeachers.getFirstName());
-        model.addAttribute("user_family", testTeachers.getFamilyName());
-        return modelAndView;
-    }
-
-    @GetMapping(value = "/tchange")
-    public ModelAndView changeView(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
-
-        userChangeForm.setFirstName(testTeachers.getFirstName());
-        userChangeForm.setFamilyName(testTeachers.getFamilyName());
-        userChangeForm.setFatherName(testTeachers.getFatherName());
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("teacher");
-        model.addAttribute("editable_content", TeacherHTML.teacherChange());
+        model.addAttribute("editable_content", TeacherHTML.teacherMessages(testTeachers));
         model.addAttribute("user_name", testTeachers.getFirstName());
         model.addAttribute("user_family", testTeachers.getFamilyName());
         return modelAndView;
     }
 
     @PostMapping(value = "/tchange")
+    public ModelAndView changeView(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm,
+                                   @NotNull @RequestParam("firstName") String firstName,
+                                   @NotNull @RequestParam("familyName") String familyName,
+                                   @NotNull @RequestParam("fatherName") String fatherName,
+                                   @NotNull @RequestParam("gender") String gender,
+                                   @RequestParam("newPassword") String newPassword,
+                                   @RequestParam("checkNewPassword") String checkNewPassword,
+                                   @NotNull @RequestParam("password") String password) {
+        MainDAO mainDAO;
+        AuthDAO authDAO;
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("teacher");
+
+        if (!newPassword.equals("")) {
+            if (!newPassword.equals(checkNewPassword)) {
+                model.addAttribute("editable_content", TeacherHTML.teacherChange(testTeachers, "The password in confirm field is not equal to the new password!"));
+            } else if (newPassword.equals(password)) {
+                model.addAttribute("editable_content", TeacherHTML.teacherChange(testTeachers, "The new password cannot equals to the old password!"));
+            } else {
+                mainDAO = new MainDAO();
+                authDAO = new AuthDAO();
+                mainDAO.updateUser(testTeachers.getTeacherID(), firstName, familyName, fatherName, newPassword, UserGender.valueOf(gender).ordinal(), password, "teacher");
+                TeachersNoPass tempTeacher = authDAO.getTeacherIfPassword(testTeachers.getTeacherID(), newPassword);
+                if (tempTeacher != null ) {
+                    testTeachers = tempTeacher;
+                    model.addAttribute("editable_content", TeacherHTML.teacherChange(testTeachers, "User information updated!"));
+                } else {
+                    model.addAttribute("editable_content", TeacherHTML.teacherChange(testTeachers, "Incorrect actual password!"));
+                }
+            }
+        } else {
+            mainDAO = new MainDAO();
+            authDAO = new AuthDAO();
+            mainDAO.updateUser(testTeachers.getTeacherID(), firstName, familyName, fatherName, password, UserGender.valueOf(gender).ordinal(), password, "teacher");
+            TeachersNoPass tempTeacher = authDAO.getTeacherIfPassword(testTeachers.getTeacherID(), password);
+            if (tempTeacher != null ) {
+                testTeachers = tempTeacher;
+                model.addAttribute("editable_content", TeacherHTML.teacherChange(testTeachers, "User information updated!"));
+            } else {
+                model.addAttribute("editable_content", TeacherHTML.teacherChange(testTeachers, "Incorrect actual password!"));
+            }
+        }
+
+        model.addAttribute("user_name", testTeachers.getFirstName());
+        model.addAttribute("user_family", testTeachers.getFamilyName());
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/tchange")
     public ModelAndView changePost(Model model, @ModelAttribute("userchangeform") UserChangeForm userChangeForm) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("teacher");
-        model.addAttribute("editable_content", TeacherHTML.teacherChange());
+        model.addAttribute("editable_content", TeacherHTML.teacherChange(testTeachers, ""));
         model.addAttribute("user_name", testTeachers.getFirstName());
         model.addAttribute("user_family", testTeachers.getFamilyName());
-        if (userChangeForm.getNewPassword() != null) {
-            if (!userChangeForm.getNewPassword().equals(userChangeForm.getCheckNewPassword())) {
-                model.addAttribute("event", "The password in confirm field is not equal to the new password!");
-            } else if (userChangeForm.getNewPassword().equals(userChangeForm.getPassword())) {
-                model.addAttribute("event", "The new password cannot equals to the old password!");
-            }
-        } else {
-            model.addAttribute("event", "User information updated!");
-        }
-
         return modelAndView;
     }
 

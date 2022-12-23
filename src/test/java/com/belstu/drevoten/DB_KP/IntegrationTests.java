@@ -14,8 +14,8 @@ public class IntegrationTests {
     public void studentAuthorization(){
         MainDAO mainDAO = new MainDAO();
         AuthDAO authDAO = new AuthDAO();
-        String id = "71201091";
-        String pass = "123";
+        String id = "71201072";
+        String pass = "71201072";
         String studentType =  String.valueOf(mainDAO.getIsUserInDB(id));
         StudentsNoPass student = authDAO.getStudentIfPassword(id, pass);
         Assert.assertTrue(studentType.equals("s")&&(student != null));

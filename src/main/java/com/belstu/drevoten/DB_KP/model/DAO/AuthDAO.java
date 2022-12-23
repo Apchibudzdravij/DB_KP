@@ -82,7 +82,7 @@ public class AuthDAO {
                         resultSet.getString("FirstName"),
                         resultSet.getString("FamilyName"),
                         resultSet.getString("FatherName"),
-                        resultSet.getInt("Gender"),
+                        UserGender.values()[resultSet.getInt("Gender")],
                         resultSet.getString("UserLanguage"),
                         resultSet.getString("UserTheme")
                 );
@@ -126,7 +126,7 @@ public class AuthDAO {
                         resultSet.getString("FamilyName"),
                         resultSet.getString("FatherName"),
                         resultSet.getString("Department"),
-                        resultSet.getInt("Gender"),
+                        UserGender.values()[resultSet.getInt("Gender")],
                         resultSet.getString("UserLanguage"),
                         resultSet.getString("UserTheme")
                 );

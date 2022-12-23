@@ -27,7 +27,7 @@ import static java.sql.Types.STRUCT;
 
 public class MainDAO {
 
-    public String serverURI = "jdbc:oracle:thin:@192.168.211.133:1521/DB_KP_PDB";
+    public String serverURI = "jdbc:oracle:thin:@192.168.211.138:1521/DB_KP_PDB";
 
     public Character getIsUserInDB(String suserid) {
         try {
@@ -260,10 +260,15 @@ public class MainDAO {
                 user = "KP_USER_TEACHER";
                 pass = "kp_user_teacher";
             }
-            default -> {
+            case "admin" -> {
                 runSP = "call UpdateAdmin(?,?,?,?,?,?,?)";
                 user = "KP_USER_ADMIN";
                 pass = "kp_user_admin";
+            }
+            default -> {
+                runSP = "a)";
+                user = "a)";
+                pass = "a)";
             }
         }
         try (Connection conn = DriverManager.getConnection(

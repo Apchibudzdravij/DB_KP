@@ -4,6 +4,7 @@ import com.belstu.drevoten.DB_KP.controllerHelper.AdminHTML;
 import com.belstu.drevoten.DB_KP.controllerHelper.StudentHTML;
 import com.belstu.drevoten.DB_KP.forms.UserChangeForm;
 import com.belstu.drevoten.DB_KP.forms.UserPropsForm;
+import com.belstu.drevoten.DB_KP.model.DAO.AdminInfoDAO;
 import com.belstu.drevoten.DB_KP.model.DAO.AuthDAO;
 import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
 import com.belstu.drevoten.DB_KP.model.Executive_Admin;
@@ -199,7 +200,115 @@ public class AdminController {
     public ModelAndView adminChangeUsers(Model model) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("administrator");
-        model.addAttribute("editable_content", AdminHTML.adminChangeUsers());
+        model.addAttribute("editable_content", AdminHTML.adminChangeUsers("Nia"));
+        model.addAttribute("user_name", testAdmin.getFirstName());
+        model.addAttribute("user_family", testAdmin.getFamilyName());
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/adminchangestudent")
+    public ModelAndView adminChangeStudent(Model model, @RequestParam("id") String id,
+                                           @RequestParam("course") String course,
+                                           @RequestParam("subgroup") String subgroup,
+                                           @RequestParam("faculty") String faculty,
+                                           @RequestParam("special") String special) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("administrator");
+        AdminInfoDAO infoDAO = new AdminInfoDAO();
+
+        if (infoDAO.changeStudent(id, course, subgroup, faculty, special))
+            model.addAttribute("editable_content", AdminHTML.adminChangeUsers("Student updated successfully!"));
+        else
+            model.addAttribute("editable_content", AdminHTML.adminChangeUsers("Student not updated"));
+        model.addAttribute("user_name", testAdmin.getFirstName());
+        model.addAttribute("user_family", testAdmin.getFamilyName());
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/adminUpCourse")
+    public ModelAndView adminUpCourse(Model model) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("administrator");
+        AdminInfoDAO infoDAO = new AdminInfoDAO();
+        if (infoDAO.upStudents(testAdmin.getAdminID()))
+            model.addAttribute("editable_content", AdminHTML.adminChangeUsers("Student updated successfully!"));
+        else
+            model.addAttribute("editable_content", AdminHTML.adminChangeUsers("Student not updated"));
+        model.addAttribute("user_name", testAdmin.getFirstName());
+        model.addAttribute("user_family", testAdmin.getFamilyName());
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/adminchangeteacher")
+    public ModelAndView adminChangeTeacher(Model model, @RequestParam("id") String id,
+                                           @RequestParam("department") String department) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("administrator");
+        AdminInfoDAO infoDAO = new AdminInfoDAO();
+
+        if (infoDAO.changeTeacher(id, department))
+            model.addAttribute("editable_content", AdminHTML.adminChangeUsers("Teacher updated successfully!"));
+        else
+            model.addAttribute("editable_content", AdminHTML.adminChangeUsers("Teacher not updated"));
+        model.addAttribute("user_name", testAdmin.getFirstName());
+        model.addAttribute("user_family", testAdmin.getFamilyName());
+        return modelAndView;
+    }
+
+
+    @PostMapping(value = "/adminregstudent")
+    public ModelAndView adminRegisterStudent(Model model, @RequestParam("id") String id,
+                                             @RequestParam("firstname") String firstname,
+                                             @RequestParam("secondname") String secondname,
+                                             @RequestParam("fathername") String fathername,
+                                             @RequestParam("special") String special,
+                                             @RequestParam("subgroup") String subgroup,
+                                             @RequestParam("course") String course) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("administrator");
+        AdminInfoDAO infoDAO = new AdminInfoDAO();
+
+        if (infoDAO.registerStudent(id, firstname, secondname, fathername, special, subgroup, course))
+            model.addAttribute("editable_content", AdminHTML.adminAddUsers("Student added successfully!"));
+        else
+            model.addAttribute("editable_content", AdminHTML.adminAddUsers("Student not added"));
+        model.addAttribute("user_name", testAdmin.getFirstName());
+        model.addAttribute("user_family", testAdmin.getFamilyName());
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/adminregteacher")
+    public ModelAndView adminRegisterTeacher(Model model, @RequestParam("id") String id,
+                                             @RequestParam("firstname") String firstname,
+                                             @RequestParam("secondname") String secondname,
+                                             @RequestParam("fathername") String fathername,
+                                             @RequestParam("department") String department) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("administrator");
+        AdminInfoDAO infoDAO = new AdminInfoDAO();
+
+        if (infoDAO.registerTeacher(id, firstname, secondname, fathername, department))
+            model.addAttribute("editable_content", AdminHTML.adminAddUsers("Teacher added successfully!"));
+        else
+            model.addAttribute("editable_content", AdminHTML.adminAddUsers("Teacher not added"));
+        model.addAttribute("user_name", testAdmin.getFirstName());
+        model.addAttribute("user_family", testAdmin.getFamilyName());
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/adminregadmin")
+    public ModelAndView adminRegisterAdmin(Model model, @RequestParam("id") String id,
+                                             @RequestParam("firstname") String firstname,
+                                             @RequestParam("secondname") String secondname,
+                                             @RequestParam("fathername") String fathername) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("administrator");
+        AdminInfoDAO infoDAO = new AdminInfoDAO();
+
+        if (infoDAO.registerAdmin(id, firstname, secondname, fathername))
+            model.addAttribute("editable_content", AdminHTML.adminAddUsers("Admin added successfully!"));
+        else
+            model.addAttribute("editable_content", AdminHTML.adminAddUsers("Admin not added"));
         model.addAttribute("user_name", testAdmin.getFirstName());
         model.addAttribute("user_family", testAdmin.getFamilyName());
         return modelAndView;
@@ -223,7 +332,7 @@ public class AdminController {
 
                 System.out.println("\nServer File Location=" + serverFile.getAbsolutePath());
 
-                Files.copy(new File("src\\main\\resources\\files\\" + file.getOriginalFilename()).toPath(), new File("\\\\192.168.211.133\\DB_KP_XML\\" + file.getOriginalFilename()).toPath(),
+                Files.copy(new File("src\\main\\resources\\files\\" + file.getOriginalFilename()).toPath(), new File("\\\\192.168.211.136\\DB_KP_XML\\" + file.getOriginalFilename()).toPath(),
                         StandardCopyOption.REPLACE_EXISTING);
                 System.out.println("Successfully sent to shared folder!");
 
