@@ -3,9 +3,11 @@ package com.belstu.drevoten.DB_KP.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import oracle.sql.BLOB;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
+import java.io.File;
 import java.sql.Clob;
 import java.sql.NClob;
 
@@ -27,14 +29,14 @@ public class Course_Projects {
     @Column(name = "DateStart")
     private String DateStart;
     @Column(name = "TaskFile")
-    private String TaskFile;
+    private File TaskFile;
     @Column(name = "DateDeadline")
     private String DateDeadline;
     @Column(name = "ExplNoteFile")
-    private String ExplNoteFile;
+    private File ExplNoteFile;
     @Lob
     @Column(name = "CourseArcFile")
-    private NClob CourseArcFile;
+    private File CourseArcFile;
     @Column(name = "DatePass")
     private String DatePass;
     @Column(name = "Grade")

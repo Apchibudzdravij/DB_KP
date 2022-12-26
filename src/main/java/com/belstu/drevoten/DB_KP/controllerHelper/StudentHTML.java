@@ -2,6 +2,7 @@ package com.belstu.drevoten.DB_KP.controllerHelper;
 
 import com.belstu.drevoten.DB_KP.model.*;
 import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
+import com.belstu.drevoten.DB_KP.model.DAO.StudentDAO;
 
 import java.util.List;
 
@@ -13,8 +14,9 @@ public class StudentHTML {
         final String[] response = {"<div id=\"student\">\n<div id=\"hello-block\">\n<p>Welcome, " +
                 students.getFirstName() + " " + students.getFamilyName() +
                 "</p>\n</div>\n<div id=\"user-stats\">\n<div id=\"calendar-plan\">\n" +
-                "<p class=\"calendar-plan-header\">Calendar plan of current project</p>\n"};
-        response[0] +=
+                //"<p class=\"calendar-plan-header\">Calendar plan of current project</p>\n"};
+                "<p class=\"calendar-plan-header\">File for actual project info</p>\n"};
+        /*response[0] +=
                 "                    <!-- TODO foreach of these plan -->\n" +
                 "                    <div class=\"step-of-plan\">\n" +
                 "                        <p class=\"date-in-plan\">13.10.2022</p>\n" +
@@ -30,10 +32,38 @@ public class StudentHTML {
                 "                        <p class=\"date-in-plan\">30.11.2022</p>\n" +
                 "                        <input type=\"checkbox\" class=\"step-of-project\" value=\"Step from user list #2\">\n" +
                 "                            Project handover<hr/>\n" +
-                "                    </div>\n";
+                "                    </div>\n";*/
+        StudentDAO studentDAO = new StudentDAO();
+        List<Course_Projects> courseProjects = studentDAO.getStudentProjectWithFiles(students.getStudentID());
+        if (courseProjects != null) {
+            if (courseProjects.get(0).getTaskFile() == null)
+                response[0] += "<div id=\"uniqueness\">\n" +
+                        "<p class=\"ready-percent\">You did not send task file!</p>\n" +
+                        "<input type=\"file\" class=\"guiable\" value=\"Send!\" />" +
+                        "</div>";
+            else
+                response[0] += "<div id=\"uniqueness\">\n" +
+                        "<p class=\"ready-percent\">You already sent task file!</p>\n" +
+                        "<input type=\"file\" class=\"guiable\" value=\"Send again!\" />" +
+                        "</div>";
+            if (courseProjects.get(0).getCourseArcFile() == null)
+                response[0] += "<div id=\"uniqueness\">\n" +
+                        "<p class=\"ready-percent\">You did not send archive file!</p>\n" +
+                        "<input type=\"file\" class=\"guiable\" value=\"Send!\" />" +
+                        "</div>";
+            else
+                response[0] += "<div id=\"uniqueness\">\n" +
+                        "<p class=\"ready-percent\">You already sent archive file!</p>\n" +
+                        "<input type=\"file\" class=\"guiable\" value=\"Send again!\" />" +
+                        "</div>";
+        } else {
+            response[0] += "<div id=\"uniqueness\">\n" +
+                    "<p class=\"ready-percent\">No actual course projects!</p>\n" +
+                    "</div>";
+        }
         response[0] +=
                 "</div>\n<div id=\"general-stats\">\n<div id=\"uniqueness\">\n" +
-                "                        <!-- TODO auto calculating of % of uniqueness-->\n" +
+                //"                        <!-- TODO auto calculating of % of uniqueness-->\n" +
                 "                        <p class=\"ready-percent\">You did not send explanatory note!</p>\n" +
                                         "<button class=\"guiable\">Send!</button>" +
                 "</div>\n<div id=\"notifics\">\n<p class=\"notification-header\">Notifications</p>\n";

@@ -219,28 +219,29 @@ public class TeacherHTML {
         return response;
     }
 
-    public static String teacherCreateTask() {
+    public static String teacherCreateTask(String message) {
         return "<div id=\"teacher\">\n" +
                 "            <div id=\"hello-block\">\n" +
                 "                <p>Create new course project</p>\n" +
                 "            </div>\n" +
                 "            <div id=\"create-form\">\n" +
-                "                <form method=\"POST\" th:action=\"@{createTask}\" th:object=\"${kurstaskform}\">\n" +
+                "                <form method=\"POST\" action=\"createTask\" enctype=\"multipart/form-data\">\n" +
                 "                    <p>Enter project information</p>\n" +
                 "                    <div id=\"new-project-name\">\n" +
-                "                        <input class=\"new-project-input longer\" type=\"text\" placeholder=\"Full title\">\n" +
-                "                        <input class=\"new-project-input shorter\" type=\"text\" placeholder=\"Year\">\n" +
+                "                        <input class=\"new-project-input longer\" type=\"text\" name=\"ftitle\" placeholder=\"Full title\">\n" +
+                "                        <input class=\"new-project-input shorter\" type=\"text\" name=\"ytitle\" placeholder=\"Year\">\n" +
                 "                    </div>\n" +
                 "                    <div id=\"target-description\">\n" +
-                "                        <input class=\"new-project-input shorter\" type=\"number\" placeholder=\"Study year (1-4)\"/>\n" +
-                "                        <input class=\"new-project-input longer\" type=\"text\" placeholder=\"Faculty (FIT)\"/>\n" +
-                "                        <input class=\"new-project-input longer\" type=\"text\" placeholder=\"Speciality (POIT)\"/>\n" +
+                "                        <input class=\"new-project-input shorter\" type=\"number\" name=\"course\" placeholder=\"Study year (1-4)\"/>\n" +
+                "                        <input class=\"new-project-input longer\" type=\"text\" name=\"faculty\" placeholder=\"Faculty (FIT)\"/>\n" +
+                "                        <input class=\"new-project-input longer\" type=\"text\" name=\"speciality\" placeholder=\"Speciality (POIT)\"/>\n" +
                 "                    </div>\n" +
-                "                    <input class=\"new-project-input\" id=\"create-form-subject-name\" type=\"text\" placeholder=\"Subject\"/>\n" +
+                "                    <input class=\"new-project-input\" id=\"create-form-subject-name\" type=\"text\" name=\"subjname\" placeholder=\"Subject\"/>\n" +
                 "                    <div id=\"create-drag-drop\">\n" +
-                "                        <\n" +
+                "                        <input type=\"file\" name=\"goal\"/>\n" +
                 "                    </div>\n" +
                 "                    <input class=\"guiable\" type=\"submit\" value=\"Create new task!\"/>\n" +
+                message +
                 "                </form>\n" +
                 "            </div>\n" +
                 "        </div>";
@@ -340,6 +341,32 @@ public class TeacherHTML {
                 "                    </div>\n" +
                 "                </id>\n" +
                 "            </div>\n" +
+                "        </div>";
+    }
+
+    public static String changeProject(String messageToUser) {
+        return "<div id=\"teacher\">\n" +
+                "            <div id=\"hello-block\">\n" +
+                "                <p>Create new course project</p>\n" +
+                "            </div>\n" +
+                "            <div class=\"rowable twoform\">\n" +
+                "                <form class=\"project-change-form\" method=\"POST\" action=\"changenomark\">\n" +
+                "                    <p>Change teacher and deadline</p>\n" +
+                "                    <input type=\"text\" name=\"student\" placeholder=\"Student ID\" />\n" +
+                "                    <input type=\"text\" name=\"project\" placeholder=\"Project name\" />\n" +
+                "                    <input type=\"text\" name=\"newteacher\" placeholder=\"ID of a new teacher\" />\n" +
+                "                    <input type=\"date\" name=\"deadline\" placeholder=\"Deadline date\" />\n" +
+                "                    <input type=\"submit\" value=\"Update this project\" />\n" +
+                "                </form>\n" +
+                "                <form class=\"project-change-form\" method=\"POST\" action=\"changemark\">\n" +
+                "                    <p>Mark project</p>\n" +
+                "                    <input type=\"text\" name=\"student\" placeholder=\"Student ID\" />\n" +
+                "                    <input type=\"text\" name=\"project\" placeholder=\"Project name\" />\n" +
+                "                    <input type=\"text\" name=\"mark\" placeholder=\"Mark\" />\n" +
+                "                    <input type=\"submit\" value=\"Mark this project\" />\n" +
+                "                </form>\n" +
+                "            </div>\n" +
+                messageToUser + "\n" +
                 "        </div>";
     }
 }
