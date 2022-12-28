@@ -288,7 +288,6 @@ public class TeacherController {
         File tempFile = new File(fileName);
         try (FileOutputStream fos = new FileOutputStream(tempFile)) {
             fos.write(multipartFile.getBytes());
-            fos.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

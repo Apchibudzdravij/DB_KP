@@ -5,6 +5,7 @@ import com.belstu.drevoten.DB_KP.forms.UserChangeForm;
 import com.belstu.drevoten.DB_KP.forms.UserPropsForm;
 import com.belstu.drevoten.DB_KP.model.DAO.AuthDAO;
 import com.belstu.drevoten.DB_KP.model.DAO.MainDAO;
+import com.belstu.drevoten.DB_KP.model.DAO.StudentDAO;
 import com.belstu.drevoten.DB_KP.model.Students;
 import com.belstu.drevoten.DB_KP.model.StudentsNoPass;
 import com.belstu.drevoten.DB_KP.model.UserGender;
@@ -13,10 +14,14 @@ import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 @Slf4j
 @Controller
@@ -58,7 +63,7 @@ public class StudentController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("student");
-        model.addAttribute("editable_content", StudentHTML.studentMain(testStudents));
+        model.addAttribute("editable_content", StudentHTML.studentMain(testStudents, ""));
         model.addAttribute("user_name", testStudents.getFirstName());
         model.addAttribute("user_family", testStudents.getFamilyName());
         return modelAndView;
@@ -208,5 +213,61 @@ public class StudentController {
         model.addAttribute("average_uniqueness", 100);
 
         return modelAndView;
+    }
+
+    @PostMapping(value = "/sendtaskfile")
+    public ModelAndView sendTaskFile(Model model, @RequestParam("fileout1") MultipartFile fileout) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("student");
+        File byteFile = this.getFile(fileout, fileout.getOriginalFilename());
+        StudentDAO studentDAO = new StudentDAO();
+        if (studentDAO.sendTask(testStudents.getStudentID(), byteFile))
+            model.addAttribute("editable_content", StudentHTML.studentMain(testStudents, "Task sent successful!"));
+        else
+            model.addAttribute("editable_content", StudentHTML.studentMain(testStudents, "Task was not send"));
+        model.addAttribute("user_name", testStudents.getFirstName());
+        model.addAttribute("user_family", testStudents.getFamilyName());
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/sendarcfile")
+    public ModelAndView sendArcFile(Model model, @RequestParam("fileout2") MultipartFile fileout) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("student");
+        File byteFile = this.getFile(fileout, "share\\" + fileout.getOriginalFilename());
+        StudentDAO studentDAO = new StudentDAO();
+        if (studentDAO.sendArc(testStudents.getStudentID(), byteFile))
+            model.addAttribute("editable_content", StudentHTML.studentMain(testStudents, "Archive sent successful!"));
+        else
+            model.addAttribute("editable_content", StudentHTML.studentMain(testStudents, "Archive was not send"));
+        model.addAttribute("user_name", testStudents.getFirstName());
+        model.addAttribute("user_family", testStudents.getFamilyName());
+        return modelAndView;
+    }
+
+    @PostMapping(value = "/sendexplfile")
+    public ModelAndView sendExplFile(Model model, @RequestParam("fileout3") MultipartFile fileout) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("student");
+        File byteFile = this.getFile(fileout, fileout.getOriginalFilename());
+        StudentDAO studentDAO = new StudentDAO();
+        if (studentDAO.sendNote(testStudents.getStudentID(), byteFile))
+            model.addAttribute("editable_content", StudentHTML.studentMain(testStudents, "Note sent successful!"));
+        else
+            model.addAttribute("editable_content", StudentHTML.studentMain(testStudents, "Note was not send"));
+        model.addAttribute("user_name", testStudents.getFirstName());
+        model.addAttribute("user_family", testStudents.getFamilyName());
+        return modelAndView;
+    }
+
+
+    private File getFile(MultipartFile multipartFile, String fileName) {
+        File tempFile = new File(fileName);
+        try (FileOutputStream fos = new FileOutputStream(tempFile)) {
+            fos.write(multipartFile.getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return tempFile;
     }
 }

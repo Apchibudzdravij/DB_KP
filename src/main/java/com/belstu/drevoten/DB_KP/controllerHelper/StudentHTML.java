@@ -9,7 +9,7 @@ import java.util.List;
 public class StudentHTML {
 
     private static MainDAO mainDAO;
-    public static String studentMain(StudentsNoPass students) {
+    public static String studentMain(StudentsNoPass students, String mess) {
         mainDAO = new MainDAO();
         final String[] response = {"<div id=\"student\">\n<div id=\"hello-block\">\n<p>Welcome, " +
                 students.getFirstName() + " " + students.getFamilyName() +
@@ -39,34 +39,59 @@ public class StudentHTML {
             if (courseProjects.get(0).getTaskFile() == null)
                 response[0] += "<div id=\"uniqueness\">\n" +
                         "<p class=\"ready-percent\">You did not send task file!</p>\n" +
-                        "<input type=\"file\" class=\"guiable\" value=\"Send!\" />" +
+                        "<form action=\"sendtaskfile\" method=\"POST\" enctype=\"multipart/form-data\">" +
+                        "<input type=\"file\" class=\"guiable\" value=\"Click or drag&drop\" name=\"fileout1\" />" +
+                        "<input type=\"submit\" class=\"guiable\" value=\"Send!\" />" +
+                        "</form>" +
                         "</div>";
             else
                 response[0] += "<div id=\"uniqueness\">\n" +
                         "<p class=\"ready-percent\">You already sent task file!</p>\n" +
-                        "<input type=\"file\" class=\"guiable\" value=\"Send again!\" />" +
+                        "<form action=\"sendtaskfile\" method=\"POST\" enctype=\"multipart/form-data\">" +
+                        "<input type=\"file\" class=\"guiable\" value=\"Click or drag&drop\" name=\"fileout1\" />" +
+                        "<input type=\"submit\" class=\"guiable\" value=\"Send again!\" />" +
+                        "</form>" +
                         "</div>";
             if (courseProjects.get(0).getCourseArcFile() == null)
                 response[0] += "<div id=\"uniqueness\">\n" +
                         "<p class=\"ready-percent\">You did not send archive file!</p>\n" +
-                        "<input type=\"file\" class=\"guiable\" value=\"Send!\" />" +
+                        "<form action=\"sendarcfile\" method=\"POST\" enctype=\"multipart/form-data\">" +
+                        "<input type=\"file\" class=\"guiable\" value=\"Click or drag&drop\" name=\"fileout2\" />" +
+                        "<input type=\"submit\" class=\"guiable\" value=\"Send!\" />" +
+                        "</form>" +
                         "</div>";
             else
                 response[0] += "<div id=\"uniqueness\">\n" +
                         "<p class=\"ready-percent\">You already sent archive file!</p>\n" +
-                        "<input type=\"file\" class=\"guiable\" value=\"Send again!\" />" +
+                        "<form action=\"sendarcfile\" method=\"POST\" enctype=\"multipart/form-data\">" +
+                        "<input type=\"file\" class=\"guiable\" value=\"Click or drag&drop\" name=\"fileout2\" />" +
+                        "<input type=\"submit\" class=\"guiable\" value=\"Send again!\" />" +
+                        "</form>" +
                         "</div>";
         } else {
             response[0] += "<div id=\"uniqueness\">\n" +
                     "<p class=\"ready-percent\">No actual course projects!</p>\n" +
                     "</div>";
         }
-        response[0] +=
+        response[0] += mess;
+        if (courseProjects.get(0).getCourseArcFile() == null)
+            response[0] +=
                 "</div>\n<div id=\"general-stats\">\n<div id=\"uniqueness\">\n" +
                 //"                        <!-- TODO auto calculating of % of uniqueness-->\n" +
                 "                        <p class=\"ready-percent\">You did not send explanatory note!</p>\n" +
-                                        "<button class=\"guiable\">Send!</button>" +
-                "</div>\n<div id=\"notifics\">\n<p class=\"notification-header\">Notifications</p>\n";
+                        "<form action=\"sendexplfile\" method=\"POST\" enctype=\"multipart/form-data\">" +
+                        "<input type=\"file\" class=\"guiable\" value=\"Click or drag&drop\" name=\"fileout3\" />" +
+                        "<input type=\"submit\" class=\"guiable\" value=\"Send!\" />" +
+                        "</form>";
+        else
+            response[0] +=
+                    "</div>\n<div id=\"general-stats\">\n<div id=\"uniqueness\">\n" +
+                            "                        <p class=\"ready-percent\">You already sent explanatory note!</p>\n" +
+                            "<form action=\"sendexplfile\" method=\"POST\" enctype=\"multipart/form-data\">" +
+                            "<input type=\"file\" class=\"guiable\" value=\"Click or drag&drop\" name=\"fileout3\" />" +
+                            "<input type=\"submit\" class=\"guiable\" value=\"Send again!\" />" +
+                            "</form>";
+        response[0] += "</div>\n<div id=\"notifics\">\n<p class=\"notification-header\">Notifications</p>\n";
         List<Notifications> notificationsList = mainDAO.getNotifications(students.getStudentID(), "student");
         if (notificationsList.size()==0)
             response[0] += "<p class=\"notification\"> * No new notifications " +

@@ -61,7 +61,7 @@ public class SignInController {
                     StudentsNoPass student = authDAO.getStudentIfPassword(tempID, tempPass);
                     if (student == null)
                         throw new ProblemPasswordException("Incorrect username and/or password!");
-                    model.addAttribute("editable_content", StudentHTML.studentMain(student));
+                    model.addAttribute("editable_content", StudentHTML.studentMain(student, ""));
                     model.addAttribute("user_name", student.getFirstName());
                     model.addAttribute("user_family", student.getFamilyName());
                     StudentController.testStudents = student;
